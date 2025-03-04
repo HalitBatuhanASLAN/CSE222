@@ -1,5 +1,5 @@
-package System.Devices.MotorDrivers;
-import System.Devices.Device;
+package HwSystem.Devices.MotorDrivers;
+import HwSystem.Devices.Device;
 
 public abstract class MotorDriver extends Device
 {

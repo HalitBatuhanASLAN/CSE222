@@ -1,17 +1,17 @@
-package System.Devices.MotorDrivers;
+package HwSystem.Devices.Displays;
 
-import System.Protocols.I2C;
+import HwSystem.Protocols.SPI;
 
-public class PCA9685 extends MotorDriver
+public class OLED extends Display
 {
     public void turnOn()
     {
-        //System.out.printf("%s: Turning On\n",getName());
-        
+        /*state = true;
+        System.out.printf("%s: Turning On\n",getName());*/
         String data = String.format("%s: Turning On\n",getName());
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("SPI"))
         {
-            I2C tmp = new I2C();
+            SPI tmp = new SPI();
             tmp.write(data);
             state = DeviceState.On;
         }
@@ -23,10 +23,12 @@ public class PCA9685 extends MotorDriver
     }
     public void turnOff()
     {
+        /*state = false;
+        System.out.printf("%s: Turning Off\n",getName());*/
         String data = String.format("%s: Turning Off\n",getName());
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("SPI"))
         {
-            I2C tmp = new I2C();
+            SPI tmp = new SPI();
             tmp.write(data);
             state = DeviceState.Off;
         }
@@ -35,19 +37,16 @@ public class PCA9685 extends MotorDriver
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
         }
-        /*state = false;
-        System.out.printf("%s: Turning Off\n",getName());*/
     }
     public String getName()
     {
-        return "PCA9685";
+        return "OLED";
     }
-    public void setMotorSpeed(int speed)
+    public void printData(String data)
     {
-        String data = String.format("%s: setting speed to %d\n",getName(),speed);
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("SPI"))
         {
-            I2C tmp = new I2C();
+            SPI tmp = new SPI();
             tmp.write(data);
         }
         else
@@ -55,6 +54,5 @@ public class PCA9685 extends MotorDriver
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
         }
-        //System.out.printf("%s: setting speed to %d\n",getName(),speed);
     }
 }

@@ -1,4 +1,4 @@
-package System.Devices.Sensors;
+package HwSystem.Devices.Sensors;
 
 public abstract class TempSensor extends Sensor
 {

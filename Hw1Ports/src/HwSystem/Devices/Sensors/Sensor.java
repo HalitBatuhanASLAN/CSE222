@@ -1,6 +1,6 @@
-package System.Devices.Sensors;
+package HwSystem.Devices.Sensors;
 
-import System.Devices.Device;
+import HwSystem.Devices.Device;
 
 public abstract class Sensor extends Device
 {

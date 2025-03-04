@@ -1,5 +1,5 @@
-package System.Devices.WirelessIOs;
-import System.Devices.Device;
+package HwSystem.Devices.WirelessIOs;
+import HwSystem.Devices.Device;
 
 public abstract class WirelessIO extends Device
 {

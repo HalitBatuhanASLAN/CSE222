@@ -1,13 +1,13 @@
-package System.Devices.Sensors;
+package HwSystem.Devices.MotorDrivers;
 
-import System.Protocols.I2C;
+import HwSystem.Protocols.I2C;
 
-public class MPU6050 extends IMUSensor
+public class PCA9685 extends MotorDriver
 {
     public void turnOn()
     {
-        /*state = true;
-        System.out.printf("%s: Turning On\n",getName());*/
+        //System.out.printf("%s: Turning On\n",getName());
+        
         String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
@@ -23,8 +23,6 @@ public class MPU6050 extends IMUSensor
     }
     public void turnOff()
     {
-        /*state = false;
-        System.out.printf("%s: Turning Off\n",getName());*/
         String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
@@ -37,46 +35,26 @@ public class MPU6050 extends IMUSensor
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
         }
+        /*state = false;
+        System.out.printf("%s: Turning Off\n",getName());*/
     }
     public String getName()
     {
-        return "MPU6050";
+        return "PCA9685";
     }
-    public float getAccel()
+    public void setMotorSpeed(int speed)
     {
-        float accel;
+        String data = String.format("%s: setting speed to %d\n",getName(),speed);
         if(protocol.getProtocolName().equals("I2C"))
         {
             I2C tmp = new I2C();
-            accel = Float.parseFloat(tmp.read());
+            tmp.write(data);
         }
         else
         {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-            accel = -999;
         }
-        return accel;
-    } 
-    public float getRot()
-    {
-        float rotational;
-        if(protocol.getProtocolName().equals("I2C"))
-        {
-            I2C tmp = new I2C();
-            rotational = Float.parseFloat(tmp.read());
-        }
-        else
-        {
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
-                getName(), protocol.getProtocolName());
-            rotational = -999;
-        }
-        return rotational;
-    }
-
-    public String data2String()
-    {
-        return String.format("Accel:%.2f, Rot:%.2f",getAccel(),getRot());
+        //System.out.printf("%s: setting speed to %d\n",getName(),speed);
     }
 }

@@ -1,17 +1,17 @@
-package System.Devices.Displays;
+package HwSystem.Devices.Displays;
 
-import System.Protocols.SPI;
+import HwSystem.Protocols.I2C;
 
-public class OLED extends Display
+public class LED extends Display
 {
     public void turnOn()
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
         String data = String.format("%s: Turning On\n",getName());
-        if(protocol.getProtocolName().equals("SPI"))
+        if(protocol.getProtocolName().equals("I2C"))
         {
-            SPI tmp = new SPI();
+            I2C tmp = new I2C();
             tmp.write(data);
             state = DeviceState.On;
         }
@@ -26,9 +26,9 @@ public class OLED extends Display
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
         String data = String.format("%s: Turning Off\n",getName());
-        if(protocol.getProtocolName().equals("SPI"))
+        if(protocol.getProtocolName().equals("I2C"))
         {
-            SPI tmp = new SPI();
+            I2C tmp = new I2C();
             tmp.write(data);
             state = DeviceState.Off;
         }
@@ -40,13 +40,13 @@ public class OLED extends Display
     }
     public String getName()
     {
-        return "OLED";
+        return "LED";
     }
     public void printData(String data)
     {
-        if(protocol.getProtocolName().equals("SPI"))
+        if(protocol.getProtocolName().equals("I2C"))
         {
-            SPI tmp = new SPI();
+            I2C tmp = new I2C();
             tmp.write(data);
         }
         else

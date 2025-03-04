@@ -1,5 +1,5 @@
-package System.Devices.Displays;
-import System.Devices.Device;
+package HwSystem.Devices.Displays;
+import HwSystem.Devices.Device;
 
 public abstract class Display extends Device
 {

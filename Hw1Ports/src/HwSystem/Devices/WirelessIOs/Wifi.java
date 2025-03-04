@@ -1,7 +1,7 @@
-package System.Devices.WirelessIOs;
+package HwSystem.Devices.WirelessIOs;
 
-import System.Protocols.UART;
-import System.Protocols.SPI;
+import HwSystem.Protocols.UART;
+import HwSystem.Protocols.SPI;
 
 public class Wifi extends WirelessIO
 {

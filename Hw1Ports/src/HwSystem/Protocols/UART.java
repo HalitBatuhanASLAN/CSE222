@@ -1,6 +1,6 @@
-package System.Protocols;
+package HwSystem.Protocols;
 
-public class I2C implements Protocol
+public class UART implements Protocol
 {
     public String read()
     {
@@ -14,6 +14,6 @@ public class I2C implements Protocol
 
     public String getProtocolName()
     {
-        return "I2C";
-    }
+        return "UART";
+    }    
 }

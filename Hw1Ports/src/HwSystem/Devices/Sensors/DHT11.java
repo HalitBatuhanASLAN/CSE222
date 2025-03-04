@@ -1,24 +1,17 @@
-package System.Devices.Sensors;
+package HwSystem.Devices.Sensors;
 
-import System.Protocols.I2C;
-import System.Protocols.SPI;
+import HwSystem.Protocols.OneWire;
 
-public class BME280 extends TempSensor
+public class DHT11 extends TempSensor
 {
     public void turnOn()
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
         String data = String.format("%s: Turning On\n",getName());
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("OneWire"))
         {
-            I2C tmp = new I2C();
-            tmp.write(data);
-            state = DeviceState.On;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
+            OneWire tmp = new OneWire();
             tmp.write(data);
             state = DeviceState.On;
         }
@@ -33,15 +26,9 @@ public class BME280 extends TempSensor
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
         String data = String.format("%s: Turning Off\n",getName());
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("OneWire"))
         {
-            I2C tmp = new I2C();
-            tmp.write(data);
-            state = DeviceState.Off;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
+            OneWire tmp = new OneWire();
             tmp.write(data);
             state = DeviceState.Off;
         }
@@ -53,20 +40,14 @@ public class BME280 extends TempSensor
     }
     public String getName()
     {
-        return "BME280";
+        return "DHT11";
     }
-    
     public float getTemp()
     {
         float temp;
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("OneWire"))
         {
-            I2C tmp = new I2C();
-            temp = Float.parseFloat(tmp.read());
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
+            OneWire tmp = new OneWire();
             temp = Float.parseFloat(tmp.read());
         }
         else
@@ -78,7 +59,7 @@ public class BME280 extends TempSensor
         return temp;
     }
 
-    /*control the following from pdf for all sensors*/
+    /*control the following from pdf */
     public String data2String()
     {
         return String.format("Tempurature:%.2fC",getTemp());

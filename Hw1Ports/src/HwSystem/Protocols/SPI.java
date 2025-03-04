@@ -1,4 +1,4 @@
-package System.Protocols;
+package HwSystem.Protocols;
 
 public class SPI implements Protocol
 {

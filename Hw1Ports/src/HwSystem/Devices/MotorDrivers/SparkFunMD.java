@@ -1,17 +1,17 @@
-package System.Devices.WirelessIOs;
+package HwSystem.Devices.MotorDrivers;
 
-import System.Protocols.UART;
+import HwSystem.Protocols.SPI;
 
-public class Bluetooth extends WirelessIO
+public class SparkFunMD extends MotorDriver
 {
     public void turnOn()
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
         String data = String.format("%s: Turning On\n",getName());
-        if(protocol.getProtocolName().equals("UART"))
+        if(protocol.getProtocolName().equals("SPI"))
         {
-            UART tmp = new UART();
+            SPI tmp = new SPI();
             tmp.write(data);
             state = DeviceState.On;
         }
@@ -26,9 +26,9 @@ public class Bluetooth extends WirelessIO
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
         String data = String.format("%s: Turning Off\n",getName());
-        if(protocol.getProtocolName().equals("UART"))
+        if(protocol.getProtocolName().equals("SPI"))
         {
-            UART tmp = new UART();
+            SPI tmp = new SPI();
             tmp.write(data);
             state = DeviceState.Off;
         }
@@ -40,32 +40,20 @@ public class Bluetooth extends WirelessIO
     }
     public String getName()
     {
-        return "LED";
+        return "SparkFunMD";
     }
-    public void sendData(String data)
+    public void setMotorSpeed(int speed)
     {
-        if(protocol.getProtocolName().equals("UART"))
+        //System.out.printf("%s: setting speed to %d\n",getName(),speed);
+        String data = String.format("%s: setting speed to %d\n",getName(),speed);
+        if(protocol.getProtocolName().equals("SPI"))
         {
-            UART tmp = new UART();
+            SPI tmp = new SPI();
             tmp.write(data);
         }
         else
         {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
-                getName(), protocol.getProtocolName());
-        }
-    }
-    public String recvData()
-    {
-        if(protocol.getProtocolName().equals("UART"))
-        {
-            UART tmp = new UART();
-            String data = tmp.read();
-            return data;
-        }
-        else
-        {
-            return String.format("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
         }
     }

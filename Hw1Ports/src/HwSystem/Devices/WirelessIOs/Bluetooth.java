@@ -1,9 +1,8 @@
-package System.Devices.Sensors;
+package HwSystem.Devices.WirelessIOs;
 
-import System.Protocols.SPI;
-import System.Protocols.UART;
+import HwSystem.Protocols.UART;
 
-public class GY_951 extends IMUSensor
+public class Bluetooth extends WirelessIO
 {
     public void turnOn()
     {
@@ -13,12 +12,6 @@ public class GY_951 extends IMUSensor
         if(protocol.getProtocolName().equals("UART"))
         {
             UART tmp = new UART();
-            tmp.write(data);
-            state = DeviceState.On;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
             tmp.write(data);
             state = DeviceState.On;
         }
@@ -39,12 +32,6 @@ public class GY_951 extends IMUSensor
             tmp.write(data);
             state = DeviceState.Off;
         }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
-            tmp.write(data);
-            state = DeviceState.Off;
-        }
         else
         {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
@@ -53,53 +40,33 @@ public class GY_951 extends IMUSensor
     }
     public String getName()
     {
-        return "GY_951";
+        return "LED";
     }
-    public float getAccel()
+    public void sendData(String data)
     {
-        float accel;
         if(protocol.getProtocolName().equals("UART"))
         {
             UART tmp = new UART();
-            accel = Float.parseFloat(tmp.read());
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
-            accel = Float.parseFloat(tmp.read());
+            tmp.write(data);
         }
         else
         {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-            accel = -999;
         }
-        return accel;
-    } 
-    public float getRot()
+    }
+    public String recvData()
     {
-        float rotational;
         if(protocol.getProtocolName().equals("UART"))
         {
             UART tmp = new UART();
-            rotational = Float.parseFloat(tmp.read());
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            SPI tmp = new SPI();
-            rotational = Float.parseFloat(tmp.read());
+            String data = tmp.read();
+            return data;
         }
         else
         {
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            return String.format("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-            rotational = -999;
         }
-        return rotational;
-    }
-
-    public String data2String()
-    {
-        return String.format("Accel:%.2f, Rot:%.2f",getAccel(),getRot());
     }
 }
