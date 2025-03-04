@@ -8,4 +8,8 @@ public abstract class IMUSensor extends Sensor
     }
     public abstract float getAccel(); 
     public abstract float getRot();
+    public String getDevType()
+    {
+        return "IMUSensor Sensor";
+    }
 }

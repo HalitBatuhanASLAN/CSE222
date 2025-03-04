@@ -6,7 +6,12 @@ public abstract class Device
 {
     //private Protocol protocol;
     protected Protocol protocol;
-    protected Boolean state;
+    protected enum DeviceState
+    {
+        On,
+        Off
+    }
+    protected DeviceState state;
 
     public abstract void turnOn();
     public abstract void turnOff();
@@ -14,7 +19,7 @@ public abstract class Device
     public abstract String getName();
     public abstract String getDevType();
 
-    public Boolean getState()
+    public DeviceState getState()
     {
         return state;
     }
