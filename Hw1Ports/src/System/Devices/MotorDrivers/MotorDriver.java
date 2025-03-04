@@ -1,8 +1,9 @@
-package System.Devices;
+package System.Devices.MotorDrivers;
+import System.Devices.Device;
 
 public abstract class MotorDriver extends Device
 {
-    public abstract String getDevType()
+    public String getDevType()
     {
         return "MotorDriver"; 
     }

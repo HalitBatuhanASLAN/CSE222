@@ -1,6 +1,6 @@
 package System.Protocols;
 
-public class UART implements Protocol
+public class SPI implements Protocol
 {
     public String read()
     {
@@ -14,6 +14,6 @@ public class UART implements Protocol
 
     public String getProtocolName()
     {
-        return "UART";
-    }    
+        return "SPI";
+    }
 }

@@ -4,7 +4,8 @@ import System.Protocols.Protocol;
 
 public abstract class Device
 {
-    private Protocol protocol;
+    //private Protocol protocol;
+    protected Protocol protocol;
     protected Boolean state;
 
     public abstract void turnOn();

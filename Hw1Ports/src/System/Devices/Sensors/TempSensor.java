@@ -1,0 +1,10 @@
+package System.Devices.Sensors;
+
+public abstract class TempSensor extends Sensor
+{
+    public String getSensType()
+    {
+        return "TempSensor";
+    }
+    public abstract float getTemp();
+}

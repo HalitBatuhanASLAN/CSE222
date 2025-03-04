@@ -1,6 +1,6 @@
-package System.Devices;
+package System.Devices.Sensors;
 
-public class PCA9685 extends MotorDriver
+public class DHT11 extends TempSensor
 {
     public void turnOn()
     {
@@ -14,10 +14,14 @@ public class PCA9685 extends MotorDriver
     }
     public String getName()
     {
-        return "PCA9685";
+        return "DHT11";
     }
-    public void setMotorSpeed(int speed)
+    public String data2String()
     {
-        System.out.printf("%s: setting speed to %d\n",getName(),speed);
+        return "aaa";
+    }
+    public float getTemp()
+    {
+        return 15;
     }
 }
