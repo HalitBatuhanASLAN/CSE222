@@ -3,7 +3,7 @@ package HwSystem.Devices.Sensors;
 import HwSystem.Protocols.SPI;
 import HwSystem.Protocols.UART;
 
-public class GY_951 extends IMUSensor
+public class GY951 extends IMUSensor
 {
     public void turnOn()
     {

@@ -20,6 +20,10 @@ public class HwSystem
     private ArrayList<Display> displays = new ArrayList<>();
     private ArrayList<Sensor> sensors = new ArrayList<>();
 
+    public void setPorts(ArrayList<Protocol> configurationFile)
+    {
+        ports = configurationFile;
+    }
     public Boolean setMotorSpeed(int devId, int speed)
     {
         if(motorDrivers.get(devId) == null) return false;
