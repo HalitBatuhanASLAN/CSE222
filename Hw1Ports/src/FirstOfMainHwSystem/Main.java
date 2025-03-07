@@ -1,4 +1,4 @@
-package Main;
+/*package Main;
 import HwSystem.*;
 import HwSystem.Protocols.*;
 import java.io.File;
@@ -73,9 +73,10 @@ public class Main
         catch(File e)
         {
             System.out.println("File could not opened");
-            return false;/* */
+            return false;/* 
         }
-    }
+    }*/
+    /* 
     public String Menu()
     {
         System.out.println("Do you want to write file name or continue with default one(Y for continue/n):");
@@ -96,4 +97,4 @@ public class Main
         }
         return fileName;
     }
-}
+}*/

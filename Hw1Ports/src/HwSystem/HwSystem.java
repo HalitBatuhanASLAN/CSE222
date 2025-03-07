@@ -30,6 +30,41 @@ public class HwSystem
     private ArrayList<Boolean> displays = new ArrayList<>(displaysNumber);
     private ArrayList<Boolean> sensors = new ArrayList<>(sensorsNumber);
 
+    public HwSystem() {
+        this.ports = new ArrayList<>();
+        this.sensorsNumber = 0;
+        this.displaysNumber = 0;
+        this.WirelessIOsNumber = 0;
+        this.motorDriversNumber = 0;
+    }
+    public void setProtocol(Protocol pro)
+    {
+        this.ports.add(pro);
+    }
+    public void setSensorsNumber(int sensorsNumber)
+        {this.sensorsNumber = sensorsNumber;}
+    
+    public int getSensorsNumber()
+        {return sensorsNumber;}
+    
+    public void setDisplaysNumber(int displaysNumber)
+        {this.displaysNumber = displaysNumber;}
+    
+    public int getDisplaysNumber()
+        {return displaysNumber;}
+    
+    public void setWirelessIOsNumber(int WirelessIOsNumber)
+        {this.WirelessIOsNumber = WirelessIOsNumber;}
+    
+    public int getWirelessIOsNumber()
+        {return WirelessIOsNumber;}
+    
+    public void setMotorDriversNumber(int motorDriversNumber)
+        {this.motorDriversNumber = motorDriversNumber;}
+    
+    public int getMotorDriversNumber()
+        {return motorDriversNumber;}
+
     public void turnOn(int portId)
     {
         if(portId < 0 || portId >= ports.size())
@@ -248,9 +283,41 @@ public class HwSystem
             System.out.println("Port is occupied by another device!!!");
         else if(portId < 0 || portId >= ports.size())
             System.out.println("Port number is out of range!!!");
-        else
+        else if(devName.equals("LED") || devName.equals("OLED"))/*displays */
         {
-            
+            if(devId >= displaysNumber || devId < 0)
+                System.out.println("Device id is out of range!!!");
+            else if(displays.get(devId))
+                System.out.println("Device is already connected to another port");
+            else
+                displays.set(devId,true);
+        }
+        else if(devName.equals("PCA9685") || devName.equals("SparkFunMD"))/*MotorDrivers */
+        {
+            if(devId >= motorDriversNumber || devId < 0)
+                System.out.println("Device id is out of range");
+            else if(motorDrivers.get(devId))
+                System.out.println("Device is already connected to another port");
+            else
+                motorDrivers.set(devId,true);
+        }
+        else if(devName.equals("BME280") || devName.equals("DHT11") || devName.equals("GY951") || devName.equals("MPU6050"))/*Sensor*/
+        {
+            if(devId >= sensorsNumber || devId < 0)
+                System.out.println("Device id is out of range");
+            else if(sensors.get(devId))
+                System.out.println("Device is already connected to another port");
+            else
+                sensors.set(devId,true);
+        }
+        else if(devName.equals("Blutooth") || devName.equals("Wifi"))/*Wirelessio*/
+        {
+            if(devId >= WirelessIOsNumber || devId < 0)
+                System.out.println("Device id is out of range");
+            else if(wirelessIOs.get(devId))
+                System.out.println("Device is already connected to another port");
+            else
+                wirelessIOs.set(devId,true);
         }
     }
 
