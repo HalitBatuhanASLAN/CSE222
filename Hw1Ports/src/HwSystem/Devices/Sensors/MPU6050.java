@@ -1,6 +1,7 @@
 package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.I2C;
+import java.lang.Math;
 
 public class MPU6050 extends IMUSensor
 {
@@ -44,11 +45,13 @@ public class MPU6050 extends IMUSensor
     }
     public float getAccel()
     {
-        float accel;
+        float accel = (float)Math.random();
+        String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
             I2C tmp = new I2C();
-            accel = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else
         {
@@ -60,11 +63,13 @@ public class MPU6050 extends IMUSensor
     } 
     public float getRot()
     {
-        float rotational;
+        float rotational = (float)Math.random();
+        String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
             I2C tmp = new I2C();
-            rotational = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else
         {

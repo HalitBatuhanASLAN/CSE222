@@ -44,11 +44,12 @@ public class PCA9685 extends MotorDriver
     }
     public void setMotorSpeed(int speed)
     {
-        String data = String.format("%s: setting speed to %d\n",getName(),speed);
+        System.out.printf("%s: setting speed to %d\n",getName(),speed);
         if(protocol.getProtocolName().equals("I2C"))
         {
             I2C tmp = new I2C();
-            tmp.write(data);
+            String speedString = Integer.toString(speed);
+            tmp.write(speedString);
         }
         else
         {

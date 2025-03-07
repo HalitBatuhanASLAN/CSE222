@@ -45,11 +45,12 @@ public class SparkFunMD extends MotorDriver
     public void setMotorSpeed(int speed)
     {
         //System.out.printf("%s: setting speed to %d\n",getName(),speed);
-        String data = String.format("%s: setting speed to %d\n",getName(),speed);
+       System.out.printf("%s: setting speed to %d\n",getName(),speed);
         if(protocol.getProtocolName().equals("SPI"))
         {
             SPI tmp = new SPI();
-            tmp.write(data);
+            String speedString = Integer.toString(speed);
+            tmp.write(speedString);
         }
         else
         {

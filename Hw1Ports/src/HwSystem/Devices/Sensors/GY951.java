@@ -2,6 +2,7 @@ package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.SPI;
 import HwSystem.Protocols.UART;
+import java.lang.Math;
 
 public class GY951 extends IMUSensor
 {
@@ -53,20 +54,23 @@ public class GY951 extends IMUSensor
     }
     public String getName()
     {
-        return "GY_951";
+        return "GY951";
     }
     public float getAccel()
     {
-        float accel;
+        float accel  = (float)Math.random();
+        String readedString;
         if(protocol.getProtocolName().equals("UART"))
         {
             UART tmp = new UART();
-            accel = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             SPI tmp = new SPI();
-            accel = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else
         {
@@ -78,16 +82,19 @@ public class GY951 extends IMUSensor
     } 
     public float getRot()
     {
-        float rotational;
+        float rotational  = (float)Math.random();
+        String readedString;
         if(protocol.getProtocolName().equals("UART"))
         {
             UART tmp = new UART();
-            rotational = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             SPI tmp = new SPI();
-            rotational = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else
         {

@@ -7,8 +7,4 @@ public abstract class TempSensor extends Sensor
         return "TempSensor";
     }
     public abstract float getTemp();
-    public String getDevType()
-    {
-        return "TempSensor Sensor";
-    }
 }

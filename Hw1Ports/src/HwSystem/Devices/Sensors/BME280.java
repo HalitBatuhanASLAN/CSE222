@@ -2,6 +2,7 @@ package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.I2C;
 import HwSystem.Protocols.SPI;
+import java.lang.Math;
 
 public class BME280 extends TempSensor
 {
@@ -58,16 +59,19 @@ public class BME280 extends TempSensor
     
     public float getTemp()
     {
-        float temp;
+        float temp = (float)Math.random();
+        String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
             I2C tmp = new I2C();
-            temp = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             SPI tmp = new SPI();
-            temp = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else
         {

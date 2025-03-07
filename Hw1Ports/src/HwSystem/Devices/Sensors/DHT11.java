@@ -1,6 +1,7 @@
 package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.OneWire;
+import java.lang.Math;
 
 public class DHT11 extends TempSensor
 {
@@ -44,11 +45,13 @@ public class DHT11 extends TempSensor
     }
     public float getTemp()
     {
-        float temp;
+        float temp = (float)Math.random();
+        String readedString;
         if(protocol.getProtocolName().equals("OneWire"))
         {
             OneWire tmp = new OneWire();
-            temp = Float.parseFloat(tmp.read());
+            readedString = tmp.read();
+            System.out.println(readedString);
         }
         else
         {
