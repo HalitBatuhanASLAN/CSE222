@@ -8,6 +8,7 @@ import HwSystem.Devices.Sensors.*;
 import HwSystem.Devices.WirelessIOs.*;
 import HwSystem.Protocols.*;
 import java.util.Scanner;
+
 import java.io.File;
 
 public class Main
@@ -18,6 +19,79 @@ public class Main
         
         HwSystem hwSystem = fileReadining(fileName);
         System.out.println(hwSystem.getWirelessIOsNumber());
+        commands(hwSystem);
+    }
+
+    public static void commands(HwSystem hwSystem)
+    {
+        Boolean flag = true;
+        Scanner scanner = new Scanner(System.in);
+        while(flag)
+        {
+            System.out.print("Command: ");
+            String commandString = scanner.nextLine();
+            String[] commandParts = commandString.split(" ");
+            int portId;
+            int devId;
+            String devType;
+            switch(commandParts[0])
+            {
+                case "turnOn":
+                    portId = Integer.parseInt(commandParts[1]);
+                    hwSystem.turnOn(portId);
+                    break;
+                case "turnOff":
+                    portId = Integer.parseInt(commandParts[1]);
+                    hwSystem.turnOff(portId);
+                    break;
+                case "addDev":
+                    String devNameString = commandParts[1];
+                    portId = Integer.parseInt(commandParts[2]);
+                    devId = Integer.parseInt(commandParts[3]);
+                    hwSystem.addDev(devNameString, portId, devId);
+                    break;
+                case "rmDev":
+                    portId = Integer.parseInt(commandParts[1]);
+                    hwSystem.rmDev(portId);
+                    break;
+                case "list":
+                    if(commandParts[1].equals("ports"))
+                        hwSystem.listPorts();
+                    else
+                    {
+                        devType = commandParts[1];
+                        hwSystem.listDevType(devType);
+                    }
+                    break;
+                case "readSensor":
+                    devId = Integer.parseInt(commandParts[1]);
+                    hwSystem.readSensor(devId);
+                    break;
+                case "printDisplay":
+                    devId = Integer.parseInt(commandParts[1]);
+                    hwSystem.printDisplay(devId);
+                    break;
+                case "readWireless":
+                    devId = Integer.parseInt(commandParts[1]);
+                    hwSystem.readWireless(devId);
+                    break;
+                case "writeWireless":
+                    devId = Integer.parseInt(commandParts[1]);
+                    hwSystem.writeWireless(devId);
+                    break;
+                case "setMotorSpeed":
+                    devId = Integer.parseInt(commandParts[1]);
+                    hwSystem.setMotorSpeed(devId,1907);
+                    break;
+                case "exit":
+                    flag = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        scanner.close();
+        System.out.println("Thanks for using our system :)");
     }
 
     public static HwSystem fileReadining(String fileName)
@@ -78,6 +152,7 @@ public class Main
         {
             System.out.println("Problem occured during readining file : " + e.getMessage());
         }
+        hwsystem.setDevices();
         return hwsystem;
     }
 }

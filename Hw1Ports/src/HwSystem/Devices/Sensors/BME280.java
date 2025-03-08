@@ -6,6 +6,13 @@ import java.lang.Math;
 
 public class BME280 extends TempSensor
 {
+    public BME280(String protocolName)
+    {
+        if(!protocolName.equals("I2C") && !protocolName.equals("SPI"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

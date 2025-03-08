@@ -32,35 +32,72 @@ public class HwSystem
 
     public HwSystem() {
         this.ports = new ArrayList<>();
+        this.onOffPortsState = new ArrayList<>();
+        this.emptyOccupiedPortsState = new ArrayList<>();
+        this.devices = new ArrayList<>();
+        
         this.sensorsNumber = 0;
         this.displaysNumber = 0;
         this.WirelessIOsNumber = 0;
         this.motorDriversNumber = 0;
+        
+        this.sensors = new ArrayList<>(sensorsNumber);
+        this.displays = new ArrayList<>(displaysNumber);
+        this.wirelessIOs = new ArrayList<>(WirelessIOsNumber);
+        this.motorDrivers = new ArrayList<>(motorDriversNumber);
+    }
+    public void setDevices()
+    {
+        int totalDevicesCount = displaysNumber + sensorsNumber + motorDriversNumber + WirelessIOsNumber;
+        for (int i = 0; i < totalDevicesCount; i++)
+            this.devices.add(null);
     }
     public void setProtocol(Protocol pro)
     {
         this.ports.add(pro);
+        this.onOffPortsState.add(false);
+        this.emptyOccupiedPortsState.add(false);
     }
     public void setSensorsNumber(int sensorsNumber)
-        {this.sensorsNumber = sensorsNumber;}
+    {
+        this.sensorsNumber = sensorsNumber;
+        this.sensors.clear();
+        for (int i = 0; i < sensorsNumber; i++)
+            this.sensors.add(false);
+    }
     
     public int getSensorsNumber()
         {return sensorsNumber;}
     
     public void setDisplaysNumber(int displaysNumber)
-        {this.displaysNumber = displaysNumber;}
+    {
+        this.displaysNumber = displaysNumber;
+        this.displays.clear();
+        for (int i = 0; i < displaysNumber; i++)
+            this.displays.add(false);
+    }
     
     public int getDisplaysNumber()
         {return displaysNumber;}
     
     public void setWirelessIOsNumber(int WirelessIOsNumber)
-        {this.WirelessIOsNumber = WirelessIOsNumber;}
+    {
+        this.WirelessIOsNumber = WirelessIOsNumber;
+        this.wirelessIOs.clear();
+        for (int i = 0; i < WirelessIOsNumber; i++)
+            this.wirelessIOs.add(false);
+    }
     
     public int getWirelessIOsNumber()
         {return WirelessIOsNumber;}
     
     public void setMotorDriversNumber(int motorDriversNumber)
-        {this.motorDriversNumber = motorDriversNumber;}
+    {
+        this.motorDriversNumber = motorDriversNumber;
+        this.motorDrivers.clear();
+        for (int i = 0; i < motorDriversNumber; i++)
+            this.motorDrivers.add(false);
+    }
     
     public int getMotorDriversNumber()
         {return motorDriversNumber;}
@@ -104,6 +141,11 @@ public class HwSystem
             else
             {
                 System.out.printf("%d %s occupied ",i,ports.get(i).getProtocolName());
+                for(int j = 0;j<devices.size();j++)
+                {
+                    if(devices.get(j) != null)
+                        System.out.printf("%s %s %d %s",devices.get(i).getName(),devices.get(i).getDevType(),0,devices.get(i).getState());
+                }
                 /*dev name devType devId state look later*/
                 System.out.printf("\n");
             }
@@ -279,6 +321,8 @@ public class HwSystem
 
     public void addDev(String devName,int portId,int devId)
     {
+        Protocol protocolOfPort = ports.get(portId);
+        Device newDevice = null;
         if(emptyOccupiedPortsState.get(portId))
             System.out.println("Port is occupied by another device!!!");
         else if(portId < 0 || portId >= ports.size())
@@ -290,7 +334,15 @@ public class HwSystem
             else if(displays.get(devId))
                 System.out.println("Device is already connected to another port");
             else
+            {   
+                if(devName.equals("LED"))
+                    newDevice = new LED(protocolOfPort.getProtocolName());
+                else
+                    newDevice = new OLED(protocolOfPort.getProtocolName());
                 displays.set(devId,true);
+                emptyOccupiedPortsState.set(portId,true);
+                devices.set(portId, newDevice);
+            }
         }
         else if(devName.equals("PCA9685") || devName.equals("SparkFunMD"))/*MotorDrivers */
         {
@@ -299,7 +351,15 @@ public class HwSystem
             else if(motorDrivers.get(devId))
                 System.out.println("Device is already connected to another port");
             else
+            {   
+                if(devName.equals("PCA9685"))
+                    newDevice = new PCA9685(protocolOfPort.getProtocolName());
+                else
+                    newDevice = new SparkFunMD(protocolOfPort.getProtocolName());
                 motorDrivers.set(devId,true);
+                emptyOccupiedPortsState.set(portId,true);
+                devices.set(portId, newDevice);
+            }
         }
         else if(devName.equals("BME280") || devName.equals("DHT11") || devName.equals("GY951") || devName.equals("MPU6050"))/*Sensor*/
         {
@@ -308,7 +368,19 @@ public class HwSystem
             else if(sensors.get(devId))
                 System.out.println("Device is already connected to another port");
             else
+            {   
+                if(devName.equals("BME280"))
+                    newDevice = new BME280(protocolOfPort.getProtocolName());
+                else if(devName.equals("DHT11"))
+                    newDevice = new DHT11(protocolOfPort.getProtocolName());
+                else if(devName.equals("GY951"))
+                    newDevice = new GY951(protocolOfPort.getProtocolName());
+                else
+                    newDevice = new MPU6050(protocolOfPort.getProtocolName());
                 sensors.set(devId,true);
+                emptyOccupiedPortsState.set(portId,true);
+                devices.set(portId, newDevice);
+            }
         }
         else if(devName.equals("Blutooth") || devName.equals("Wifi"))/*Wirelessio*/
         {
@@ -317,8 +389,18 @@ public class HwSystem
             else if(wirelessIOs.get(devId))
                 System.out.println("Device is already connected to another port");
             else
+            {   
+                if(devName.equals("Blutooth"))
+                    newDevice = new Bluetooth(protocolOfPort.getProtocolName());
+                else
+                    newDevice = new Wifi(protocolOfPort.getProtocolName());
                 wirelessIOs.set(devId,true);
+                emptyOccupiedPortsState.set(portId,true);
+                devices.set(portId, newDevice);
+            }
         }
+        else
+            System.out.println("Device can not be found!!!");
     }
 
     public void rmDev(int portId)

@@ -4,6 +4,13 @@ import HwSystem.Protocols.SPI;
 
 public class SparkFunMD extends MotorDriver
 {
+    public SparkFunMD(String protocolName)
+    {
+        if(!protocolName.equals("SPI"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

@@ -1,6 +1,10 @@
 package HwSystem.Devices;
 
+import HwSystem.Protocols.I2C;
+import HwSystem.Protocols.OneWire;
 import HwSystem.Protocols.Protocol;
+import HwSystem.Protocols.SPI;
+import HwSystem.Protocols.UART;
 
 public abstract class Device
 {
@@ -13,6 +17,10 @@ public abstract class Device
     }
     protected DeviceState state;
 
+    public Device()
+    {
+        state = DeviceState.Off;
+    }
     public abstract void turnOn();
     public abstract void turnOff();
 
@@ -24,9 +32,20 @@ public abstract class Device
         return state;
     }
 
-    public Protocol getProtocol()
+    public String getProtocol()
     {
-        return protocol;
+        return protocol.getProtocolName();
+    }
+    public void setProtocol(String protocolName)
+    {
+        if(protocolName.equals("UART"))
+            protocol = new UART();
+        else if(protocolName.equals("SPI"))
+            protocol = new SPI();
+        else if(protocolName.equals("I2C"))
+            protocol = new I2C();
+        else if(protocolName.equals("OneWire"))
+            protocol = new OneWire();
     }
     public void setState(DeviceState dState)
     {

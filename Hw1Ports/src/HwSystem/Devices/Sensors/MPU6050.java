@@ -5,6 +5,13 @@ import java.lang.Math;
 
 public class MPU6050 extends IMUSensor
 {
+    public MPU6050(String protocolName)
+    {
+        if(!protocolName.equals("I2C"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

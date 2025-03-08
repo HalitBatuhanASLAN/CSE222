@@ -4,6 +4,13 @@ import HwSystem.Protocols.I2C;
 
 public class LED extends Display
 {
+    public LED(String protocolName)
+    {
+        if(!protocolName.equals("I2C"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

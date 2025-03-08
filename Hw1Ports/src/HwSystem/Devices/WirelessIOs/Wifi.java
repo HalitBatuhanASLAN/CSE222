@@ -5,6 +5,13 @@ import HwSystem.Protocols.SPI;
 
 public class Wifi extends WirelessIO
 {
+    public Wifi(String protocolName)
+    {
+        if(!protocolName.equals("UART") && !protocolName.equals("SPI"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

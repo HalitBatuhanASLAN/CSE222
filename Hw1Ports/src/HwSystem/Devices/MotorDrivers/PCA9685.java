@@ -4,6 +4,13 @@ import HwSystem.Protocols.I2C;
 
 public class PCA9685 extends MotorDriver
 {
+    public PCA9685(String protocolName)
+    {
+        if(!protocolName.equals("I2C"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         //System.out.printf("%s: Turning On\n",getName());

@@ -6,6 +6,13 @@ import java.lang.Math;
 
 public class GY951 extends IMUSensor
 {
+    public GY951(String protocolName)
+    {
+        if(!protocolName.equals("UART") && !protocolName.equals("SPI"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

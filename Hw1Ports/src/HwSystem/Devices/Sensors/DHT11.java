@@ -5,6 +5,13 @@ import java.lang.Math;
 
 public class DHT11 extends TempSensor
 {
+    public DHT11(String protocolName)
+    {
+        if(!protocolName.equals("OneWire"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;

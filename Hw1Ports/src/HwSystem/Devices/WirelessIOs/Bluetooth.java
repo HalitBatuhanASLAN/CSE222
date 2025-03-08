@@ -4,6 +4,13 @@ import HwSystem.Protocols.UART;
 
 public class Bluetooth extends WirelessIO
 {
+    public Bluetooth(String protocolName)
+    {
+        if(!protocolName.equals("UART"))
+            System.out.println("Protocol does not match with device!!!");
+        else
+            setProtocol(protocolName);
+    }
     public void turnOn()
     {
         /*state = true;
