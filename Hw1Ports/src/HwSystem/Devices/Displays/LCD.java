@@ -2,9 +2,9 @@ package HwSystem.Devices.Displays;
 
 import HwSystem.Protocols.I2C;
 
-public class LED extends Display
+public class LCD extends Display
 {
-    public LED(String protocolName)
+    public LCD(String protocolName)
     {
         if(!protocolName.equals("I2C"))
             System.out.println("Protocol does not match with device!!!");
@@ -49,7 +49,7 @@ public class LED extends Display
     }
     public String getName()
     {
-        return "LED";
+        return "LCD";
     }
     public void printData(String data)
     {
