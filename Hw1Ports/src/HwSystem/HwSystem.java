@@ -191,25 +191,25 @@ public class HwSystem
                 if(devType.equals("Display") && devices.get(i) instanceof Display)
                 {
                     System.out.println(devices.get(i).getName() + " " + deviceId + " " +
-                            "portId" + " " + devices.get(i).getProtocol());
+                        portIdOfDevices.get(i) + " " + devices.get(i).getProtocol());
                     deviceId++;
                 }
                 else if(devType.equals("MotorDriver") && devices.get(i) instanceof MotorDriver)
                 {
                     System.out.println(devices.get(i).getName() + " " + deviceId + " " +
-                            "portId" + " " + devices.get(i).getProtocol());
+                        portIdOfDevices.get(i) + " " + devices.get(i).getProtocol());
                     deviceId++;
                 }
                 else if(devType.equals("Sensor") && devices.get(i) instanceof Sensor)
                 {
                     System.out.println(devices.get(i).getName() + " " + deviceId + " " +
-                            portIdOfDevices.get(i) + " " + devices.get(i).getProtocol());
+                        portIdOfDevices.get(i) + " " + devices.get(i).getProtocol());
                     deviceId++;
                 }
                 else if(devType.equals("WirelessIO") && devices.get(i) instanceof WirelessIO)
                 {
                     System.out.println(devices.get(i).getName() + " " + deviceId + " " +
-                            "portId" + " " + devices.get(i).getProtocol());
+                        portIdOfDevices.get(i) + " " + devices.get(i).getProtocol());
                     deviceId++;
                 }
             }
@@ -444,7 +444,22 @@ public class HwSystem
         else
         {
             emptyOccupiedPortsState.set(portId,false);
-            
+            for(int j = 0;j<devices.size();j++)
+            {
+                if(portIdOfDevices.get(j) == portId)
+                {
+                    portIdOfDevices.set(j,-1);
+                    //sensors.set(0,false);
+                    if(devices.get(0).getDevType().equals("Sensor"))
+                        sensors.set(0,false);
+                    else if(devices.get(j).getDevType().equals("Display"))
+                        displays.set(j,false);
+                    else if(devices.get(j).getDevType().equals("MotorDriver"))
+                        motorDrivers.set(j,false);
+                    else if(devices.get(j).getDevType().equals("WirelessIO"))
+                        wirelessIOs.set(j,false);
+                }
+            }
         }
     }
 

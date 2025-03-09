@@ -49,7 +49,7 @@ public class Bluetooth extends WirelessIO
     }
     public String getName()
     {
-        return "LED";
+        return "Bluetooth";
     }
     public void sendData(String data)
     {

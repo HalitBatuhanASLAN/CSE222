@@ -64,7 +64,7 @@ public class Wifi extends WirelessIO
     }
     public String getName()
     {
-        return "LED";
+        return "Wifi";
     }
     public void sendData(String data)
     {
