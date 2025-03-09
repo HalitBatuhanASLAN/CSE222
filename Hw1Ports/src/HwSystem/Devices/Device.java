@@ -34,11 +34,16 @@ public abstract class Device
 
     public String getProtocol()
     {
-        return protocol.getProtocolName();
+        //return protocol.getProtocolName();
+        if(this.protocol == null)
+            return null;
+        return this.protocol.getProtocolName();
     }
     public void setProtocol(String protocolName)
     {
-        if(protocolName.equals("UART"))
+        if(protocolName.equals("null"))
+            return;
+        else if(protocolName.equals("UART"))
             protocol = new UART();
         else if(protocolName.equals("SPI"))
             protocol = new SPI();

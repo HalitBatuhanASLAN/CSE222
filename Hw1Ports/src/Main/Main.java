@@ -15,8 +15,8 @@ public class Main
 {
     public static void main(String args[])
     {
-        String fileName = "/home/halitbatuhanaslan/222Data/Hw1Ports/src/Main/configuration.txt";
-        
+        //String fileName = "/home/halitbatuhanaslan/222Data/Hw1Ports/src/Main/configuration.txt";
+        String fileName = args[0];
         HwSystem hwSystem = fileReadining(fileName);
         System.out.println();
         commands(hwSystem);
@@ -73,7 +73,14 @@ public class Main
                     break;
                 case "printDisplay":
                     devId = Integer.parseInt(commandParts[1]);
-                    hwSystem.printDisplay(devId);
+                    String data = "";
+                    for (int i = 2; i < commandParts.length; i++)
+                    {
+                        data += commandParts[i];
+                        if (i < commandParts.length - 1)
+                            data += " ";
+                    }
+                    hwSystem.printDisplay(devId,data);
                     break;
                 case "readWireless":
                     devId = Integer.parseInt(commandParts[1]);
@@ -81,11 +88,19 @@ public class Main
                     break;
                 case "writeWireless":
                     devId = Integer.parseInt(commandParts[1]);
-                    hwSystem.writeWireless(devId);
+                    String data2 = "";
+                    for (int i = 2; i < commandParts.length; i++)
+                    {
+                        data2 += commandParts[i];
+                        if (i < commandParts.length - 1)
+                            data2 += " ";
+                    }
+                    hwSystem.writeWireless(devId,data2);
                     break;
                 case "setMotorSpeed":
                     devId = Integer.parseInt(commandParts[1]);
-                    hwSystem.setMotorSpeed(devId,1907);
+                    int speed = Integer.parseInt(commandParts[2]);
+                    hwSystem.setMotorSpeed(devId,speed);
                     break;
                 case "exit":
                     flag = false;

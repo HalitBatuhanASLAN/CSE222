@@ -5,7 +5,7 @@ build:
 	javac -d build @sources.txt
 
 run:
-	java -cp build Main.Main
+	java -cp build Main.Main configuration.txt
 
 delete:
 	rm -rf build sources.txt

@@ -10,6 +10,7 @@ public class BME280 extends TempSensor
     {
         if(!protocolName.equals("I2C") && !protocolName.equals("SPI"))
             System.out.println("Protocol does not match with device!!!");
+        
         else
             setProtocol(protocolName);
     }
