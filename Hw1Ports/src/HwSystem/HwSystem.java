@@ -10,28 +10,45 @@ import HwSystem.Devices.Sensors.*;
 import HwSystem.Devices.WirelessIOs.*;
 import HwSystem.Protocols.*;
 
+/**
+ * The main hardware system class that manages all devices, protocols, and ports.
+ * <p>
+ * This class provides functionality to add, remove, and control various hardware devices
+ * connected to different communication protocol ports. It maintains the state of all ports
+ * and devices in the system and provides methods to interact with them.
+ */
 public class HwSystem
 {
+    /** List of available communication protocol ports */
     private ArrayList<Protocol> ports;
-    private ArrayList<Boolean> onOffPortsState;/*true if on */
-    private ArrayList<Boolean> emptyOccupiedPortsState;/*true if occupied */
+
+    /** State of each port (true if on, false if off) */
+    private ArrayList<Boolean> onOffPortsState;
+
+    /** Occupancy state of each port (true if occupied by a device, false if empty) */
+    private ArrayList<Boolean> emptyOccupiedPortsState;
+
+    /** List of all devices connected to the system */
     private ArrayList<Device> devices;
+
+    /** Mapping of which port each device is connected to */
     private ArrayList<Integer> portIdOfDevices;
+
+    /** Number of each type of devices in the system */
     private int displaysNumber;
     private int motorDriversNumber;
     private int sensorsNumber;
     private int WirelessIOsNumber;
-    
-    /*private ArrayList<MotorDriver> motorDrivers = new ArrayList<>(motorDriversNumber);
-    private ArrayList<WirelessIO> wirelessIOs = new ArrayList<>(WirelessIOsNumber);
-    private ArrayList<Display> displays = new ArrayList<>(displaysNumber);
-    private ArrayList<Sensor> sensors = new ArrayList<>(sensorsNumber);*/
 
+    /** List of port IDs for each type of devices */
     private ArrayList<Integer> motorDrivers = new ArrayList<>(motorDriversNumber);
     private ArrayList<Integer> wirelessIOs = new ArrayList<>(WirelessIOsNumber);
     private ArrayList<Integer> displays = new ArrayList<>(displaysNumber);
     private ArrayList<Integer> sensors = new ArrayList<>(sensorsNumber);
 
+    /**
+     * Constructs a new hardware system with empty device and port lists.
+     */
     public HwSystem() {
         this.ports = new ArrayList<>();
         this.onOffPortsState = new ArrayList<>();
@@ -49,24 +66,45 @@ public class HwSystem
         this.wirelessIOs = new ArrayList<>(WirelessIOsNumber);
         this.motorDrivers = new ArrayList<>(motorDriversNumber);
     }
+    /**
+     * Initializes the port ID mapping for all devices.
+     * Sets all port IDs to -1 (unassigned) initially.
+     */
     public void setPortIdOfDevices()
     {
         int totalDevicesCount = displaysNumber + sensorsNumber + motorDriversNumber + WirelessIOsNumber;
         for (int i = 0; i < totalDevicesCount; i++)
             this.portIdOfDevices.add(-1);
     }
+
+    /**
+     * Initializes the devices list with null values.
+     * Prepares the list to hold device references.
+     */
     public void setDevices()
     {
         int totalDevicesCount = displaysNumber + sensorsNumber + motorDriversNumber + WirelessIOsNumber;
         for (int i = 0; i < totalDevicesCount; i++)
             this.devices.add(null);
     }
+
+    /**
+     * Adds a new protocol port to the system.
+     * 
+     * @param pro The Protocol implementation to add
+     */
     public void setProtocol(Protocol pro)
     {
         this.ports.add(pro);
         this.onOffPortsState.add(false);
         this.emptyOccupiedPortsState.add(false);
     }
+
+    /**
+     * Sets the number of sensor devices in the system and initializes their port ID list.
+     * 
+     * @param sensorsNumber The number of sensor devices
+     */
     public void setSensorsNumber(int sensorsNumber)
     {
         this.sensorsNumber = sensorsNumber;
@@ -75,9 +113,19 @@ public class HwSystem
             this.sensors.add(-1);
     }
     
+    /**
+     * Gets the number of sensor devices in the system.
+     * 
+     * @return The number of sensor devices
+     */
     public int getSensorsNumber()
         {return sensorsNumber;}
     
+    /**
+     * Sets the number of display devices in the system and initializes their port ID list.
+     * 
+     * @param displaysNumber The number of display devices
+     */
     public void setDisplaysNumber(int displaysNumber)
     {
         this.displaysNumber = displaysNumber;
@@ -86,9 +134,19 @@ public class HwSystem
             this.displays.add(-1);
     }
     
+    /**
+     * Gets the number of display devices in the system.
+     * 
+     * @return The number of display devices
+     */
     public int getDisplaysNumber()
         {return displaysNumber;}
     
+    /**
+     * Sets the number of wireless I/O devices in the system and initializes their port ID list.
+     * 
+     * @param WirelessIOsNumber The number of wireless I/O devices
+     */
     public void setWirelessIOsNumber(int WirelessIOsNumber)
     {
         this.WirelessIOsNumber = WirelessIOsNumber;
@@ -97,9 +155,19 @@ public class HwSystem
             this.wirelessIOs.add(-1);
     }
     
+    /**
+     * Gets the number of wireless I/O devices in the system.
+     * 
+     * @return The number of wireless I/O devices
+     */
     public int getWirelessIOsNumber()
         {return WirelessIOsNumber;}
     
+    /**
+     * Sets the number of motor driver devices in the system and initializes their port ID list.
+     * 
+     * @param motorDriversNumber The number of motor driver devices
+     */
     public void setMotorDriversNumber(int motorDriversNumber)
     {
         this.motorDriversNumber = motorDriversNumber;
@@ -108,9 +176,19 @@ public class HwSystem
             this.motorDrivers.add(-1);
     }
     
+    /**
+     * Gets the number of motor driver devices in the system.
+     * 
+     * @return The number of motor driver devices
+     */
     public int getMotorDriversNumber()
         {return motorDriversNumber;}
 
+    /**
+     * Turns on a port and activates the device connected to it.
+     * 
+     * @param portId The ID of the port to turn on
+     */
     public void turnOn(int portId)
     {
         if(portId < 0 || portId >= ports.size())
@@ -130,10 +208,14 @@ public class HwSystem
                     break;
                 }
             }
-            //System.out.printf("%s:Writing Turn ON",ports.get(portId).getProtocolName());
         }
     }
 
+    /**
+     * Turns off a port and deactivates the device connected to it.
+     * 
+     * @param portId The ID of the port to turn off
+     */
     public void turnOff(int portId)
     {
         if(portId < 0 || portId >= ports.size())
@@ -153,10 +235,13 @@ public class HwSystem
                     break;
                 }
             }
-            /*turnOff device issue look at later */
         }
     }
 
+    /**
+     * Lists all ports in the system with their status and connected devices.
+     * Displays port ID, protocol type, occupancy status, and device details if occupied.
+     */
     public void listPorts()
     {
         System.out.println("List of ports");
@@ -169,8 +254,6 @@ public class HwSystem
                 System.out.printf("%d %s occupied ",i,ports.get(i).getProtocolName());
                 for(int j = 0;j<devices.size();j++)
                 {
-                    /*if(devices.get(j) != null)
-                        System.out.printf("%s %s %d %s",devices.get(j).getName(),devices.get(j).getDevType(),0,devices.get(j).getState());*/
                     if(portIdOfDevices.get(j) == i && devices.get(j) != null)
                     {
                         Device device = devices.get(j);
@@ -188,15 +271,20 @@ public class HwSystem
                             
                         System.out.printf("%s %s %d %s", device.getName(), device.getDevType(), 
                             displayedDevId, device.getState());
-                        break; // Bir port sadece bir cihaza bağlı olabilir
+                        break;
                     }
                 }
-                /*dev name devType devId state look later*/
                 System.out.printf("\n");
             }
         }
     }
 
+    /**
+     * Lists all devices of a specific type in the system.
+     * Displays device name, ID, port ID, and protocol for each matching device.
+     * 
+     * @param devType The device type to list ("Display", "MotorDriver", "Sensor", or "WirelessIO")
+     */
     public void listDevType(String devType)
     {
         if(!devType.equals("Display") && devType.equals("MotorDriver") 
@@ -243,6 +331,12 @@ public class HwSystem
         }
     }
 
+    /**
+     * Reads data from a sensor device.
+     * Displays the sensor name, type, and current data if the device is active.
+     * 
+     * @param devId The ID of the sensor device to read from
+     */
     public void readSensor(int devId)
     {
         if(devId < 0 || devId >= sensorsNumber)
@@ -271,6 +365,12 @@ public class HwSystem
         }
     }
 
+    /**
+     * Prints data to a display device.
+     * 
+     * @param devId The ID of the display device to print to
+     * @param data The data string to display
+     */
     public void printDisplay(int devId,String data)
     {
         if(devId < 0 || devId >= displaysNumber)
@@ -296,6 +396,11 @@ public class HwSystem
         }
     }
 
+    /**
+     * Reads data from a wireless I/O device.
+     * 
+     * @param devId The ID of the wireless I/O device to read from
+     */
     public void readWireless(int devId)
     {
         if(devId < 0 || devId >= WirelessIOsNumber)
@@ -321,6 +426,12 @@ public class HwSystem
         }
     }
 
+    /**
+     * Writes data to a wireless I/O device.
+     * 
+     * @param devId The ID of the wireless I/O device to write to
+     * @param data The data string to send
+     */
     public void writeWireless(int devId,String data)
     {
         if(devId < 0 || devId >= WirelessIOsNumber)
@@ -346,6 +457,12 @@ public class HwSystem
         }
     }
 
+    /**
+     * Sets the speed of a motor driver device.
+     * 
+     * @param devId The ID of the motor driver device
+     * @param speed The speed value to set
+     */
     public void setMotorSpeed(int devId,int speed)
     {
         if(devId < 0 || devId >= motorDriversNumber)
@@ -371,6 +488,13 @@ public class HwSystem
         }
     }
 
+    /**
+     * Adds a new device to the system.
+     * 
+     * @param devName The name/type of device to add
+     * @param portId The port ID to connect the device to
+     * @param devId The device ID to assign
+     */
     public void addDev(String devName,int portId,int devId)
     {
         Device newDevice = null;
@@ -482,6 +606,11 @@ public class HwSystem
             System.out.println("Device can not be found!!!");
     }
 
+    /**
+     * Removes a device from the specified port.
+     * 
+     * @param portId The ID of the port from which to remove the device
+     */
     public void rmDev(int portId)
     {
         if(portId < 0 || portId >= ports.size())
@@ -497,16 +626,6 @@ public class HwSystem
             {
                 if(portIdOfDevices.get(j) == portId)
                 {
-                    /*portIdOfDevices.set(j,-1);
-                    //sensors.set(0,false);
-                    if(devices.get(0).getDevType().equals("Sensor"))
-                        sensors.set(0,-1);
-                    else if(devices.get(j).getDevType().equals("Display"))
-                        displays.set(j,-1);
-                    else if(devices.get(j).getDevType().equals("MotorDriver"))
-                        motorDrivers.set(j,-1);
-                    else if(devices.get(j).getDevType().equals("WirelessIO"))
-                        wirelessIOs.set(j,-1);*/
                     String devType = devices.get(j).getDevType();
                     portIdOfDevices.set(j, -1);
                         
@@ -538,5 +657,4 @@ public class HwSystem
             }
         }
     }
-
 }

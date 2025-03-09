@@ -4,8 +4,18 @@ import HwSystem.Protocols.I2C;
 import HwSystem.Protocols.SPI;
 import java.lang.Math;
 
+/**
+ * Concrete implementation of a temperature sensor for the BME280 device.
+ * This class provides functionality for the BME280 temperature sensor using either I2C or SPI protocols.
+ */
 public class BME280 extends TempSensor
 {
+    /**
+     * Constructor that initializes the BME280 device with the specified protocol.
+     * Accepts either I2C or SPI protocols as they are the supported protocols for this device.
+     * 
+     * @param protocolName The name of the protocol to use (must be "I2C" or "SPI")
+     */
     public BME280(String protocolName)
     {
         if(!protocolName.equals("I2C") && !protocolName.equals("SPI"))
@@ -14,11 +24,11 @@ public class BME280 extends TempSensor
         else
             setProtocol(protocolName);
     }
+    /**
+     * Turns on the BME280 device using either I2C or SPI protocol.
+     */
     public void turnOn()
     {
-        /*state = true;
-        System.out.printf("%s: Turning On\n",getName());*/
-        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning On\n",getName());
@@ -34,16 +44,14 @@ public class BME280 extends TempSensor
             state = DeviceState.On;
         }
         else
-        {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-        }
     }
+    /**
+     * Turns off the BME280 device using either I2C or SPI protocol.
+     */
     public void turnOff()
     {
-        /*state = false;
-        System.out.printf("%s: Turning Off\n",getName());*/
-        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning Off\n",getName());
@@ -59,16 +67,23 @@ public class BME280 extends TempSensor
             state = DeviceState.Off;
         }
         else
-        {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-        }
     }
+    /**
+     * Gets the name of this device.
+     * 
+     * @return The string "BME280"
+     */
     public String getName()
-    {
-        return "BME280";
-    }
+        {return "BME280";}
     
+    /**
+     * Gets the temperature value from the BME280 sensor.
+     * Simulates reading temperature data using either I2C or SPI protocol.
+     * 
+     * @return A random float value representing temperature, or -999 if protocol error
+     */
     public float getTemp()
     {
         float temp = (float)Math.random();
@@ -93,11 +108,11 @@ public class BME280 extends TempSensor
         }
         return temp;
     }
-
-    /*control the following from pdf for all sensors*/
+    /**
+     * Converts the sensor data to a string representation.
+     * 
+     * @return A formatted string containing the temperature value
+     */
     public String data2String()
-    {
-        return String.format("Tempurature:%.2fC",getTemp());
-    }
-
+        {return String.format("Tempurature:%.2fC",getTemp());}
 }

@@ -2,8 +2,18 @@ package HwSystem.Devices.WirelessIOs;
 
 import HwSystem.Protocols.UART;
 
+/**
+ * Bluetooth implementation of the WirelessIO abstract class.
+ * This class provides functionality for Bluetooth communication using the UART protocol.
+ */
 public class Bluetooth extends WirelessIO
 {
+    /**
+     * Constructor that initializes the Bluetooth device with the specified protocol.
+     * Only accepts UART protocol as it's the only supported protocol for this device.
+     * 
+     * @param protocolName The name of the protocol to use (must be "UART")
+     */
     public Bluetooth(String protocolName)
     {
         if(!protocolName.equals("UART"))
@@ -11,11 +21,11 @@ public class Bluetooth extends WirelessIO
         else
             setProtocol(protocolName);
     }
+    /**
+     * Turns on the Bluetooth device using the UART protocol.
+     */
     public void turnOn()
     {
-        /*state = true;
-        System.out.printf("%s: Turning On\n",getName());*/
-        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("UART"))
         {
             System.out.printf("%s: Turning On\n",getName());
@@ -24,16 +34,14 @@ public class Bluetooth extends WirelessIO
             state = DeviceState.On;
         }
         else
-        {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-        }
     }
+    /**
+     * Turns off the Bluetooth device using the UART protocol.
+     */
     public void turnOff()
     {
-        /*state = false;
-        System.out.printf("%s: Turning Off\n",getName());*/
-        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("UART"))
         {
             System.out.printf("%s: Turning Off\n",getName());
@@ -42,15 +50,17 @@ public class Bluetooth extends WirelessIO
             state = DeviceState.Off;
         }
         else
-        {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-        }
     }
     public String getName()
-    {
-        return "Bluetooth";
-    }
+        {return "Bluetooth";}
+
+    /**
+     * Sends data through the Bluetooth interface using the UART protocol.
+     * 
+     * @param data The string data to be transmitted wirelessly
+     */
     public void sendData(String data)
     {
         if(protocol.getProtocolName().equals("UART"))
@@ -59,11 +69,15 @@ public class Bluetooth extends WirelessIO
             tmp.write(data);
         }
         else
-        {
             System.out.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-        }
     }
+
+    /**
+     * Receives data from the Bluetooth interface using the UART protocol.
+     * 
+     * @return The string data received from the wireless interface
+     */
     public String recvData()
     {
         if(protocol.getProtocolName().equals("UART"))
@@ -73,9 +87,7 @@ public class Bluetooth extends WirelessIO
             return data;
         }
         else
-        {
             return String.format("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
-        }
     }
 }

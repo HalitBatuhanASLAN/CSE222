@@ -1,21 +1,26 @@
 package Main;
 
 import HwSystem.*;
-import HwSystem.Devices.*;
-import HwSystem.Devices.Displays.*;
-import HwSystem.Devices.MotorDrivers.*;
-import HwSystem.Devices.Sensors.*;
-import HwSystem.Devices.WirelessIOs.*;
 import HwSystem.Protocols.*;
 import java.util.Scanner;
 
 import java.io.File;
 
+/**
+ * Main class that serves as the entry point for the hardware system application.
+ * It handles system configuration, user commands, and interaction with hardware devices.
+ */
+
 public class Main
 {
+    /**
+     * Main method that initializes the hardware system from a configuration file
+     * and starts the command interface.
+     * 
+     * @param args Command line arguments, where args[0] is the configuration file path
+     */
     public static void main(String args[])
     {
-        //String fileName = "/home/halitbatuhanaslan/222Data/Hw1Ports/src/Main/configuration.txt";
         String fileName = args[0];
         HwSystem hwSystem = fileReadining(fileName);
         System.out.println();
@@ -23,6 +28,13 @@ public class Main
         System.out.println();
     }
 
+    /**
+     * Processes user commands through an interactive command-line interface.
+     * Supports various commands for hardware control including device management,
+     * sensor reading, display control, wireless communication, and motor control.
+     * 
+     * @param hwSystem The hardware system instance to operate on
+     */
     public static void commands(HwSystem hwSystem)
     {
         Boolean flag = true;
@@ -115,6 +127,13 @@ public class Main
         System.out.println("Thanks for using our system :)");
     }
 
+    /**
+     * Reads the configuration file and initializes the hardware system accordingly.
+     * Parses information about communication protocols and device counts.
+     * 
+     * @param fileName Path to the configuration file
+     * @return Initialized HwSystem instance with configured protocols and devices
+     */
     public static HwSystem fileReadining(String fileName)
     {
         
@@ -173,7 +192,9 @@ public class Main
         {
             System.out.println("Problem occured during readining file : " + e.getMessage());
         }
+        /*initially sets devices arrayList as null*/
         hwsystem.setDevices();
+        /*initiallt assigns -1 to all devices ports*/
         hwsystem.setPortIdOfDevices();
         return hwsystem;
     }

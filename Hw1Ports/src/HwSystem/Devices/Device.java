@@ -6,9 +6,14 @@ import HwSystem.Protocols.Protocol;
 import HwSystem.Protocols.SPI;
 import HwSystem.Protocols.UART;
 
+/**
+ * Abstract base class for all hardware devices in the system.
+ * Provides common functionality for device state management and protocol handling.
+ * All specific device types must extend this class and implement the abstract methods.
+ */
+
 public abstract class Device
 {
-    //private Protocol protocol;
     protected Protocol protocol;
     public enum DeviceState
     {
@@ -17,10 +22,10 @@ public abstract class Device
     }
     protected DeviceState state;
 
+    /*constructor, initially device state is off */
     public Device()
-    {
-        state = DeviceState.Off;
-    }
+        {state = DeviceState.Off;}
+    
     public abstract void turnOn();
     public abstract void turnOff();
 
@@ -28,13 +33,10 @@ public abstract class Device
     public abstract String getDevType();
 
     public DeviceState getState()
-    {
-        return state;
-    }
+        {return state;}
 
     public String getProtocol()
     {
-        //return protocol.getProtocolName();
         if(this.protocol == null)
             return null;
         return this.protocol.getProtocolName();
@@ -53,7 +55,5 @@ public abstract class Device
             protocol = new OneWire();
     }
     public void setState(DeviceState dState)
-    {
-        state = dState;
-    }
+        {state = dState;}
 }
