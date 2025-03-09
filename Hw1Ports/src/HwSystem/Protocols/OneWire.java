@@ -9,7 +9,7 @@ public class OneWire implements Protocol
 
     public void write(String data)
     {
-        System.out.printf("%s: writing %s\n",getProtocolName(),data);
+        System.out.printf("%s:%s\n",getProtocolName(),data);
     }
 
     public String getProtocolName()

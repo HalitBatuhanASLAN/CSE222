@@ -16,6 +16,7 @@ public class HwSystem
     private ArrayList<Boolean> onOffPortsState;/*true if on */
     private ArrayList<Boolean> emptyOccupiedPortsState;/*true if occupied */
     private ArrayList<Device> devices;
+    private ArrayList<Integer> portIdOfDevices;
     private int displaysNumber;
     private int motorDriversNumber;
     private int sensorsNumber;
@@ -35,7 +36,8 @@ public class HwSystem
         this.onOffPortsState = new ArrayList<>();
         this.emptyOccupiedPortsState = new ArrayList<>();
         this.devices = new ArrayList<>();
-        
+        this.portIdOfDevices = new ArrayList<>();
+
         this.sensorsNumber = 0;
         this.displaysNumber = 0;
         this.WirelessIOsNumber = 0;
@@ -45,6 +47,12 @@ public class HwSystem
         this.displays = new ArrayList<>(displaysNumber);
         this.wirelessIOs = new ArrayList<>(WirelessIOsNumber);
         this.motorDrivers = new ArrayList<>(motorDriversNumber);
+    }
+    public void setPortIdOfDevices()
+    {
+        int totalDevicesCount = displaysNumber + sensorsNumber + motorDriversNumber + WirelessIOsNumber;
+        for (int i = 0; i < totalDevicesCount; i++)
+            this.portIdOfDevices.add(-1);
     }
     public void setDevices()
     {
@@ -113,7 +121,15 @@ public class HwSystem
         else
         {
             onOffPortsState.set(portId,true);
-            /*turnOn device issue look at later */
+            for(int i = 0;i<portIdOfDevices.size();i++)
+            {
+                if(portIdOfDevices.get(i) == portId)
+                {
+                    devices.get(i).turnOn();
+                    break;
+                }
+            }
+            //System.out.printf("%s:Writing Turn ON",ports.get(portId).getProtocolName());
         }
     }
 
@@ -121,19 +137,28 @@ public class HwSystem
     {
         if(portId < 0 || portId >= ports.size())
             System.out.println("Port number is out of range!!!");
-        else if(emptyOccupiedPortsState.get(portId))
+        else if(!emptyOccupiedPortsState.get(portId))
             System.out.println("Port does not contain any devices!!!");
         else if(!onOffPortsState.get(portId))
             System.out.println("Port has already closed!!!");
         else
         {
             onOffPortsState.set(portId,false);
+            for(int i = 0;i<portIdOfDevices.size();i++)
+            {
+                if(portIdOfDevices.get(i) == portId)
+                {
+                    devices.get(i).turnOff();
+                    break;
+                }
+            }
             /*turnOff device issue look at later */
         }
     }
 
     public void listPorts()
     {
+        System.out.println("List of ports");
         for(int i = 0;i<ports.size();i++)
         {
             if(!emptyOccupiedPortsState.get(i))
@@ -144,7 +169,7 @@ public class HwSystem
                 for(int j = 0;j<devices.size();j++)
                 {
                     if(devices.get(j) != null)
-                        System.out.printf("%s %s %d %s",devices.get(i).getName(),devices.get(i).getDevType(),0,devices.get(i).getState());
+                        System.out.printf("%s %s %d %s",devices.get(j).getName(),devices.get(j).getDevType(),0,devices.get(j).getState());
                 }
                 /*dev name devType devId state look later*/
                 System.out.printf("\n");
@@ -178,7 +203,7 @@ public class HwSystem
                 else if(devType.equals("Sensor") && devices.get(i) instanceof Sensor)
                 {
                     System.out.println(devices.get(i).getName() + " " + deviceId + " " +
-                            "portId" + " " + devices.get(i).getProtocol());
+                            portIdOfDevices.get(i) + " " + devices.get(i).getProtocol());
                     deviceId++;
                 }
                 else if(devType.equals("WirelessIO") && devices.get(i) instanceof WirelessIO)
@@ -206,7 +231,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is off");
+                        System.out.println("Device is not active\nCommand is failed");
                     else
                     {
                         System.out.println(objectSensor.getName() + " " + objectSensor.getSensType()
@@ -234,7 +259,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is off");
+                        System.out.println("Device is not active\nCommand is failed");
                     else
                         objectDisplay.printData("Printing data");
                 }
@@ -259,7 +284,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is off");
+                        System.out.println("Device is not active\nCommand is failed");
                     else
                         objectWirelessIO.recvData();
                 }
@@ -284,7 +309,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is off");
+                        System.out.println("Device is not active\nCommand is failed");
                     else
                         objectWirelessIO.sendData("Data is sending");
                 }
@@ -309,7 +334,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is off");
+                        System.out.println("Device is not active\nCommand is failed");
                     else
                         objectMotorDriver.setMotorSpeed(speed);
                 }
@@ -341,7 +366,9 @@ public class HwSystem
                     newDevice = new OLED(protocolOfPort.getProtocolName());
                 displays.set(devId,true);
                 emptyOccupiedPortsState.set(portId,true);
-                devices.set(portId, newDevice);
+                devices.set(devId, newDevice);
+                portIdOfDevices.set(devId,portId);
+                
             }
         }
         else if(devName.equals("PCA9685") || devName.equals("SparkFunMD"))/*MotorDrivers */
@@ -358,7 +385,8 @@ public class HwSystem
                     newDevice = new SparkFunMD(protocolOfPort.getProtocolName());
                 motorDrivers.set(devId,true);
                 emptyOccupiedPortsState.set(portId,true);
-                devices.set(portId, newDevice);
+                devices.set(devId, newDevice);
+                portIdOfDevices.set(devId,portId);
             }
         }
         else if(devName.equals("BME280") || devName.equals("DHT11") || devName.equals("GY951") || devName.equals("MPU6050"))/*Sensor*/
@@ -379,7 +407,8 @@ public class HwSystem
                     newDevice = new MPU6050(protocolOfPort.getProtocolName());
                 sensors.set(devId,true);
                 emptyOccupiedPortsState.set(portId,true);
-                devices.set(portId, newDevice);
+                devices.set(devId, newDevice);
+                portIdOfDevices.set(devId,portId);
             }
         }
         else if(devName.equals("Blutooth") || devName.equals("Wifi"))/*Wirelessio*/
@@ -396,7 +425,8 @@ public class HwSystem
                     newDevice = new Wifi(protocolOfPort.getProtocolName());
                 wirelessIOs.set(devId,true);
                 emptyOccupiedPortsState.set(portId,true);
-                devices.set(portId, newDevice);
+                devices.set(devId, newDevice);
+                portIdOfDevices.set(devId,portId);
             }
         }
         else
@@ -408,7 +438,9 @@ public class HwSystem
         if(portId < 0 || portId >= ports.size())
             System.out.println("Port id is out of range!!!");
         else if(onOffPortsState.get(portId))
-            System.out.println("Device is active!!!");
+            System.out.println("Device is active\nCommand is failed");
+        else if(!emptyOccupiedPortsState.get(portId))
+            System.out.println("No any devices on that port\nCommand is failed");
         else
         {
             emptyOccupiedPortsState.set(portId,false);

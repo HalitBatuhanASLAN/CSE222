@@ -18,8 +18,9 @@ public class Main
         String fileName = "/home/halitbatuhanaslan/222Data/Hw1Ports/src/Main/configuration.txt";
         
         HwSystem hwSystem = fileReadining(fileName);
-        System.out.println(hwSystem.getWirelessIOsNumber());
+        System.out.println();
         commands(hwSystem);
+        System.out.println();
     }
 
     public static void commands(HwSystem hwSystem)
@@ -36,11 +37,11 @@ public class Main
             String devType;
             switch(commandParts[0])
             {
-                case "turnOn":
+                case "turnON":
                     portId = Integer.parseInt(commandParts[1]);
                     hwSystem.turnOn(portId);
                     break;
-                case "turnOff":
+                case "turnOFF":
                     portId = Integer.parseInt(commandParts[1]);
                     hwSystem.turnOff(portId);
                     break;
@@ -57,11 +58,14 @@ public class Main
                 case "list":
                     if(commandParts[1].equals("ports"))
                         hwSystem.listPorts();
-                    else
+                    else if(commandParts[1].equals("Sensor") || commandParts[1].equals("MotorDriver")
+                        || commandParts[1].equals("WirelessIO") || commandParts[1].equals("Display"))
                     {
                         devType = commandParts[1];
                         hwSystem.listDevType(devType);
                     }
+                    else
+                        System.out.println("Please enter a valid device name or enter 'ports'!!!");
                     break;
                 case "readSensor":
                     devId = Integer.parseInt(commandParts[1]);
@@ -87,8 +91,10 @@ public class Main
                     flag = false;
                     break;
                 default:
+                    System.out.println("Please enter a valid command!!!");
                     break;
             }
+            System.out.println();
         }
         scanner.close();
         System.out.println("Thanks for using our system :)");
@@ -153,6 +159,7 @@ public class Main
             System.out.println("Problem occured during readining file : " + e.getMessage());
         }
         hwsystem.setDevices();
+        hwsystem.setPortIdOfDevices();
         return hwsystem;
     }
 }

@@ -16,11 +16,12 @@ public class DHT11 extends TempSensor
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
-        String data = String.format("%s: Turning On\n",getName());
+        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("OneWire"))
         {
+            System.out.printf("%s: Turning On\n",getName());
             OneWire tmp = new OneWire();
-            tmp.write(data);
+            tmp.write("Turning ON");
             state = DeviceState.On;
         }
         else
@@ -33,11 +34,12 @@ public class DHT11 extends TempSensor
     {
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
-        String data = String.format("%s: Turning Off\n",getName());
+        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("OneWire"))
         {
+            System.out.printf("%s: Turning Off\n",getName());
             OneWire tmp = new OneWire();
-            tmp.write(data);
+            tmp.write("Turning OFF");
             state = DeviceState.Off;
         }
         else

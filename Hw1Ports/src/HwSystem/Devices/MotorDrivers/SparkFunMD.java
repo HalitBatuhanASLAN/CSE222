@@ -15,11 +15,12 @@ public class SparkFunMD extends MotorDriver
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
-        String data = String.format("%s: Turning On\n",getName());
+        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("SPI"))
         {
+            System.out.printf("%s: Turning On\n",getName());
             SPI tmp = new SPI();
-            tmp.write(data);
+            tmp.write("Turning ON");
             state = DeviceState.On;
         }
         else
@@ -32,11 +33,12 @@ public class SparkFunMD extends MotorDriver
     {
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
-        String data = String.format("%s: Turning Off\n",getName());
+        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("SPI"))
         {
+            System.out.printf("%s: Turning Off\n",getName());
             SPI tmp = new SPI();
-            tmp.write(data);
+            tmp.write("Turning OFF");
             state = DeviceState.Off;
         }
         else

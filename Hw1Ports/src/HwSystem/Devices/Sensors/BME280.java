@@ -17,17 +17,19 @@ public class BME280 extends TempSensor
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
-        String data = String.format("%s: Turning On\n",getName());
+        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
+            System.out.printf("%s: Turning On\n",getName());
             I2C tmp = new I2C();
-            tmp.write(data);
+            tmp.write("Turning ON");
             state = DeviceState.On;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
+            System.out.printf("%s: Turning On\n",getName());
             SPI tmp = new SPI();
-            tmp.write(data);
+            tmp.write("Turning ON");
             state = DeviceState.On;
         }
         else
@@ -40,17 +42,19 @@ public class BME280 extends TempSensor
     {
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
-        String data = String.format("%s: Turning Off\n",getName());
+        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
+            System.out.printf("%s: Turning Off\n",getName());
             I2C tmp = new I2C();
-            tmp.write(data);
+            tmp.write("Turning OFF");
             state = DeviceState.Off;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
+            System.out.printf("%s: Turning Off\n",getName());
             SPI tmp = new SPI();
-            tmp.write(data);
+            tmp.write("Turning OFF");
             state = DeviceState.Off;
         }
         else

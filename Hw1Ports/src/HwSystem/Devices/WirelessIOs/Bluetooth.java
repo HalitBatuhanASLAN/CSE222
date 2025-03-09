@@ -15,11 +15,12 @@ public class Bluetooth extends WirelessIO
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
-        String data = String.format("%s: Turning On\n",getName());
+        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("UART"))
         {
+            System.out.printf("%s: Turning On\n",getName());
             UART tmp = new UART();
-            tmp.write(data);
+            tmp.write("Turning ON");
             state = DeviceState.On;
         }
         else
@@ -32,11 +33,12 @@ public class Bluetooth extends WirelessIO
     {
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
-        String data = String.format("%s: Turning Off\n",getName());
+        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("UART"))
         {
+            System.out.printf("%s: Turning Off\n",getName());
             UART tmp = new UART();
-            tmp.write(data);
+            tmp.write("Turning OFF");
             state = DeviceState.Off;
         }
         else

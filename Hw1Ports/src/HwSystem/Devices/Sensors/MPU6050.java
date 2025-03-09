@@ -16,11 +16,12 @@ public class MPU6050 extends IMUSensor
     {
         /*state = true;
         System.out.printf("%s: Turning On\n",getName());*/
-        String data = String.format("%s: Turning On\n",getName());
+        //String data = String.format("%s: Turning On\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
+            System.out.printf("%s: Turning On\n",getName());
             I2C tmp = new I2C();
-            tmp.write(data);
+            tmp.write("Turning ON");
             state = DeviceState.On;
         }
         else
@@ -33,11 +34,12 @@ public class MPU6050 extends IMUSensor
     {
         /*state = false;
         System.out.printf("%s: Turning Off\n",getName());*/
-        String data = String.format("%s: Turning Off\n",getName());
+        //String data = String.format("%s: Turning Off\n",getName());
         if(protocol.getProtocolName().equals("I2C"))
         {
+            System.out.printf("%s: Turning Off\n",getName());
             I2C tmp = new I2C();
-            tmp.write(data);
+            tmp.write("Turning OFF");
             state = DeviceState.Off;
         }
         else
