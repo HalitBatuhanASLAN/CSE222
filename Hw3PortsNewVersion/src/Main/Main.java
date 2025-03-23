@@ -3,7 +3,10 @@ package Main;
 import HwSystem.*;
 import HwSystem.Protocols.*;
 import java.util.Scanner;
-
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.io.File;
 
 /**
@@ -37,13 +40,24 @@ public class Main
      */
     public static void commands(HwSystem hwSystem)
     {
-        Boolean flag = true;
+        List<String> command = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
-        while(flag)
+        System.out.print("Commands: ");
+        String commandString = scanner.nextLine();
+        String[] commandParts = commandString.split(" ");
+            
+        while(!commandParts[0].equals("exit"))
         {
-            System.out.print("Command: ");
-            String commandString = scanner.nextLine();
-            String[] commandParts = commandString.split(" ");
+            command.add(commandString);
+            commandString = scanner.nextLine();
+            commandParts = commandString.split(" ");
+        }
+        command.add(commandString);//to keep exit linkedList
+        Iterator<String> iterator = command.iterator();
+        while(iterator.hasNext())
+        {
+            commandString = iterator.next();
+            commandParts = commandString.split(" ");
             int portId;
             int devId;
             String devType;
@@ -115,12 +129,13 @@ public class Main
                     hwSystem.setMotorSpeed(devId,speed);
                     break;
                 case "exit":
-                    flag = false;
+                    System.out.println("Exitting...");
                     break;
                 default:
                     System.out.println("Please enter a valid command!!!");
                     break;
             }
+            iterator.remove();
             System.out.println();
         }
         scanner.close();
