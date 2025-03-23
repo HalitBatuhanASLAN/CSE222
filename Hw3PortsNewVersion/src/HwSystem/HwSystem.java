@@ -192,11 +192,11 @@ public class HwSystem
     public void turnOn(int portId)
     {
         if(portId < 0 || portId >= ports.size())
-            System.out.println("Port number is out of range!!!");
+            System.err.println("Port number is out of range!!!");
         else if(!emptyOccupiedPortsState.get(portId))
-            System.out.println("Port does not contain any devices!!!");
+            System.err.println("Port does not contain any devices!!!");
         else if(onOffPortsState.get(portId))
-            System.out.println("Port has already opened!!!");
+            System.err.println("Port has already opened!!!");
         else
         {
             onOffPortsState.set(portId,true);
@@ -219,11 +219,11 @@ public class HwSystem
     public void turnOff(int portId)
     {
         if(portId < 0 || portId >= ports.size())
-            System.out.println("Port number is out of range!!!");
+            System.err.println("Port number is out of range!!!");
         else if(!emptyOccupiedPortsState.get(portId))
-            System.out.println("Port does not contain any devices!!!");
+            System.err.println("Port does not contain any devices!!!");
         else if(!onOffPortsState.get(portId))
-            System.out.println("Port has already closed!!!");
+            System.err.println("Port has already closed!!!");
         else
         {
             onOffPortsState.set(portId,false);
@@ -289,7 +289,7 @@ public class HwSystem
     {
         if(!devType.equals("Display") && devType.equals("MotorDriver") 
                 && devType.equals("Sensor") && devType.equals("WirelessIO"))
-                System.out.println("No matching with any device types");
+                System.err.println("No matching with any device types");
         else
         {
             Boolean flagEmpty = false;
@@ -327,7 +327,7 @@ public class HwSystem
                 }
             }
             if(!flagEmpty)
-                System.out.println("There is no any device on that type!!!");
+                System.err.println("There is no any device on that type!!!");
         }
     }
 
@@ -341,7 +341,7 @@ public class HwSystem
     {
         if(devId < 0 || devId >= sensorsNumber)
         {
-            System.out.println("Device id is out of range");
+            System.err.println("Device id is out of range");
         }
         else
         {
@@ -352,7 +352,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is not active\nCommand is failed");
+                        System.err.println("Device is not active\nCommand is failed");
                     else
                     {
                         System.out.println(objectSensor.getName() + " " + objectSensor.getSensType()
@@ -375,7 +375,7 @@ public class HwSystem
     {
         if(devId < 0 || devId >= displaysNumber)
         {
-            System.out.println("Device id is out of range");
+            System.err.println("Device id is out of range");
         }
         else
         {
@@ -386,7 +386,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is not active\nCommand is failed");
+                        System.err.println("Device is not active\nCommand is failed");
                     else
                         objectDisplay.printData(data);
                 }
@@ -405,7 +405,7 @@ public class HwSystem
     {
         if(devId < 0 || devId >= WirelessIOsNumber)
         {
-            System.out.println("Device id is out of range");
+            System.err.println("Device id is out of range");
         }
         else
         {
@@ -416,7 +416,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is not active\nCommand is failed");
+                        System.err.println("Device is not active\nCommand is failed");
                     else
                         objectWirelessIO.recvData();
                 }
@@ -436,7 +436,7 @@ public class HwSystem
     {
         if(devId < 0 || devId >= WirelessIOsNumber)
         {
-            System.out.println("Device id is out of range");
+            System.err.println("Device id is out of range");
         }
         else
         {
@@ -447,7 +447,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is not active\nCommand is failed");
+                        System.err.println("Device is not active\nCommand is failed");
                     else
                         objectWirelessIO.sendData(data);
                 }
@@ -467,7 +467,7 @@ public class HwSystem
     {
         if(devId < 0 || devId >= motorDriversNumber)
         {
-            System.out.println("Device id is out of range");
+            System.err.println("Device id is out of range");
         }
         else
         {
@@ -478,7 +478,7 @@ public class HwSystem
                 {
                     correctDevice++;
                     if(devices.get(i).getState() == DeviceState.Off)
-                        System.out.println("Device is not active\nCommand is failed");
+                        System.err.println("Device is not active\nCommand is failed");
                     else
                         objectMotorDriver.setMotorSpeed(speed);
                 }
@@ -500,16 +500,16 @@ public class HwSystem
         Device newDevice = null;
         int deviceIndex = -1;
         if(portId < 0 || portId >= ports.size())
-            System.out.println("Port number is out of range!!!");
+            System.err.println("Port number is out of range!!!");
         else if(emptyOccupiedPortsState.get(portId))
-            System.out.println("Port is occupied by another device!!!");
+            System.err.println("Port is occupied by another device!!!");
         else if(devName.equals("LCD") || devName.equals("OLED"))/*displays */
         {
             Protocol protocolOfPort = ports.get(portId);
             if(devId >= displaysNumber || devId < 0)
-                System.out.println("Device id is out of range!!!");
+                System.err.println("Device id is out of range!!!");
             else if(displays.get(devId) != -1)
-                System.out.println("Device is already connected to another port");
+                System.err.println("Device is already connected to another port");
             else
             {   
                 if(devName.equals("LCD"))
@@ -531,9 +531,9 @@ public class HwSystem
             Protocol protocolOfPort = ports.get(portId);
         
             if(devId >= motorDriversNumber || devId < 0)
-                System.out.println("Device id is out of range");
+                System.err.println("Device id is out of range");
             else if(motorDrivers.get(devId) != -1)
-                System.out.println("Device is already connected to another port");
+                System.err.println("Device is already connected to another port");
             else
             {   
                 if(devName.equals("PCA9685"))
@@ -555,9 +555,9 @@ public class HwSystem
             Protocol protocolOfPort = ports.get(portId);
         
             if(devId >= sensorsNumber || devId < 0)
-                System.out.println("Device id is out of range");
+                System.err.println("Device id is out of range");
             else if(sensors.get(devId) != -1)
-                System.out.println("Device is already connected to another port");
+                System.err.println("Device is already connected to another port");
             else
             {   
                 if(devName.equals("BME280"))
@@ -583,9 +583,9 @@ public class HwSystem
             Protocol protocolOfPort = ports.get(portId);
         
             if(devId >= WirelessIOsNumber || devId < 0)
-                System.out.println("Device id is out of range");
+                System.err.println("Device id is out of range");
             else if(wirelessIOs.get(devId) != -1)
-                System.out.println("Device is already connected to another port");
+                System.err.println("Device is already connected to another port");
             else
             {   
                 if(devName.equals("Bluetooth"))
@@ -603,7 +603,7 @@ public class HwSystem
             }
         }
         else
-            System.out.println("Device can not be found!!!");
+            System.err.println("Device can not be found!!!");
     }
 
     /**
@@ -614,11 +614,11 @@ public class HwSystem
     public void rmDev(int portId)
     {
         if(portId < 0 || portId >= ports.size())
-            System.out.println("Port id is out of range!!!");
+            System.err.println("Port id is out of range!!!");
         else if(onOffPortsState.get(portId))
-            System.out.println("Device is active\nCommand is failed");
+            System.err.println("Device is active\nCommand is failed");
         else if(!emptyOccupiedPortsState.get(portId))
-            System.out.println("No any devices on that port\nCommand is failed");
+            System.err.println("No any devices on that port\nCommand is failed");
         else
         {
             emptyOccupiedPortsState.set(portId,false);

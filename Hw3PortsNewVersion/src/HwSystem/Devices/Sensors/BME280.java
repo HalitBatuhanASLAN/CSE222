@@ -19,7 +19,7 @@ public class BME280 extends TempSensor
     public BME280(String protocolName)
     {
         if(!protocolName.equals("I2C") && !protocolName.equals("SPI"))
-            System.out.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!");
         
         else
             setProtocol(protocolName);
@@ -44,7 +44,7 @@ public class BME280 extends TempSensor
             state = DeviceState.On;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -67,7 +67,7 @@ public class BME280 extends TempSensor
             state = DeviceState.Off;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -102,7 +102,7 @@ public class BME280 extends TempSensor
         }
         else
         {
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
             temp = -999;
         }

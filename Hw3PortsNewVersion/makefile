@@ -11,8 +11,9 @@ build:
 
 # run: Executes the compiled Java program with the configuration file as input
 run:
-	java -cp build Main.Main configuration.txt
+	java -cp build Main.Main configuration.txt 2> errors.log
+
 
 # delete: Cleans up build artifacts and generated files
 delete:
-	rm -rf build sources.txt
+	rm -rf build sources.txt errors.log

@@ -19,7 +19,7 @@ public class OLED extends Display
     public OLED(String protocolName)
     {
         if(!protocolName.equals("SPI"))
-            System.out.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!");
         else
             setProtocol(protocolName);
     }
@@ -33,7 +33,7 @@ public class OLED extends Display
             state = DeviceState.On;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     public void turnOff()
@@ -46,7 +46,7 @@ public class OLED extends Display
             state = DeviceState.Off;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -60,7 +60,7 @@ public class OLED extends Display
             tmp.write(data);
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
 }

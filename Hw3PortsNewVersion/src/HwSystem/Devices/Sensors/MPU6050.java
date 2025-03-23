@@ -18,7 +18,7 @@ public class MPU6050 extends IMUSensor
     public MPU6050(String protocolName)
     {
         if(!protocolName.equals("I2C"))
-            System.out.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!");
         else
             setProtocol(protocolName);
     }
@@ -35,7 +35,7 @@ public class MPU6050 extends IMUSensor
             state = DeviceState.On;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -51,7 +51,7 @@ public class MPU6050 extends IMUSensor
             state = DeviceState.Off;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -80,7 +80,7 @@ public class MPU6050 extends IMUSensor
         }
         else
         {
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
             accel = -999;
         }
@@ -104,7 +104,7 @@ public class MPU6050 extends IMUSensor
         }
         else
         {
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
             rotational = -999;
         }

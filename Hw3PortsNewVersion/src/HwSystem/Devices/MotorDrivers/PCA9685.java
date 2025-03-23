@@ -18,7 +18,7 @@ public class PCA9685 extends MotorDriver
     public PCA9685(String protocolName)
     {
         if(!protocolName.equals("I2C"))
-            System.out.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!");
         else
             setProtocol(protocolName);
     }
@@ -32,7 +32,7 @@ public class PCA9685 extends MotorDriver
             state = DeviceState.On;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     public void turnOff()
@@ -45,7 +45,7 @@ public class PCA9685 extends MotorDriver
             state = DeviceState.Off;
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -65,7 +65,7 @@ public class PCA9685 extends MotorDriver
             tmp.write(speedString);
         }
         else
-            System.out.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol\n", 
                 getName(), protocol.getProtocolName());
     }
 }

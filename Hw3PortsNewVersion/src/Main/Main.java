@@ -91,7 +91,7 @@ public class Main
                         hwSystem.listDevType(devType);
                     }
                     else
-                        System.out.println("Please enter a valid device name or enter 'ports'!!!");
+                        System.err.println("Please enter a valid device name or enter 'ports'!!!");
                     break;
                 case "readSensor":
                     devId = Integer.parseInt(commandParts[1]);
@@ -132,7 +132,7 @@ public class Main
                     System.out.println("Exitting...");
                     break;
                 default:
-                    System.out.println("Please enter a valid command!!!");
+                    System.err.println("Please enter a valid command!!!");
                     break;
             }
             iterator.remove();
@@ -205,7 +205,7 @@ public class Main
         }
         catch(Exception e)
         {
-            System.out.println("Problem occured during readining file : " + e.getMessage());
+            System.err.println("Problem occured during readining file : " + e.getMessage());
         }
         /*initially sets devices arrayList as null*/
         hwsystem.setDevices();
