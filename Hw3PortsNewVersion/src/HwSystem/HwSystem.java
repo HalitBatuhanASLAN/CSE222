@@ -48,6 +48,13 @@ public class HwSystem
     private ArrayList<Integer> displays = new ArrayList<>(displaysNumber);
     private ArrayList<Integer> sensors = new ArrayList<>(sensorsNumber);
 
+
+    /*new addings */
+    private ArrayList<Device> displayDevicesList;
+    private ArrayList<Device> motorDriverDevicesList;
+    private ArrayList<Sensor> sensorDevicesList;
+    private ArrayList<Device> wirelessIODevicesList;
+
     /**
      * Constructs a new hardware system with empty device and port lists.
      */
@@ -67,6 +74,12 @@ public class HwSystem
         this.displays = new ArrayList<>(displaysNumber);
         this.wirelessIOs = new ArrayList<>(WirelessIOsNumber);
         this.motorDrivers = new ArrayList<>(motorDriversNumber);
+
+        /*new addings */
+        this.displayDevicesList = new ArrayList<>();
+        this.motorDriverDevicesList = new ArrayList<>();
+        this.sensorDevicesList = new ArrayList<>(sensorsNumber);
+        this.wirelessIODevicesList = new ArrayList<>();
     }
 
     public void closeProtocols()
@@ -123,6 +136,8 @@ public class HwSystem
         this.sensors.clear();
         for (int i = 0; i < sensorsNumber; i++)
             this.sensors.add(-1);
+        for(int i = 0;i<sensorsNumber;i++)
+            sensorDevicesList.add(null);
     }
     
     /**
@@ -217,6 +232,16 @@ public class HwSystem
                 if(portIdOfDevices.get(i) == portId)
                 {
                     devices.get(i).turnOn();
+                    ports.get(portId).write("turnON");
+                    if(devices.get(i) instanceof Sensor)
+                    {
+                        int deviceIndex = i - displaysNumber - motorDriversNumber;
+                        sensorDevicesList.get(deviceIndex).turnOn();
+                        /*for(int j = 0;j<sensorDevicesList.size();j++)
+                            if(sensorDevicesList.get(j).)
+                                sensorDevicesList.get(j).turnOn();*/
+
+                    }
                     break;
                 }
             }
@@ -351,7 +376,22 @@ public class HwSystem
      */
     public void readSensor(int devId)
     {
+        /*yeni hali */
         if(devId < 0 || devId >= sensorsNumber)
+            System.err.println("Device id is out of range");
+        else
+        {
+            if(sensorDevicesList.get(devId).getState() == DeviceState.Off)
+                System.err.println("Device is not active\nCommand is failed");
+            else
+            {
+                int index = sensors.get(devId);
+                ports.get(index).read();
+                    System.out.println(sensorDevicesList.get(devId).getName() + " " + sensorDevicesList.get(devId).getSensType()
+                    + " " + sensorDevicesList.get(devId).data2String());
+            }
+        }
+        /*if(devId < 0 || devId >= sensorsNumber)
         {
             System.err.println("Device id is out of range");
         }
@@ -374,7 +414,7 @@ public class HwSystem
                 else if(devices.get(i) instanceof Sensor tmp && correctDevice < devId)
                     correctDevice++;
             }
-        }
+        }*/
     }
 
     /**
@@ -535,6 +575,8 @@ public class HwSystem
                     displays.set(devId,portId);
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
+                    /*alt satır yeni*/
+                    displayDevicesList.add(newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }
@@ -560,6 +602,8 @@ public class HwSystem
                     motorDrivers.set(devId,portId);
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
+                    /*alt satır yeni*/
+                    motorDriverDevicesList.add(newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }
@@ -589,6 +633,8 @@ public class HwSystem
                     sensors.set(devId,portId);
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
+                    /*alt satır yeni*/
+                    sensorDevicesList.set(devId,new DHT11(protocolOfPort.getProtocolName()));
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }
@@ -614,6 +660,8 @@ public class HwSystem
                     wirelessIOs.set(devId,portId);
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
+                    /*alt satır yeni*/
+                    wirelessIODevicesList.add(newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }

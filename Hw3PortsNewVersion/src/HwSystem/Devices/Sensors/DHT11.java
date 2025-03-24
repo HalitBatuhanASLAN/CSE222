@@ -28,8 +28,9 @@ public class DHT11 extends TempSensor
         if(protocol.getProtocolName().equals("OneWire"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            OneWire tmp = new OneWire();
-            tmp.write("Turning ON");
+            protocol.write("Turning on");
+            /*OneWire tmp = new OneWire();
+            tmp.write("Turning ON");*/
             state = DeviceState.On;
         }
         else
@@ -72,8 +73,11 @@ public class DHT11 extends TempSensor
         String readedString;
         if(protocol.getProtocolName().equals("OneWire"))
         {
-            OneWire tmp = new OneWire();
-            readedString = tmp.read();
+            System.out.println("getTemp kontrol");
+            readedString = protocol.read();
+            protocol.write("sfasfasdfas");
+            /*OneWire tmp = new OneWire();
+            readedString = tmp.read();*/
             //System.out.println(readedString);
         }
         else
@@ -90,5 +94,7 @@ public class DHT11 extends TempSensor
      * @return A formatted string containing the temperature value
      */
     public String data2String()
-        {return String.format("Tempurature:%.2fC",getTemp());}
+        {
+            protocol.write("example");
+            return String.format("Tempurature:%.2fC",getTemp());}
 }
