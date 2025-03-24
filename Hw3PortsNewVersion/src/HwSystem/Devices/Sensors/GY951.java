@@ -2,7 +2,6 @@ package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.SPI;
 import HwSystem.Protocols.UART;
-import java.lang.Math;
 
 /**
  * Concrete implementation of an IMU sensor for the GY951 device.
@@ -86,7 +85,7 @@ public class GY951 extends IMUSensor
      */
     public float getAccel()
     {
-        float accel  = (float)Math.random();
+        float accel  = (float)1.00;
         String readedString;
         if(protocol.getProtocolName().equals("UART"))
         {
@@ -116,7 +115,7 @@ public class GY951 extends IMUSensor
      */
     public float getRot()
     {
-        float rotational  = (float)Math.random();
+        float rotational  = (float)0.50;
         String readedString;
         if(protocol.getProtocolName().equals("UART"))
         {

@@ -1,8 +1,6 @@
 package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.I2C;
-import java.lang.Math;
-
 /**
  * Concrete implementation of an IMU sensor for the MPU6050 device.
  * This class provides functionality for the MPU6050 IMU sensor using the I2C protocol.
@@ -70,7 +68,7 @@ public class MPU6050 extends IMUSensor
      */
     public float getAccel()
     {
-        float accel = (float)Math.random();
+        float accel = (float)1.00;
         String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
@@ -94,7 +92,7 @@ public class MPU6050 extends IMUSensor
      */
     public float getRot()
     {
-        float rotational = (float)Math.random();
+        float rotational = (float)0.50;
         String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {

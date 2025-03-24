@@ -10,10 +10,11 @@ package HwSystem.Protocols;
  */
 public interface Protocol
 {
-    void setPortID(int id);
+    /*void setPortID(int id);
     int getPortID();
     void setLogPath(String path);
-    void writeLogFile();
+    void writeLogFile();*/
+    void close();
     /**
      * Reads data from the device using this protocol.
      * 

@@ -2,7 +2,6 @@ package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.I2C;
 import HwSystem.Protocols.SPI;
-import java.lang.Math;
 
 /**
  * Concrete implementation of a temperature sensor for the BME280 device.
@@ -86,7 +85,7 @@ public class BME280 extends TempSensor
      */
     public float getTemp()
     {
-        float temp = (float)Math.random();
+        float temp = (float)24.00;
         String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {

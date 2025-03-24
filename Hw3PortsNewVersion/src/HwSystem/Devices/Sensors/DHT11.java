@@ -1,8 +1,6 @@
 package HwSystem.Devices.Sensors;
 
 import HwSystem.Protocols.OneWire;
-import java.lang.Math;
-
 /**
  * Concrete implementation of a temperature sensor for the DHT11 device.
  * This class provides functionality for the DHT11 temperature sensor using the OneWire protocol.
@@ -70,7 +68,7 @@ public class DHT11 extends TempSensor
      */
     public float getTemp()
     {
-        float temp = (float)Math.random();
+        float temp = (float)24.00;
         String readedString;
         if(protocol.getProtocolName().equals("OneWire"))
         {

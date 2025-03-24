@@ -2,6 +2,8 @@ package HwSystem;
 
 import java.lang.System;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import HwSystem.Devices.*;
 import HwSystem.Devices.Device.DeviceState;
 import HwSystem.Devices.Displays.*;
@@ -66,6 +68,16 @@ public class HwSystem
         this.wirelessIOs = new ArrayList<>(WirelessIOsNumber);
         this.motorDrivers = new ArrayList<>(motorDriversNumber);
     }
+
+    public void closeProtocols()
+    {
+        Iterator<Protocol> iterator = ports.iterator();
+        while(iterator.hasNext())
+        {
+            iterator.next().close();
+        }
+
+    }
     /**
      * Initializes the port ID mapping for all devices.
      * Sets all port IDs to -1 (unassigned) initially.
@@ -93,12 +105,11 @@ public class HwSystem
      * 
      * @param pro The Protocol implementation to add
      */
-    public void setProtocol(Protocol pro,int portID)
+    public void setProtocol(Protocol pro)
     {
         this.ports.add(pro);
         this.onOffPortsState.add(false);
         this.emptyOccupiedPortsState.add(false);
-        this.ports.get(portID).setPortID(portID);
     }
 
     /**
@@ -498,6 +509,7 @@ public class HwSystem
      */
     public void addDev(String devName,int portId,int devId)
     {
+        boolean addController = false;
         Device newDevice = null;
         int deviceIndex = -1;
         if(portId < 0 || portId >= ports.size())
@@ -524,6 +536,7 @@ public class HwSystem
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
+                    addController = true;
                 }
             }
         }
@@ -548,6 +561,7 @@ public class HwSystem
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
+                    addController = true;
                 }
             }
         }
@@ -576,6 +590,7 @@ public class HwSystem
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
+                    addController = true;
                 }
             }
         }
@@ -600,11 +615,14 @@ public class HwSystem
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
                     portIdOfDevices.set(deviceIndex,portId);
+                    addController = true;
                 }
             }
         }
         else
             System.err.println("Device can not be found!!!");
+        if(addController)
+            System.out.println("Device added.");
     }
 
     /**

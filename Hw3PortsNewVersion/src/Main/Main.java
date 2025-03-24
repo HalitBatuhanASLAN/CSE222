@@ -27,7 +27,12 @@ public class Main
     public static void main(String args[])
     {
         String fileName = args[0];
-        HwSystem hwSystem = fileReadining(fileName);
+        String logPath = args[1];
+        File logDir = new File(logPath);
+        if(!logDir.exists())
+            logDir.mkdirs();
+        
+        HwSystem hwSystem = fileReadining(fileName,logDir);
         System.out.println();
         commands(hwSystem);
         System.out.println();
@@ -143,9 +148,121 @@ public class Main
              iterator.remove();
          }
          scanner.close();
+         hwSystem.closeProtocols();
+
          System.out.println("Thanks for using our system :)");
      }
      
+
+
+
+    /**
+     * Reads the configuration file and initializes the hardware system accordingly.
+     * Parses information about communication protocols and device counts.
+     * 
+     * @param fileName Path to the configuration file
+     * @return Initialized HwSystem instance with configured protocols and devices
+     */
+    public static HwSystem fileReadining(String fileName,File logPath)
+    {
+        
+        HwSystem hwsystem = new HwSystem();
+        try
+        {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine())
+            {
+                String line = scanner.nextLine();
+                if(line.startsWith("Port Configuration: "))
+                {
+                    int portID = 0;
+                    String protocolsPart = line.substring(line.indexOf(":") + 1).trim();
+                    Queue<String>protocolNames = new LinkedList<>(Arrays.asList(protocolsPart.split(",")));
+                    //String[] protocolNames = protocolsPart.split(",");
+                    ArrayList<String> protocols = new ArrayList<>();
+                    String protocol = protocolNames.poll();
+                    while(protocol != null)
+                    {
+                        protocols.add(protocol);
+                        protocol = protocolNames.poll();
+                    }
+                    Iterator<String> iterator = protocols.iterator();
+                    while(iterator.hasNext())
+                    {
+                        String protocolName = iterator.next();
+                        if(protocolName.equals("I2C"))
+                            hwsystem.setProtocol(new I2C(portID,logPath));
+                        else if(protocolName.equals("OneWire"))
+                            hwsystem.setProtocol(new OneWire(portID,logPath));
+                        else if(protocolName.equals("SPI"))
+                            hwsystem.setProtocol(new SPI(portID,logPath));
+                        else if(protocolName.equals("UART"))
+                            hwsystem.setProtocol(new UART(portID,logPath));
+                        portID++;
+                    }
+                }
+                else if(line.startsWith("# of sensors:"))
+                {
+                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                    num = num < 0 ? 0 : num;
+                    hwsystem.setSensorsNumber(num);
+                }
+                else if(line.startsWith("# of displays:"))
+                {
+                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                    num = num < 0 ? 0 : num;
+                    hwsystem.setDisplaysNumber(num);
+                }
+                else if(line.startsWith("# of wireless adapters:"))
+                {
+                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                    num = num < 0 ? 0 : num;
+                    hwsystem.setWirelessIOsNumber(num);
+                }
+                else if(line.startsWith("# of motor drivers:"))
+                {
+                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                    num = num < 0 ? 0 : num;
+                    hwsystem.setMotorDriversNumber(num);
+                }
+            }
+            scanner.close();
+        }
+        catch(Exception e)
+        {
+            System.err.println("Problem occured during readining file : " + e.getMessage());
+        }
+        /*initially sets devices arrayList as null*/
+        hwsystem.setDevices();
+        /*initiallt assigns -1 to all devices ports*/
+        hwsystem.setPortIdOfDevices();
+        return hwsystem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -253,87 +370,3 @@ public class Main
         scanner.close();
         System.out.println("Thanks for using our system :)");
     }*/
-
-    /**
-     * Reads the configuration file and initializes the hardware system accordingly.
-     * Parses information about communication protocols and device counts.
-     * 
-     * @param fileName Path to the configuration file
-     * @return Initialized HwSystem instance with configured protocols and devices
-     */
-    public static HwSystem fileReadining(String fileName)
-    {
-        
-        HwSystem hwsystem = new HwSystem();
-        try
-        {
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(file);
-            while(scanner.hasNextLine())
-            {
-                String line = scanner.nextLine();
-                if(line.startsWith("Port Configuration: "))
-                {
-                    int portID = 0;
-                    String protocolsPart = line.substring(line.indexOf(":") + 1).trim();
-                    Queue<String>protocolNames = new LinkedList<>(Arrays.asList(protocolsPart.split(",")));
-                    //String[] protocolNames = protocolsPart.split(",");
-                    ArrayList<String> protocols = new ArrayList<>();
-                    while(!protocolNames.isEmpty())
-                    {
-                        protocols.add(protocolNames.peek());
-                        protocolNames.remove();
-                    }
-                    Iterator<String> iterator = protocols.iterator();
-                    while(iterator.hasNext())
-                    {
-                        String protocolName = iterator.next();
-                        if(protocolName.equals("I2C"))
-                            hwsystem.setProtocol(new I2C(),portID);
-                        else if(protocolName.equals("OneWire"))
-                            hwsystem.setProtocol(new OneWire(),portID);
-                        else if(protocolName.equals("SPI"))
-                            hwsystem.setProtocol(new SPI(),portID);
-                        else if(protocolName.equals("UART"))
-                            hwsystem.setProtocol(new UART(),portID);
-                        portID++;
-                    }
-                }
-                else if(line.startsWith("# of sensors:"))
-                {
-                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
-                    num = num < 0 ? 0 : num;
-                    hwsystem.setSensorsNumber(num);
-                }
-                else if(line.startsWith("# of displays:"))
-                {
-                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
-                    num = num < 0 ? 0 : num;
-                    hwsystem.setDisplaysNumber(num);
-                }
-                else if(line.startsWith("# of wireless adapters:"))
-                {
-                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
-                    num = num < 0 ? 0 : num;
-                    hwsystem.setWirelessIOsNumber(num);
-                }
-                else if(line.startsWith("# of motor drivers:"))
-                {
-                    int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
-                    num = num < 0 ? 0 : num;
-                    hwsystem.setMotorDriversNumber(num);
-                }
-            }
-            scanner.close();
-        }
-        catch(Exception e)
-        {
-            System.err.println("Problem occured during readining file : " + e.getMessage());
-        }
-        /*initially sets devices arrayList as null*/
-        hwsystem.setDevices();
-        /*initiallt assigns -1 to all devices ports*/
-        hwsystem.setPortIdOfDevices();
-        return hwsystem;
-    }
-}
