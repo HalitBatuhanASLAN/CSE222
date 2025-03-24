@@ -76,7 +76,7 @@ public class DHT11 extends TempSensor
         {
             OneWire tmp = new OneWire();
             readedString = tmp.read();
-            System.out.println(readedString);
+            //System.out.println(readedString);
         }
         else
         {

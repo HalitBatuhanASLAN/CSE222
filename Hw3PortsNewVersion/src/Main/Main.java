@@ -4,7 +4,9 @@ import HwSystem.*;
 import HwSystem.Protocols.*;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Queue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.io.File;
@@ -38,12 +40,122 @@ public class Main
      * 
      * @param hwSystem The hardware system instance to operate on
      */
-    public static void commands(HwSystem hwSystem)
+
+     public static void commands(HwSystem hwSystem)
+     {
+         List<String> command = new LinkedList<>();
+         Scanner scanner = new Scanner(System.in);
+         System.out.print("Commands;\n");
+         String commandString = scanner.nextLine();
+         
+         List<String> commandParts = new LinkedList<>(Arrays.asList(commandString.split(" ")));
+                 
+         while(!commandParts.get(0).equals("exit"))
+         {
+             command.add(commandString);
+             commandString = scanner.nextLine();
+             commandParts = new LinkedList<>(Arrays.asList(commandString.split(" ")));
+         }
+         command.add(commandString);//to keep exit linkedList
+         Iterator<String> iterator = command.iterator();
+         System.out.println();
+         while(iterator.hasNext())
+         {
+             commandString = iterator.next();
+             commandParts = new LinkedList<>(Arrays.asList(commandString.split(" ")));
+             int portId;
+             int devId;
+             String devType;
+             switch(commandParts.get(0))
+             {
+                 case "turnON":
+                     portId = Integer.parseInt(commandParts.get(1));
+                     hwSystem.turnOn(portId);
+                     break;
+                 case "turnOFF":
+                     portId = Integer.parseInt(commandParts.get(1));
+                     hwSystem.turnOff(portId);
+                     break;
+                 case "addDev":
+                     String devNameString = commandParts.get(1);
+                     portId = Integer.parseInt(commandParts.get(2));
+                     devId = Integer.parseInt(commandParts.get(3));
+                     hwSystem.addDev(devNameString, portId, devId);
+                     break;
+                 case "rmDev":
+                     portId = Integer.parseInt(commandParts.get(1));
+                     hwSystem.rmDev(portId);
+                     break;
+                 case "list":
+                     if(commandParts.get(1).equals("ports"))
+                         hwSystem.listPorts();
+                     else if(commandParts.get(1).equals("Sensor") || commandParts.get(1).equals("MotorDriver")
+                         || commandParts.get(1).equals("WirelessIO") || commandParts.get(1).equals("Display"))
+                     {
+                         devType = commandParts.get(1);
+                         hwSystem.listDevType(devType);
+                     }
+                     else
+                         System.err.println("Please enter a valid device name or enter 'ports'!!!");
+                     break;
+                 case "readSensor":
+                     devId = Integer.parseInt(commandParts.get(1));
+                     hwSystem.readSensor(devId);
+                     break;
+                 case "printDisplay":
+                     devId = Integer.parseInt(commandParts.get(1));
+                     String data = "";
+                     for (int i = 2; i < commandParts.size(); i++)
+                     {
+                         data += commandParts.get(i);
+                         if (i < commandParts.size() - 1)
+                             data += " ";
+                     }
+                     hwSystem.printDisplay(devId,data);
+                     break;
+                 case "readWireless":
+                     devId = Integer.parseInt(commandParts.get(1));
+                     hwSystem.readWireless(devId);
+                     break;
+                 case "writeWireless":
+                     devId = Integer.parseInt(commandParts.get(1));
+                     String data2 = "";
+                     for (int i = 2; i < commandParts.size(); i++)
+                     {
+                         data2 += commandParts.get(i);
+                         if (i < commandParts.size() - 1)
+                             data2 += " ";
+                     }
+                     hwSystem.writeWireless(devId,data2);
+                     break;
+                 case "setMotorSpeed":
+                     devId = Integer.parseInt(commandParts.get(1));
+                     int speed = Integer.parseInt(commandParts.get(2));
+                     hwSystem.setMotorSpeed(devId,speed);
+                     break;
+                 case "exit":
+                     System.out.println("Exitting...");
+                     break;
+                 default:
+                     System.err.println("Please enter a valid command!!!");
+                     break;
+             }
+             iterator.remove();
+         }
+         scanner.close();
+         System.out.println("Thanks for using our system :)");
+     }
+     
+
+
+
+    /*public static void commands(HwSystem hwSystem)
     {
         List<String> command = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Commands: ");
+        System.out.print("Commands;\n");
         String commandString = scanner.nextLine();
+        
         String[] commandParts = commandString.split(" ");
             
         while(!commandParts[0].equals("exit"))
@@ -54,6 +166,7 @@ public class Main
         }
         command.add(commandString);//to keep exit linkedList
         Iterator<String> iterator = command.iterator();
+        System.out.println();
         while(iterator.hasNext())
         {
             commandString = iterator.next();
@@ -136,11 +249,10 @@ public class Main
                     break;
             }
             iterator.remove();
-            System.out.println();
         }
         scanner.close();
         System.out.println("Thanks for using our system :)");
-    }
+    }*/
 
     /**
      * Reads the configuration file and initializes the hardware system accordingly.
@@ -162,18 +274,29 @@ public class Main
                 String line = scanner.nextLine();
                 if(line.startsWith("Port Configuration: "))
                 {
+                    int portID = 0;
                     String protocolsPart = line.substring(line.indexOf(":") + 1).trim();
-                    String[] protocolNames = protocolsPart.split(",");
-                    for (String protocol : protocolNames)
-                    {    
-                        if(protocol.equals("I2C"))
-                            hwsystem.setProtocol(new I2C());
-                        else if(protocol.equals("OneWire"))
-                            hwsystem.setProtocol(new OneWire());
-                        else if(protocol.equals("SPI"))
-                            hwsystem.setProtocol(new SPI());
-                        else if(protocol.equals("UART"))
-                            hwsystem.setProtocol(new UART());
+                    Queue<String>protocolNames = new LinkedList<>(Arrays.asList(protocolsPart.split(",")));
+                    //String[] protocolNames = protocolsPart.split(",");
+                    ArrayList<String> protocols = new ArrayList<>();
+                    while(!protocolNames.isEmpty())
+                    {
+                        protocols.add(protocolNames.peek());
+                        protocolNames.remove();
+                    }
+                    Iterator<String> iterator = protocols.iterator();
+                    while(iterator.hasNext())
+                    {
+                        String protocolName = iterator.next();
+                        if(protocolName.equals("I2C"))
+                            hwsystem.setProtocol(new I2C(),portID);
+                        else if(protocolName.equals("OneWire"))
+                            hwsystem.setProtocol(new OneWire(),portID);
+                        else if(protocolName.equals("SPI"))
+                            hwsystem.setProtocol(new SPI(),portID);
+                        else if(protocolName.equals("UART"))
+                            hwsystem.setProtocol(new UART(),portID);
+                        portID++;
                     }
                 }
                 else if(line.startsWith("# of sensors:"))

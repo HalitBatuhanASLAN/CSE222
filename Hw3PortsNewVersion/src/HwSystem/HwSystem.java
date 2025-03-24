@@ -93,11 +93,12 @@ public class HwSystem
      * 
      * @param pro The Protocol implementation to add
      */
-    public void setProtocol(Protocol pro)
+    public void setProtocol(Protocol pro,int portID)
     {
         this.ports.add(pro);
         this.onOffPortsState.add(false);
         this.emptyOccupiedPortsState.add(false);
+        this.ports.get(portID).setPortID(portID);
     }
 
     /**
@@ -269,12 +270,12 @@ public class HwSystem
                         else if(devType.equals("WirelessIO"))
                             displayedDevId = j - (displaysNumber + motorDriversNumber + sensorsNumber);
                             
-                        System.out.printf("%s %s %d %s", device.getName(), device.getDevType(), 
+                        System.out.printf("%s %s %d %s\n", device.getName(), device.getDevType(), 
                             displayedDevId, device.getState());
                         break;
                     }
                 }
-                System.out.printf("\n");
+                //System.out.printf("\n");
             }
         }
     }
@@ -653,6 +654,7 @@ public class HwSystem
                             wirelessIOs.set(wirelessIndex, -1);
                     }                
                     devices.set(j, null);
+                    System.out.println("Device removed");
                 }
             }
         }
