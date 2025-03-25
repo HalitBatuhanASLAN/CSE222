@@ -30,7 +30,7 @@ public class MPU6050 extends IMUSensor
             System.out.printf("%s: Turning On\n",getName());
             I2C tmp = new I2C();
             tmp.write("Turning ON");
-            state = DeviceState.On;
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -46,7 +46,7 @@ public class MPU6050 extends IMUSensor
             System.out.printf("%s: Turning Off\n",getName());
             I2C tmp = new I2C();
             tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -72,9 +72,10 @@ public class MPU6050 extends IMUSensor
         String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
-            I2C tmp = new I2C();
+            /*I2C tmp = new I2C();
             readedString = tmp.read();
-            System.out.println(readedString);
+            System.out.println(readedString);*/
+            readedString = protocol.read();
         }
         else
         {
@@ -96,9 +97,10 @@ public class MPU6050 extends IMUSensor
         String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
-            I2C tmp = new I2C();
+            /*I2C tmp = new I2C();
             readedString = tmp.read();
-            System.out.println(readedString);
+            System.out.println(readedString);*/
+            readedString = protocol.read();
         }
         else
         {

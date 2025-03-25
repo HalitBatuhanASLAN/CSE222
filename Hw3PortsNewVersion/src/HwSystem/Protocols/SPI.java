@@ -41,16 +41,17 @@ public class SPI implements Protocol
         {
             FileWriter writer = new FileWriter(filePath,true);
             String log;
-            while(logCount != 0)
+            while(logCount > 0)
             {
                 log = logs.pop();
                 writer.write(log);
+                writer.write(System.lineSeparator());
                 logCount--;
             }
             writer.close();
         }
         catch(Exception e)
-            {}
+            {System.out.println(e.getMessage());}
     }
 
     public void close()
@@ -65,6 +66,7 @@ public class SPI implements Protocol
     public String read()
     {
         logs.push("Readining");
+        logCount++;
         return getProtocolName() + ": Readining.";
     }
     /**
@@ -74,7 +76,8 @@ public class SPI implements Protocol
      */
     public void write(String data)
     {
-        logs.push(data);
+        logs.push("Writing:\"" + data + "\"");
+        logCount++;
     }
     /**
      * Gets the name of this protocol.

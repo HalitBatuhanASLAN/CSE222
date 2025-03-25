@@ -32,14 +32,14 @@ public class Wifi extends WirelessIO
             System.out.printf("%s: Turning On\n",getName());
             UART tmp = new UART();
             tmp.write("Turning ON");
-            state = DeviceState.On;
+            state = DeviceState.ON;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
             SPI tmp = new SPI();
             tmp.write("Turning ON");
-            state = DeviceState.On;
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -55,14 +55,14 @@ public class Wifi extends WirelessIO
             System.out.printf("%s: Turning Off\n",getName());
             UART tmp = new UART();
             tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            state = DeviceState.OFF;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());            
             SPI tmp = new SPI();
             tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -80,13 +80,15 @@ public class Wifi extends WirelessIO
     {
         if(protocol.getProtocolName().equals("UART"))
         {
-            UART tmp = new UART();
-            tmp.write(data);
+            /*UART tmp = new UART();
+            tmp.write(data);*/
+            protocol.write(data);
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
-            SPI tmp = new SPI();
-            tmp.write(data);
+            /*SPI tmp = new SPI();
+            tmp.write(data);*/
+            protocol.write(data);
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -102,15 +104,15 @@ public class Wifi extends WirelessIO
     {
         if(protocol.getProtocolName().equals("UART"))
         {
-            UART tmp = new UART();
-            String data = tmp.read();
-            return data;
+            /*UART tmp = new UART();
+            String data = tmp.read();*/
+            return protocol.read();
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
-            SPI tmp = new SPI();
-            String data = tmp.read();
-            return data;
+            /*SPI tmp = new SPI();
+            String data = tmp.read();*/
+            return protocol.read();
 
         }
         else

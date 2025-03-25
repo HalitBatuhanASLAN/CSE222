@@ -29,7 +29,7 @@ public class SparkFunMD extends MotorDriver
             System.out.printf("%s: Turning On\n",getName());
             SPI tmp = new SPI();
             tmp.write("Turning ON");
-            state = DeviceState.On;
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -42,7 +42,7 @@ public class SparkFunMD extends MotorDriver
             System.out.printf("%s: Turning Off\n",getName());
             SPI tmp = new SPI();
             tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -60,9 +60,9 @@ public class SparkFunMD extends MotorDriver
         System.out.printf("%s: setting speed to %d\n",getName(),speed);
         if(protocol.getProtocolName().equals("SPI"))
         {
-            SPI tmp = new SPI();
+            /*SPI tmp = new SPI();*/
             String speedString = Integer.toString(speed);
-            tmp.write(speedString);
+            protocol.write(speedString);
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 

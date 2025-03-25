@@ -31,16 +31,14 @@ public class BME280 extends TempSensor
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            I2C tmp = new I2C();
-            tmp.write("Turning ON");
-            state = DeviceState.On;
+            protocol.write("Turning ON");
+            state = DeviceState.ON;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning ON");
-            state = DeviceState.On;
+            protocol.write("Turning ON");
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -54,16 +52,14 @@ public class BME280 extends TempSensor
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            I2C tmp = new I2C();
-            tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            protocol.write("Turning OFF");
+            state = DeviceState.OFF;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            protocol.write("Turning OFF");
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -89,15 +85,17 @@ public class BME280 extends TempSensor
         String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
-            I2C tmp = new I2C();
+            /*I2C tmp = new I2C();
             readedString = tmp.read();
-            System.out.println(readedString);
+            System.out.println(readedString);*/
+            readedString = protocol.read();
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
-            SPI tmp = new SPI();
+            /*SPI tmp = new SPI();
             readedString = tmp.read();
-            System.out.println(readedString);
+            System.out.println(readedString);*/
+            readedString = protocol.read();
         }
         else
         {

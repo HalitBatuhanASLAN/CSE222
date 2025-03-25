@@ -13,7 +13,7 @@ public abstract class TempSensor extends Sensor
      * @return A string indicating this is a temperature sensor
      */
     public String getSensType()
-        {return "TempSensor";}
+        {return "TempSensor Sensor";}
 
     /**
      * Gets the temperature value from the sensor.

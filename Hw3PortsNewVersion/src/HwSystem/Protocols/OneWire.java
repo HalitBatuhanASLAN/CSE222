@@ -20,7 +20,7 @@ public class OneWire implements Protocol
         this.portID = portID;
         this.logPath = logPath;
         logCount = 0;
-        this.logs = new Stack<>();
+        //this.logs = new Stack<>();
         logs.push("Port Opened");
         logCount++;
     }
@@ -40,11 +40,9 @@ public class OneWire implements Protocol
         {
             FileWriter writer = new FileWriter(filePath,true);
             String log;
-            System.out.println(logCount);
-            while(!logs.empty())
+            while(logCount > 0)
             {
                 log = logs.pop();
-                System.out.println(log);
                 writer.write(log);
                 writer.write(System.lineSeparator());
                 logCount--;
@@ -66,11 +64,8 @@ public class OneWire implements Protocol
      */
     public String read()
     {
-        System.out.println("protocol.read part");
         logs.push("Readining");
-        System.out.println("last added one to stack" + logs.peek());
         logCount++;
-        System.out.println(logCount);
         return "abc";
         //return getProtocolName() + ": Readining.";
     }
@@ -82,11 +77,8 @@ public class OneWire implements Protocol
      */
     public void write(String data)
     {
-        //logs.push(data);
-        System.out.println("write called");
         logs.push("Writing:\"" + data + "\"");
         logCount++;
-        System.out.println(logCount);
     }
 
     /**

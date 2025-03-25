@@ -17,14 +17,14 @@ public abstract class Device
     protected Protocol protocol;
     public enum DeviceState
     {
-        On,
-        Off
+        ON,
+        OFF
     }
     protected DeviceState state;
 
     /*constructor, initially device state is off */
     public Device()
-        {state = DeviceState.Off;}
+        {state = DeviceState.OFF;}
     
     public abstract void turnOn();
     public abstract void turnOff();

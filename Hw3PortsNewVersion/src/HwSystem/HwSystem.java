@@ -50,10 +50,10 @@ public class HwSystem
 
 
     /*new addings */
-    private ArrayList<Device> displayDevicesList;
-    private ArrayList<Device> motorDriverDevicesList;
+    private ArrayList<Display> displayDevicesList;
+    private ArrayList<MotorDriver> motorDriverDevicesList;
     private ArrayList<Sensor> sensorDevicesList;
-    private ArrayList<Device> wirelessIODevicesList;
+    private ArrayList<WirelessIO> wirelessIODevicesList;
 
     /**
      * Constructs a new hardware system with empty device and port lists.
@@ -76,10 +76,10 @@ public class HwSystem
         this.motorDrivers = new ArrayList<>(motorDriversNumber);
 
         /*new addings */
-        this.displayDevicesList = new ArrayList<>();
-        this.motorDriverDevicesList = new ArrayList<>();
+        this.displayDevicesList = new ArrayList<>(displaysNumber);
+        this.motorDriverDevicesList = new ArrayList<>(motorDriversNumber);
         this.sensorDevicesList = new ArrayList<>(sensorsNumber);
-        this.wirelessIODevicesList = new ArrayList<>();
+        this.wirelessIODevicesList = new ArrayList<>(WirelessIOsNumber);
     }
 
     public void closeProtocols()
@@ -159,6 +159,8 @@ public class HwSystem
         this.displays.clear();
         for (int i = 0; i < displaysNumber; i++)
             this.displays.add(-1);
+        for(int i = 0;i<displaysNumber;i++)
+            displayDevicesList.add(null);
     }
     
     /**
@@ -231,7 +233,7 @@ public class HwSystem
             {
                 if(portIdOfDevices.get(i) == portId)
                 {
-                    devices.get(i).turnOn();
+                    //devices.get(i).turnOn();
                     ports.get(portId).write("turnON");
                     if(devices.get(i) instanceof Sensor)
                     {
@@ -241,6 +243,21 @@ public class HwSystem
                             if(sensorDevicesList.get(j).)
                                 sensorDevicesList.get(j).turnOn();*/
 
+                    }
+                    else if(devices.get(i) instanceof MotorDriver)
+                    {
+                        int deviceIndex = i - displaysNumber;
+                        motorDriverDevicesList.get(deviceIndex).turnOn();
+                    }
+                    else if(devices.get(i) instanceof WirelessIO)
+                    {
+                        int deviceIndex = i - displaysNumber -motorDriversNumber - sensorsNumber;
+                        wirelessIODevicesList.get(deviceIndex).turnOn();
+                    }
+                    else if(devices.get(i) instanceof Display)
+                    {
+                        int deviceIndex = i;
+                        displayDevicesList.get(deviceIndex).turnOn();
                     }
                     break;
                 }
@@ -268,7 +285,31 @@ public class HwSystem
             {
                 if(portIdOfDevices.get(i) == portId)
                 {
-                    devices.get(i).turnOff();
+                    ports.get(portId).write("turnOFF");
+                    if(devices.get(i) instanceof Sensor)
+                    {
+                        int deviceIndex = i - displaysNumber - motorDriversNumber;
+                        sensorDevicesList.get(deviceIndex).turnOff();
+                        /*for(int j = 0;j<sensorDevicesList.size();j++)
+                            if(sensorDevicesList.get(j).)
+                                sensorDevicesList.get(j).turnOn();*/
+
+                    }
+                    else if(devices.get(i) instanceof MotorDriver)
+                    {
+                        int deviceIndex = i - displaysNumber;
+                        motorDriverDevicesList.get(deviceIndex).turnOff();
+                    }
+                    else if(devices.get(i) instanceof WirelessIO)
+                    {
+                        int deviceIndex = i - displaysNumber -motorDriversNumber - sensorsNumber;
+                        wirelessIODevicesList.get(deviceIndex).turnOff();
+                    }
+                    else if(devices.get(i) instanceof Display)
+                    {
+                        int deviceIndex = i;
+                        displayDevicesList.get(deviceIndex).turnOff();
+                    }
                     break;
                 }
             }
@@ -281,7 +322,7 @@ public class HwSystem
      */
     public void listPorts()
     {
-        System.out.println("List of ports");
+        System.out.println("list of ports:");
         for(int i = 0;i<ports.size();i++)
         {
             if(!emptyOccupiedPortsState.get(i))
@@ -330,7 +371,7 @@ public class HwSystem
         else
         {
             Boolean flagEmpty = false;
-            System.out.printf("List of %s\n",devType);
+            System.out.printf("List of %ss\n",devType);
             int deviceId = 0;
             for(int i = 0;i<devices.size();i++)
             {
@@ -381,14 +422,14 @@ public class HwSystem
             System.err.println("Device id is out of range");
         else
         {
-            if(sensorDevicesList.get(devId).getState() == DeviceState.Off)
+            if(sensorDevicesList.get(devId).getState() == DeviceState.OFF)
                 System.err.println("Device is not active\nCommand is failed");
             else
             {
                 int index = sensors.get(devId);
                 ports.get(index).read();
                     System.out.println(sensorDevicesList.get(devId).getName() + " " + sensorDevicesList.get(devId).getSensType()
-                    + " " + sensorDevicesList.get(devId).data2String());
+                    + ": " + sensorDevicesList.get(devId).data2String());
             }
         }
         /*if(devId < 0 || devId >= sensorsNumber)
@@ -431,20 +472,29 @@ public class HwSystem
         }
         else
         {
-            int correctDevice = 0;
+            if(displayDevicesList.get(devId).getState() == DeviceState.OFF)
+                System.err.println("Device is not active\nCommand is failed");
+            else
+            {
+                int index = displays.get(devId);
+                ports.get(index).write(data);
+                displayDevicesList.get(devId).printData(data);
+            }
+
+            /*int correctDevice = 0;
             for(int i = 0;i<devices.size() && correctDevice <= devId;i++)
             {
                 if(devices.get(i) instanceof Display objectDisplay && correctDevice == devId)
                 {
                     correctDevice++;
-                    if(devices.get(i).getState() == DeviceState.Off)
+                    if(devices.get(i).getState() == DeviceState.OFF)
                         System.err.println("Device is not active\nCommand is failed");
                     else
                         objectDisplay.printData(data);
                 }
                 else if(devices.get(i) instanceof Display tmp && correctDevice < devId)
                     correctDevice++;
-            }
+            }*/
         }
     }
 
@@ -461,20 +511,28 @@ public class HwSystem
         }
         else
         {
-            int correctDevice = 0;
+            if(wirelessIODevicesList.get(devId).getState() == DeviceState.OFF)
+                System.err.println("Device is not active\nCommand is failed");
+            else
+            {
+                int index = wirelessIOs.get(devId);
+                ports.get(index).read();
+                wirelessIODevicesList.get(devId).recvData();
+            }
+            /*int correctDevice = 0;
             for(int i = 0;i<devices.size() && correctDevice <= devId;i++)
             {
                 if(devices.get(i) instanceof WirelessIO objectWirelessIO && correctDevice == devId)
                 {
                     correctDevice++;
-                    if(devices.get(i).getState() == DeviceState.Off)
+                    if(devices.get(i).getState() == DeviceState.OFF)
                         System.err.println("Device is not active\nCommand is failed");
                     else
                         objectWirelessIO.recvData();
                 }
                 else if(devices.get(i) instanceof WirelessIO tmp && correctDevice < devId)
                     correctDevice++;
-            }
+            }*/
         }
     }
 
@@ -498,7 +556,7 @@ public class HwSystem
                 if(devices.get(i) instanceof WirelessIO objectWirelessIO && correctDevice == devId)
                 {
                     correctDevice++;
-                    if(devices.get(i).getState() == DeviceState.Off)
+                    if(devices.get(i).getState() == DeviceState.OFF)
                         System.err.println("Device is not active\nCommand is failed");
                     else
                         objectWirelessIO.sendData(data);
@@ -529,7 +587,7 @@ public class HwSystem
                 if(devices.get(i) instanceof MotorDriver objectMotorDriver && correctDevice == devId)
                 {
                     correctDevice++;
-                    if(devices.get(i).getState() == DeviceState.Off)
+                    if(devices.get(i).getState() == DeviceState.OFF)
                         System.err.println("Device is not active\nCommand is failed");
                     else
                         objectMotorDriver.setMotorSpeed(speed);
@@ -576,7 +634,10 @@ public class HwSystem
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
                     /*alt satır yeni*/
-                    displayDevicesList.add(newDevice);
+                    if(devName.equals("LCD"))
+                        displayDevicesList.set(devId,new LCD(protocolOfPort.getProtocolName()));
+                    else
+                        displayDevicesList.set(devId,new OLED(protocolOfPort.getProtocolName()));
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }
@@ -602,8 +663,11 @@ public class HwSystem
                     motorDrivers.set(devId,portId);
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
-                    /*alt satır yeni*/
-                    motorDriverDevicesList.add(newDevice);
+                    if(devName.equals("PCA9685"))
+                        motorDriverDevicesList.set(devId,new PCA9685(protocolOfPort.getProtocolName()));
+                    else
+                        motorDriverDevicesList.set(devId,new SparkFunMD(protocolOfPort.getProtocolName()));
+                    
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }
@@ -633,8 +697,14 @@ public class HwSystem
                     sensors.set(devId,portId);
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
-                    /*alt satır yeni*/
-                    sensorDevicesList.set(devId,new DHT11(protocolOfPort.getProtocolName()));
+                    if(devName.equals("BME280"))
+                        sensorDevicesList.set(devId,new BME280(protocolOfPort.getProtocolName()));
+                    else if(devName.equals("DHT11"))
+                        sensorDevicesList.set(devId,new DHT11(protocolOfPort.getProtocolName()));
+                    else if(devName.equals("GY951"))
+                        sensorDevicesList.set(devId,new GY951(protocolOfPort.getProtocolName()));
+                    else
+                        sensorDevicesList.set(devId,new MPU6050(protocolOfPort.getProtocolName()));
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }
@@ -661,7 +731,10 @@ public class HwSystem
                     emptyOccupiedPortsState.set(portId,true);
                     devices.set(deviceIndex, newDevice);
                     /*alt satır yeni*/
-                    wirelessIODevicesList.add(newDevice);
+                    if(devName.equals("Bluetooth"))
+                        wirelessIODevicesList.set(devId,new Bluetooth(protocolOfPort.getProtocolName()));
+                    else
+                        wirelessIODevicesList.set(devId,new Wifi(protocolOfPort.getProtocolName()));
                     portIdOfDevices.set(deviceIndex,portId);
                     addController = true;
                 }

@@ -27,9 +27,10 @@ public class LCD extends Display
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            I2C tmp = new I2C();
-            tmp.write("Turning ON");
-            state = DeviceState.On;
+            protocol.write("Turning on");
+            /*I2C tmp = new I2C();
+            tmp.write("Turning ON");*/
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -40,9 +41,10 @@ public class LCD extends Display
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            I2C tmp = new I2C();
-            tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            protocol.write("Turning off");
+            /*I2C tmp = new I2C();
+            tmp.write("Turning OFF");*/
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -55,8 +57,9 @@ public class LCD extends Display
     {
         if(protocol.getProtocolName().equals("I2C"))
         {
-            I2C tmp = new I2C();
-            tmp.write(data);
+            protocol.write(data);
+            /*I2C tmp = new I2C();
+            tmp.write(data);*/
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 

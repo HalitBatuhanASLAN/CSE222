@@ -27,11 +27,11 @@ public class DHT11 extends TempSensor
     {
         if(protocol.getProtocolName().equals("OneWire"))
         {
-            System.out.printf("%s: Turning On\n",getName());
-            protocol.write("Turning on");
+            System.out.printf("%s: Turning ON\n",getName());
+            //protocol.write("Turning on");
             /*OneWire tmp = new OneWire();
             tmp.write("Turning ON");*/
-            state = DeviceState.On;
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -44,10 +44,9 @@ public class DHT11 extends TempSensor
     {
         if(protocol.getProtocolName().equals("OneWire"))
         {
-            System.out.printf("%s: Turning Off\n",getName());
-            OneWire tmp = new OneWire();
-            tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            System.out.printf("%s: Turning OFF\n",getName());
+            protocol.write("Turning OFF");
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -73,9 +72,7 @@ public class DHT11 extends TempSensor
         String readedString;
         if(protocol.getProtocolName().equals("OneWire"))
         {
-            System.out.println("getTemp kontrol");
             readedString = protocol.read();
-            protocol.write("sfasfasdfas");
             /*OneWire tmp = new OneWire();
             readedString = tmp.read();*/
             //System.out.println(readedString);
@@ -94,7 +91,5 @@ public class DHT11 extends TempSensor
      * @return A formatted string containing the temperature value
      */
     public String data2String()
-        {
-            protocol.write("example");
-            return String.format("Tempurature:%.2fC",getTemp());}
+        {return String.format("Temp:%.2fC",getTemp());}
 }

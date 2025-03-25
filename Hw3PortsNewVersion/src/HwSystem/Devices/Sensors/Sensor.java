@@ -15,7 +15,7 @@ public abstract class Sensor extends Device
      * @return A string describing the device type based on the sensor type
      */
     public String getDevType()
-        {return "Sensor type is the output of " + getSensType();}
+        {return getSensType();}
         
     /**
      * Gets the specific type of the sensor.

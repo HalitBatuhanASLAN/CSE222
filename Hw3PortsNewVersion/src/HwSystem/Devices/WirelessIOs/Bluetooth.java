@@ -31,7 +31,7 @@ public class Bluetooth extends WirelessIO
             System.out.printf("%s: Turning On\n",getName());
             UART tmp = new UART();
             tmp.write("Turning ON");
-            state = DeviceState.On;
+            state = DeviceState.ON;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -47,7 +47,7 @@ public class Bluetooth extends WirelessIO
             System.out.printf("%s: Turning Off\n",getName());
             UART tmp = new UART();
             tmp.write("Turning OFF");
-            state = DeviceState.Off;
+            state = DeviceState.OFF;
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -65,8 +65,9 @@ public class Bluetooth extends WirelessIO
     {
         if(protocol.getProtocolName().equals("UART"))
         {
-            UART tmp = new UART();
-            tmp.write(data);
+            /*UART tmp = new UART();
+            tmp.write(data);*/
+            protocol.write(data);
         }
         else
             System.err.printf("Error: %s is not configured with %s protocol\n", 
@@ -82,9 +83,9 @@ public class Bluetooth extends WirelessIO
     {
         if(protocol.getProtocolName().equals("UART"))
         {
-            UART tmp = new UART();
-            String data = tmp.read();
-            return data;
+            /*UART tmp = new UART();
+            String data = tmp.read();*/
+            return protocol.read();
         }
         else
             return String.format("Error: %s is not configured with %s protocol\n", 

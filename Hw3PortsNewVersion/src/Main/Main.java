@@ -35,7 +35,6 @@ public class Main
         HwSystem hwSystem = fileReadining(fileName,logDir);
         System.out.println();
         commands(hwSystem);
-        System.out.println();
     }
 
     /**
@@ -149,8 +148,6 @@ public class Main
          }
          scanner.close();
          hwSystem.closeProtocols();
-
-         System.out.println("Thanks for using our system :)");
      }
      
 
