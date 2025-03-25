@@ -1,7 +1,5 @@
 package HwSystem.Devices.Sensors;
 
-import HwSystem.Protocols.SPI;
-import HwSystem.Protocols.UART;
 
 /**
  * Concrete implementation of an IMU sensor for the GY951 device.
@@ -18,7 +16,7 @@ public class GY951 extends IMUSensor
     public GY951(String protocolName)
     {
         if(!protocolName.equals("UART") && !protocolName.equals("SPI"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(GY951)");
         else
             setProtocol(protocolName);
     }
@@ -30,19 +28,19 @@ public class GY951 extends IMUSensor
         if(protocol.getProtocolName().equals("UART"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            UART tmp = new UART();
-            tmp.write("Turning ON");
+            /*UART tmp = new UART();
+            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning ON");
+            /*SPI tmp = new SPI();
+            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(tunrON part of GY951)\n", 
                 getName(), protocol.getProtocolName());
     }
 
@@ -54,19 +52,19 @@ public class GY951 extends IMUSensor
         if(protocol.getProtocolName().equals("UART"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            UART tmp = new UART();
-            tmp.write("Turning OFF");
+            /*UART tmp = new UART();
+            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning OFF");
+            /*SPI tmp = new SPI();
+            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(tunrOFF part of GY951)\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -103,7 +101,7 @@ public class GY951 extends IMUSensor
         }
         else
         {
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(getAccel part of GY951)\n", 
                 getName(), protocol.getProtocolName());
             accel = -999;
         }
@@ -135,7 +133,7 @@ public class GY951 extends IMUSensor
         }
         else
         {
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(getRot part of GY951)\n", 
                 getName(), protocol.getProtocolName());
             rotational = -999;
         }

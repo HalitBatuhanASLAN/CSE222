@@ -1,8 +1,5 @@
 package HwSystem.Devices.Sensors;
 
-import HwSystem.Protocols.I2C;
-import HwSystem.Protocols.SPI;
-
 /**
  * Concrete implementation of a temperature sensor for the BME280 device.
  * This class provides functionality for the BME280 temperature sensor using either I2C or SPI protocols.
@@ -18,7 +15,7 @@ public class BME280 extends TempSensor
     public BME280(String protocolName)
     {
         if(!protocolName.equals("I2C") && !protocolName.equals("SPI"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(BME280)");
         
         else
             setProtocol(protocolName);
@@ -31,17 +28,17 @@ public class BME280 extends TempSensor
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            protocol.write("Turning ON");
+            //protocol.write("Turning ON");
             state = DeviceState.ON;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            protocol.write("Turning ON");
+            //protocol.write("Turning ON");
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of BME280)\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -52,17 +49,17 @@ public class BME280 extends TempSensor
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            protocol.write("Turning OFF");
+            //protocol.write("Turning OFF");
             state = DeviceState.OFF;
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            protocol.write("Turning OFF");
+            //protocol.write("Turning OFF");
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of BME280)\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -99,7 +96,7 @@ public class BME280 extends TempSensor
         }
         else
         {
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(getTemp part of BME280)\n", 
                 getName(), protocol.getProtocolName());
             temp = -999;
         }

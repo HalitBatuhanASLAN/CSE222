@@ -1,7 +1,5 @@
 package HwSystem.Devices.Displays;
 
-import HwSystem.Protocols.SPI;
-
 /**
  * OLED display implementation that uses SPI protocol for communication.
  * This class provides specific functionality for OLED displays including
@@ -19,7 +17,7 @@ public class OLED extends Display
     public OLED(String protocolName)
     {
         if(!protocolName.equals("SPI"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(OLED)");
         else
             setProtocol(protocolName);
     }
@@ -28,12 +26,12 @@ public class OLED extends Display
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning ON");
+            /*SPI tmp = new SPI();
+            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of OLED)\n", 
                 getName(), protocol.getProtocolName());
     }
     public void turnOff()
@@ -41,12 +39,12 @@ public class OLED extends Display
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning OFF");
+            /*SPI tmp = new SPI();
+            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(tunrOFF part of OLED)\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -61,7 +59,7 @@ public class OLED extends Display
             tmp.write(data);*/
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(printData part of OLED)\n", 
                 getName(), protocol.getProtocolName());
     }
 }

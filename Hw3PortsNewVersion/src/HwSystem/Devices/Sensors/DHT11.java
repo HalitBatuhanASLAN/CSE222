@@ -1,6 +1,5 @@
 package HwSystem.Devices.Sensors;
 
-import HwSystem.Protocols.OneWire;
 /**
  * Concrete implementation of a temperature sensor for the DHT11 device.
  * This class provides functionality for the DHT11 temperature sensor using the OneWire protocol.
@@ -16,7 +15,7 @@ public class DHT11 extends TempSensor
     public DHT11(String protocolName)
     {
         if(!protocolName.equals("OneWire"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(DHT11)");
         else
             setProtocol(protocolName);
     }
@@ -34,7 +33,7 @@ public class DHT11 extends TempSensor
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of DHT11)\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -45,11 +44,11 @@ public class DHT11 extends TempSensor
         if(protocol.getProtocolName().equals("OneWire"))
         {
             System.out.printf("%s: Turning OFF\n",getName());
-            protocol.write("Turning OFF");
+            //protocol.write("Turning OFF");
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of DHT11)\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -79,7 +78,7 @@ public class DHT11 extends TempSensor
         }
         else
         {
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(getTemp part of DHT11)\n", 
                 getName(), protocol.getProtocolName());
             temp = -999;
         }

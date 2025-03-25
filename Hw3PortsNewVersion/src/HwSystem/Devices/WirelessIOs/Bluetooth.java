@@ -1,6 +1,5 @@
 package HwSystem.Devices.WirelessIOs;
 
-import HwSystem.Protocols.UART;
 
 /**
  * Bluetooth implementation of the WirelessIO abstract class.
@@ -17,7 +16,7 @@ public class Bluetooth extends WirelessIO
     public Bluetooth(String protocolName)
     {
         if(!protocolName.equals("UART"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(Bluetooth)");
         else
             setProtocol(protocolName);
     }
@@ -29,12 +28,12 @@ public class Bluetooth extends WirelessIO
         if(protocol.getProtocolName().equals("UART"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            UART tmp = new UART();
-            tmp.write("Turning ON");
+            /*UART tmp = new UART();
+            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of Bluetooth)\n", 
                 getName(), protocol.getProtocolName());
     }
     /**
@@ -45,12 +44,12 @@ public class Bluetooth extends WirelessIO
         if(protocol.getProtocolName().equals("UART"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            UART tmp = new UART();
-            tmp.write("Turning OFF");
+            /*UART tmp = new UART();
+            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of Bluetooth)\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -70,7 +69,7 @@ public class Bluetooth extends WirelessIO
             protocol.write(data);
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(sendData part of Bluetooth)\n", 
                 getName(), protocol.getProtocolName());
     }
 
@@ -88,7 +87,7 @@ public class Bluetooth extends WirelessIO
             return protocol.read();
         }
         else
-            return String.format("Error: %s is not configured with %s protocol\n", 
+            return String.format("Error: %s is not configured with %s protocol(recvData part of Bluetooth)\n", 
                 getName(), protocol.getProtocolName());
     }
 }

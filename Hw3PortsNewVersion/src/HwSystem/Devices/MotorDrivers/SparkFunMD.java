@@ -1,6 +1,5 @@
 package HwSystem.Devices.MotorDrivers;
 
-import HwSystem.Protocols.SPI;
 
 /**
  * SparkFunMD motor driver implementation that uses SPI protocol for communication.
@@ -18,7 +17,7 @@ public class SparkFunMD extends MotorDriver
     public SparkFunMD(String protocolName)
     {
         if(!protocolName.equals("SPI"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(SparkFunMD)");
         else
             setProtocol(protocolName);
     }
@@ -27,12 +26,12 @@ public class SparkFunMD extends MotorDriver
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning ON");
+            /*SPI tmp = new SPI();
+            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of SparkFunMD)\n", 
                 getName(), protocol.getProtocolName());
     }
     public void turnOff()
@@ -40,12 +39,12 @@ public class SparkFunMD extends MotorDriver
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            SPI tmp = new SPI();
-            tmp.write("Turning OFF");
+            /*SPI tmp = new SPI();
+            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of SparkFunMD)\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -65,7 +64,7 @@ public class SparkFunMD extends MotorDriver
             protocol.write(speedString);
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(setMotorSpeed part of SparkFunMD)\n", 
                 getName(), protocol.getProtocolName());
     }
 }

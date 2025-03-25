@@ -1,6 +1,5 @@
 package HwSystem.Devices.Displays;
 
-import HwSystem.Protocols.I2C;
 
 /**
  * LCD display implementation that uses I2C protocol for communication.
@@ -18,7 +17,7 @@ public class LCD extends Display
     public LCD(String protocolName)
     {
         if(!protocolName.equals("I2C"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(LCD)");
         else
             setProtocol(protocolName);
     }
@@ -33,7 +32,7 @@ public class LCD extends Display
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of LCD)\n", 
                 getName(), protocol.getProtocolName());
     }
     public void turnOff()
@@ -47,7 +46,7 @@ public class LCD extends Display
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(tunrOFF part of LCD)\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -62,7 +61,7 @@ public class LCD extends Display
             tmp.write(data);*/
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(printData part of LCD)\n", 
                 getName(), protocol.getProtocolName());
     }
 }

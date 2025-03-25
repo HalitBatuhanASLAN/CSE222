@@ -13,7 +13,7 @@ public abstract class IMUSensor extends Sensor
      * @return A string indicating this is an IMU sensor
      */
     public String getSensType()
-        {return "IMUSensor";}
+        {return "IMUSensor Sensor";}
 
     /**
      * Gets the acceleration value from the IMU sensor.

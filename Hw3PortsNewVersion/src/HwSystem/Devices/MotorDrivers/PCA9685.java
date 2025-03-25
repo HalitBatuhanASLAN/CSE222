@@ -1,6 +1,5 @@
 package HwSystem.Devices.MotorDrivers;
 
-import HwSystem.Protocols.I2C;
 
 /**
  * PCA9685 motor driver implementation that uses I2C protocol for communication.
@@ -18,7 +17,7 @@ public class PCA9685 extends MotorDriver
     public PCA9685(String protocolName)
     {
         if(!protocolName.equals("I2C"))
-            System.err.println("Protocol does not match with device!!!");
+            System.err.println("Protocol does not match with device!!!(PCA9685)");
         else
             setProtocol(protocolName);
     }
@@ -27,12 +26,12 @@ public class PCA9685 extends MotorDriver
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            I2C tmp = new I2C();
-            tmp.write("Turning ON");
+            /*I2C tmp = new I2C();
+            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnON part of PCA9685)\n", 
                 getName(), protocol.getProtocolName());
     }
     public void turnOff()
@@ -40,12 +39,12 @@ public class PCA9685 extends MotorDriver
         if(protocol.getProtocolName().equals("I2C"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            I2C tmp = new I2C();
-            tmp.write("Turning OFF");
+            /*I2C tmp = new I2C();
+            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of PCA9685)\n", 
                 getName(), protocol.getProtocolName());
     }
     public String getName()
@@ -65,7 +64,7 @@ public class PCA9685 extends MotorDriver
             protocol.write(speedString);
         }
         else
-            System.err.printf("Error: %s is not configured with %s protocol\n", 
+            System.err.printf("Error: %s is not configured with %s protocol(setMotorSpeed part of PCA9685)\n", 
                 getName(), protocol.getProtocolName());
     }
 }
