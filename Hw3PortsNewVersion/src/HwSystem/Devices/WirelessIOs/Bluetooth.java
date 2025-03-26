@@ -64,6 +64,8 @@ public class Bluetooth extends WirelessIO
     {
         if(protocol.getProtocolName().equals("UART"))
         {
+            System.out.printf("%s: writing %s\n",getName(),data);
+            
             /*UART tmp = new UART();
             tmp.write(data);*/
             protocol.write(data);

@@ -56,6 +56,7 @@ public class LCD extends Display
     {
         if(protocol.getProtocolName().equals("I2C"))
         {
+            System.out.printf("%s: writing %s\n",getName(),data);
             protocol.write(data);
             /*I2C tmp = new I2C();
             tmp.write(data);*/

@@ -15,8 +15,8 @@ run:
 #	java -cp build Main.Main configuration.txt 2> errors.log
 
 
-	java -cp build Main.Main $(ARGS) < scenraio1.txt > output1.txt 2>errors.log
-#	java -cp build Main.Main $(ARGS) 2>errors.log
+#	java -cp build Main.Main $(ARGS) < scenraio1.txt > output1.txt 2>errors.log
+	java -cp build Main.Main $(ARGS) 2>errors.log
 
 # delete: Cleans up build artifacts and generated files
 delete:

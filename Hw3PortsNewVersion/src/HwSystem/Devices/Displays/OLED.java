@@ -54,6 +54,7 @@ public class OLED extends Display
     {
         if(protocol.getProtocolName().equals("SPI"))
         {
+            System.out.printf("%s: writing %s\n",getName(),data);
             protocol.write(data);
             /*SPI tmp = new SPI();
             tmp.write(data);*/

@@ -78,12 +78,16 @@ public class Wifi extends WirelessIO
     {
         if(protocol.getProtocolName().equals("UART"))
         {
+            System.out.printf("%s: writing %s\n",getName(),data);
+            
             /*UART tmp = new UART();
             tmp.write(data);*/
             protocol.write(data);
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
+            System.out.printf("%s: writing %s\n",getName(),data);
+            
             /*SPI tmp = new SPI();
             tmp.write(data);*/
             protocol.write(data);

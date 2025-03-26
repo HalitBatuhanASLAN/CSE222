@@ -322,6 +322,7 @@ public class HwSystem
                     {
                         int deviceIndex = i - displaysNumber - motorDriversNumber;
                         sensorDevicesList.get(deviceIndex).turnOff();
+                        devices.get(i).setState(DeviceState.OFF);
                         /*for(int j = 0;j<sensorDevicesList.size();j++)
                             if(sensorDevicesList.get(j).)
                                 sensorDevicesList.get(j).turnOn();*/
@@ -331,16 +332,19 @@ public class HwSystem
                     {
                         int deviceIndex = i - displaysNumber;
                         motorDriverDevicesList.get(deviceIndex).turnOff();
+                        devices.get(i).setState(DeviceState.OFF);
                     }
                     else if(devices.get(i).getDevType().equals("WirelessIO"))
                     {
                         int deviceIndex = i - displaysNumber -motorDriversNumber - sensorsNumber;
                         wirelessIODevicesList.get(deviceIndex).turnOff();
+                        devices.get(i).setState(DeviceState.OFF);
                     }
                     else if(devices.get(i).getDevType().equals("Display"))
                     {
                         int deviceIndex = i;
                         displayDevicesList.get(deviceIndex).turnOff();
+                        devices.get(i).setState(DeviceState.OFF);
                     }
                     /*if(devices.get(i) instanceof Sensor)
                     {
@@ -520,7 +524,7 @@ public class HwSystem
             {
                 int index = sensors.get(devId);
                 ports.get(index).read();
-                    System.out.println(sensorDevicesList.get(devId).getName() + " " + sensorDevicesList.get(devId).getSensType()
+                System.out.println(sensorDevicesList.get(devId).getName() + " " + sensorDevicesList.get(devId).getSensType()
                     + ": " + sensorDevicesList.get(devId).data2String());
             }
         }
@@ -571,6 +575,7 @@ public class HwSystem
                 int index = displays.get(devId);
                 ports.get(index).write(data);
                 displayDevicesList.get(devId).printData(data);
+                //System.out.println(displayDevicesList.get(devId).getName() + " is printing " + data);
             }
 
             /*int correctDevice = 0;
@@ -686,7 +691,7 @@ public class HwSystem
             else
             {
                 int index = motorDrivers.get(devId);
-                ports.get(index).read();
+                ports.get(index).write("Setting motorspeed to " + Integer.toString(speed));
                 motorDriverDevicesList.get(devId).setMotorSpeed(speed);
             }
             /*int correctDevice = 0;
@@ -725,7 +730,7 @@ public class HwSystem
         else if(devName.equals("LCD") || devName.equals("OLED"))/*displays */
         {
             Protocol protocolOfPort = ports.get(portId);
-            if(devId > displaysNumber || devId < 0)
+            if(devId >= displaysNumber || devId < 0)
                 System.err.println("Device id is out of range!!!(addDev part)");
             else if(displays.get(devId) != -1)
                 System.err.println("Device is already connected to another port(addDev part)");
