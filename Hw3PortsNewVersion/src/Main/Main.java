@@ -217,7 +217,7 @@ public class Main
                     num = num < 0 ? 0 : num;
                     hwsystem.setWirelessIOsNumber(num);
                 }
-                else if(line.startsWith("# of motor drivers:"))
+                else if(line.startsWith("# of motor drivers:"))
                 {
                     int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
                     num = num < 0 ? 0 : num;

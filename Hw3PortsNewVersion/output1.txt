@@ -1,0 +1,33 @@
+
+Commands;
+
+list of ports:
+0 I2C empty
+1 SPI empty
+2 OneWire empty
+3 UART empty
+Device added.
+list of ports:
+0 I2C empty
+1 SPI empty
+2 OneWire occupied DHT11 TempSensor Sensor 0 OFF
+3 UART empty
+List of Sensors
+DHT11 0 2 OneWire
+DHT11: Turning ON
+DHT11 TempSensor Sensor: Temp:24.00C
+Device added.
+BME280: Turning On
+BME280 TempSensor Sensor: Tempurature:24.00C
+List of Sensors
+DHT11 0 2 OneWire
+BME280 0 0 I2C
+Device added.
+OLED: Turning On
+List of Displays
+OLED 0 1 SPI
+List of Displays
+OLED 0 1 SPI
+Device added.
+Bluetooth: Turning On
+List of WirelessIOs

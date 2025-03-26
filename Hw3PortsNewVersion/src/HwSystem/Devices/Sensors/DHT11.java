@@ -68,14 +68,16 @@ public class DHT11 extends TempSensor
     public float getTemp()
     {
         float temp = (float)24.00;
-        String readedString;
+        /*String readedString;
         if(protocol.getProtocolName().equals("OneWire"))
         {
             readedString = protocol.read();
             /*OneWire tmp = new OneWire();
-            readedString = tmp.read();*/
+            readedString = tmp.read();
             //System.out.println(readedString);
-        }
+        }*/
+        if(protocol.getProtocolName().equals("OneWire"))
+            return temp;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getTemp part of DHT11)\n", 

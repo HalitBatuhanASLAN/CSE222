@@ -68,14 +68,16 @@ public class MPU6050 extends IMUSensor
     public float getAccel()
     {
         float accel = (float)1.00;
-        String readedString;
+        /*String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
             /*I2C tmp = new I2C();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
             readedString = protocol.read();
-        }
+        }*/
+        if(protocol.getProtocolName().equals("I2C"))
+            return accel;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getAccel part of MPU6050)\n", 
@@ -93,14 +95,16 @@ public class MPU6050 extends IMUSensor
     public float getRot()
     {
         float rotational = (float)0.50;
-        String readedString;
+        /*String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
             /*I2C tmp = new I2C();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
             readedString = protocol.read();
-        }
+        }*/
+        if(protocol.getProtocolName().equals("I2C"))
+            return rotational;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getRot part of MPU6050)\n", 

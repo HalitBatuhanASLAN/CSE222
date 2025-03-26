@@ -84,21 +84,23 @@ public class GY951 extends IMUSensor
     public float getAccel()
     {
         float accel  = (float)1.00;
-        String readedString;
+        /*String readedString;
         if(protocol.getProtocolName().equals("UART"))
         {
             /*UART tmp = new UART();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
             readedString = protocol.read();
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             /*SPI tmp = new SPI();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
             readedString = protocol.read();
-        }
+        }*/
+        if(protocol.getProtocolName().equals("UART")|| protocol.getProtocolName().equals("SPI"))
+            return accel;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getAccel part of GY951)\n", 
@@ -116,21 +118,23 @@ public class GY951 extends IMUSensor
     public float getRot()
     {
         float rotational  = (float)0.50;
-        String readedString;
+        /*String readedString;
         if(protocol.getProtocolName().equals("UART"))
         {
             readedString = protocol.read();
             /*UART tmp = new UART();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             readedString = protocol.read();
             /*SPI tmp = new SPI();
             readedString = tmp.read();
-            System.out.println(readedString);*/
-        }
+            System.out.println(readedString);
+        }*/
+        if(protocol.getProtocolName().equals("UART")|| protocol.getProtocolName().equals("SPI"))
+            return rotational;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getRot part of GY951)\n", 

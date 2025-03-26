@@ -182,6 +182,8 @@ public class HwSystem
         this.wirelessIOs.clear();
         for (int i = 0; i < WirelessIOsNumber; i++)
             this.wirelessIOs.add(-1);
+        for(int i = 0;i<WirelessIOsNumber;i++)
+            wirelessIODevicesList.add(null);
     }
     
     /**
@@ -203,6 +205,8 @@ public class HwSystem
         this.motorDrivers.clear();
         for (int i = 0; i < motorDriversNumber; i++)
             this.motorDrivers.add(-1);
+        for(int i = 0;i<motorDriversNumber;i++)
+            motorDriverDevicesList.add(null);
     }
     
     /**
@@ -239,6 +243,7 @@ public class HwSystem
                     {
                         int deviceIndex = i - displaysNumber - motorDriversNumber;
                         sensorDevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
                         /*for(int j = 0;j<sensorDevicesList.size();j++)
                             if(sensorDevicesList.get(j).)
                                 sensorDevicesList.get(j).turnOn();*/
@@ -248,16 +253,19 @@ public class HwSystem
                     {
                         int deviceIndex = i - displaysNumber;
                         motorDriverDevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
                     }
                     else if(devices.get(i).getDevType().equals("WirelessIO"))
                     {
                         int deviceIndex = i - displaysNumber -motorDriversNumber - sensorsNumber;
                         wirelessIODevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
                     }
                     else if(devices.get(i).getDevType().equals("Display"))
                     {
                         int deviceIndex = i;
                         displayDevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
                     }
                     /*if(devices.get(i) instanceof Sensor)
                     {
@@ -441,8 +449,11 @@ public class HwSystem
             {
                 flagEmpty = true;
                 for(int i = 0;i<sensorDevicesList.size();i++)
-                System.out.println(sensorDevicesList.get(i).getName() + " " + deviceId + " " +
-                        sensors.get(i) + " " + sensorDevicesList.get(i).getProtocol());
+                {
+                    if(sensorDevicesList.get(i) != null)
+                        System.out.println(sensorDevicesList.get(i).getName() + " " + deviceId + " " +
+                                sensors.get(i) + " " + sensorDevicesList.get(i).getProtocol());
+                }
                 deviceId++;
             }
             else if(devType.equals("WireLessIO"))
@@ -714,7 +725,7 @@ public class HwSystem
         else if(devName.equals("LCD") || devName.equals("OLED"))/*displays */
         {
             Protocol protocolOfPort = ports.get(portId);
-            if(devId >= displaysNumber || devId < 0)
+            if(devId > displaysNumber || devId < 0)
                 System.err.println("Device id is out of range!!!(addDev part)");
             else if(displays.get(devId) != -1)
                 System.err.println("Device is already connected to another port(addDev part)");

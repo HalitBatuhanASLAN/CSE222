@@ -1,0 +1,57 @@
+list ports
+addDev DHT11 2 0
+list ports
+list Sensor
+turnON 2
+readSensor 0
+addDev BME280 0 1
+turnON 0
+readSensor 1
+addDev MPU6050 0 2
+list Sensor
+turnON 0
+readSensor 2
+addDev OLED 1 0
+turnON 1
+printDisplay 0 "Hello from OLED"
+list Display
+addDev LCD 0 1
+turnON 0
+printDisplay 1 "Hello from LCD"
+list Display
+addDev Bluetooth 3 0
+turnON 3
+writeWireless 0 "Test Message via Bluetooth"
+readWireless 0
+addDev Wifi 1 1
+list WirelessIO
+turnON 1
+writeWireless 1 "Test Message via Wifi"
+readWireless 1
+addDev PCA9685 0 0
+turnON 0
+setMotorSpeed 0 50
+list MotorDriver
+addDev SparkFunMD 1 1
+turnON 1
+setMotorSpeed 1 75
+list MotorDriver
+list ports
+rmDev 1
+turnOFF 1
+rmDev 1
+addDev GY951 1 3
+turnON 1
+readSensor 3
+addDev MPU6050 0 4
+readSensor 4
+turnOFF 0
+turnOFF 1
+turnOFF 2
+turnOFF 3
+rmDev 0
+rmDev 1
+rmDev 2
+rmDev 3
+list ports
+exit

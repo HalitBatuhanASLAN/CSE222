@@ -79,28 +79,30 @@ public class BME280 extends TempSensor
     public float getTemp()
     {
         float temp = (float)24.00;
-        String readedString;
+        /*String readedString;
         if(protocol.getProtocolName().equals("I2C"))
         {
             /*I2C tmp = new I2C();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
             readedString = protocol.read();
         }
         else if(protocol.getProtocolName().equals("SPI"))
         {
             /*SPI tmp = new SPI();
             readedString = tmp.read();
-            System.out.println(readedString);*/
+            System.out.println(readedString);
             readedString = protocol.read();
-        }
+        }*/
+        if(protocol.getProtocolName().equals("I2C") || protocol.getProtocolName().equals("SPI"))
+            return temp;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getTemp part of BME280)\n", 
                 getName(), protocol.getProtocolName());
             temp = -999;
+            return temp;
         }
-        return temp;
     }
     /**
      * Converts the sensor data to a string representation.
