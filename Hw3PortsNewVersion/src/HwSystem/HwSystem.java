@@ -222,7 +222,7 @@ public class HwSystem
      * 
      * @param portId The ID of the port to turn on
      */
-    public void turnOn(int portId)
+    /*public void turnOn(int portId)
     {
         if(portId < 0 || portId >= ports.size())
             System.err.println("Port number is out of range!!!");
@@ -236,6 +236,85 @@ public class HwSystem
             for(int i = 0;i<portIdOfDevices.size();i++)
             {
                 if(portIdOfDevices.get(i) == portId)
+                {
+                    //devices.get(i).turnOn();
+                    ports.get(portId).write("turnON");
+                    if(devices.get(i).getDevType().equals("TempSensor Sensor") || devices.get(i).getDevType().equals("IMUSensor Sensor"))
+                    {
+                        int deviceIndex = i - displaysNumber - motorDriversNumber;
+                        sensorDevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
+                        /*for(int j = 0;j<sensorDevicesList.size();j++)
+                            if(sensorDevicesList.get(j).)
+                                sensorDevicesList.get(j).turnOn();
+
+                    }
+                    else if(devices.get(i).getDevType().equals("MotorDriver"))
+                    {
+                        int deviceIndex = i - displaysNumber;
+                        motorDriverDevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
+                    }
+                    else if(devices.get(i).getDevType().equals("WirelessIO"))
+                    {
+                        int deviceIndex = i - displaysNumber -motorDriversNumber - sensorsNumber;
+                        wirelessIODevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
+                    }
+                    else if(devices.get(i).getDevType().equals("Display"))
+                    {
+                        int deviceIndex = i;
+                        displayDevicesList.get(deviceIndex).turnOn();
+                        devices.get(i).setState(DeviceState.ON);
+                    }
+                    /*if(devices.get(i) instanceof Sensor)
+                    {
+                        int deviceIndex = i - displaysNumber - motorDriversNumber;
+                        sensorDevicesList.get(deviceIndex).turnOn();
+                        /*for(int j = 0;j<sensorDevicesList.size();j++)
+                            if(sensorDevicesList.get(j).)
+                                sensorDevicesList.get(j).turnOn();
+
+                    }
+                    else if(devices.get(i) instanceof MotorDriver)
+                    {
+                        int deviceIndex = i - displaysNumber;
+                        motorDriverDevicesList.get(deviceIndex).turnOn();
+                    }
+                    else if(devices.get(i) instanceof WirelessIO)
+                    {
+                        int deviceIndex = i - displaysNumber -motorDriversNumber - sensorsNumber;
+                        wirelessIODevicesList.get(deviceIndex).turnOn();
+                    }
+                    else if(devices.get(i) instanceof Display)
+                    {
+                        int deviceIndex = i;
+                        displayDevicesList.get(deviceIndex).turnOn();
+                    }
+                    break;
+                }
+            }
+        }
+    }*/
+    public void turnOn(int portId)
+    {
+        if(portId < 0 || portId >= ports.size())
+            System.err.println("Port number is out of range!!!");
+        else if(!emptyOccupiedPortsState.get(portId))
+            System.err.println("Port does not contain any devices!!!");
+        else if(onOffPortsState.get(portId))
+            System.err.println("Port has already opened!!!");
+        else
+        {
+            onOffPortsState.set(portId,true);
+            
+            // For döngüsü yerine iterator kullanımı
+            Iterator<Integer> iterator = portIdOfDevices.iterator();
+            int i = 0;
+            while(iterator.hasNext())
+            {
+                Integer currentPortId = iterator.next();
+                if(currentPortId == portId)
                 {
                     //devices.get(i).turnOn();
                     ports.get(portId).write("turnON");
@@ -293,9 +372,11 @@ public class HwSystem
                     }*/
                     break;
                 }
+                i++; // İndeksi artır
             }
         }
     }
+
 
     /**
      * Turns off a port and deactivates the device connected to it.

@@ -109,12 +109,20 @@ public class Main
                  case "printDisplay":
                      devId = Integer.parseInt(commandParts.get(1));
                      String data = "";
-                     for (int i = 2; i < commandParts.size(); i++)
+                     Iterator<String> partsIterator2 = commandParts.listIterator(2);
+                     while (partsIterator2.hasNext())
+                     {
+                         data += partsIterator2.next();
+                         if (partsIterator2.hasNext())
+                             data += " ";
+                     }
+                     
+                     /*for (int i = 2; i < commandParts.size(); i++)
                      {
                          data += commandParts.get(i);
                          if (i < commandParts.size() - 1)
                              data += " ";
-                     }
+                     }*/
                      hwSystem.printDisplay(devId,data);
                      break;
                  case "readWireless":
@@ -124,12 +132,19 @@ public class Main
                  case "writeWireless":
                      devId = Integer.parseInt(commandParts.get(1));
                      String data2 = "";
-                     for (int i = 2; i < commandParts.size(); i++)
+                     Iterator<String> partsIterator = commandParts.listIterator(2);
+                     while (partsIterator.hasNext())
+                     {
+                         data2 += partsIterator.next();
+                         if (partsIterator.hasNext())
+                             data2 += " ";
+                     }
+                     /*for (int i = 2; i < commandParts.size(); i++)
                      {
                          data2 += commandParts.get(i);
                          if (i < commandParts.size() - 1)
                              data2 += " ";
-                     }
+                     }*/
                      hwSystem.writeWireless(devId,data2);
                      break;
                  case "setMotorSpeed":
@@ -237,133 +252,3 @@ public class Main
         return hwsystem;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*public static void commands(HwSystem hwSystem)
-    {
-        List<String> command = new LinkedList<>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Commands;\n");
-        String commandString = scanner.nextLine();
-        
-        String[] commandParts = commandString.split(" ");
-            
-        while(!commandParts[0].equals("exit"))
-        {
-            command.add(commandString);
-            commandString = scanner.nextLine();
-            commandParts = commandString.split(" ");
-        }
-        command.add(commandString);//to keep exit linkedList
-        Iterator<String> iterator = command.iterator();
-        System.out.println();
-        while(iterator.hasNext())
-        {
-            commandString = iterator.next();
-            commandParts = commandString.split(" ");
-            int portId;
-            int devId;
-            String devType;
-            switch(commandParts[0])
-            {
-                case "turnON":
-                    portId = Integer.parseInt(commandParts[1]);
-                    hwSystem.turnOn(portId);
-                    break;
-                case "turnOFF":
-                    portId = Integer.parseInt(commandParts[1]);
-                    hwSystem.turnOff(portId);
-                    break;
-                case "addDev":
-                    String devNameString = commandParts[1];
-                    portId = Integer.parseInt(commandParts[2]);
-                    devId = Integer.parseInt(commandParts[3]);
-                    hwSystem.addDev(devNameString, portId, devId);
-                    break;
-                case "rmDev":
-                    portId = Integer.parseInt(commandParts[1]);
-                    hwSystem.rmDev(portId);
-                    break;
-                case "list":
-                    if(commandParts[1].equals("ports"))
-                        hwSystem.listPorts();
-                    else if(commandParts[1].equals("Sensor") || commandParts[1].equals("MotorDriver")
-                        || commandParts[1].equals("WirelessIO") || commandParts[1].equals("Display"))
-                    {
-                        devType = commandParts[1];
-                        hwSystem.listDevType(devType);
-                    }
-                    else
-                        System.err.println("Please enter a valid device name or enter 'ports'!!!");
-                    break;
-                case "readSensor":
-                    devId = Integer.parseInt(commandParts[1]);
-                    hwSystem.readSensor(devId);
-                    break;
-                case "printDisplay":
-                    devId = Integer.parseInt(commandParts[1]);
-                    String data = "";
-                    for (int i = 2; i < commandParts.length; i++)
-                    {
-                        data += commandParts[i];
-                        if (i < commandParts.length - 1)
-                            data += " ";
-                    }
-                    hwSystem.printDisplay(devId,data);
-                    break;
-                case "readWireless":
-                    devId = Integer.parseInt(commandParts[1]);
-                    hwSystem.readWireless(devId);
-                    break;
-                case "writeWireless":
-                    devId = Integer.parseInt(commandParts[1]);
-                    String data2 = "";
-                    for (int i = 2; i < commandParts.length; i++)
-                    {
-                        data2 += commandParts[i];
-                        if (i < commandParts.length - 1)
-                            data2 += " ";
-                    }
-                    hwSystem.writeWireless(devId,data2);
-                    break;
-                case "setMotorSpeed":
-                    devId = Integer.parseInt(commandParts[1]);
-                    int speed = Integer.parseInt(commandParts[2]);
-                    hwSystem.setMotorSpeed(devId,speed);
-                    break;
-                case "exit":
-                    System.out.println("Exitting...");
-                    break;
-                default:
-                    System.err.println("Please enter a valid command!!!");
-                    break;
-            }
-            iterator.remove();
-        }
-        scanner.close();
-        System.out.println("Thanks for using our system :)");
-    }*/
