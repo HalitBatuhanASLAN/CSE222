@@ -20,22 +20,13 @@ public class OneWire implements Protocol
         this.portID = portID;
         this.logPath = logPath;
         logCount = 0;
-        //this.logs = new Stack<>();
         logs.push("Port Opened");
         logCount++;
     }
-    /*public void setPortID(int id)
-        {portID = id;}
-    public int getPortID()
-        {return portID;}
-    public void setLogPath(File path)
-        {logPath = path;}*/
     private void writeLogFile()
     {
         String fileName = "OneWire_" + portID + ".log";
         String filePath = logPath + File.separator + fileName;
-
-        //File file = new File(filePath);
         try
         {
             FileWriter writer = new FileWriter(filePath,true);
@@ -67,7 +58,6 @@ public class OneWire implements Protocol
         logs.push("Readining");
         logCount++;
         return "abc";
-        //return getProtocolName() + ": Readining.";
     }
 
     /**

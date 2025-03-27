@@ -25,18 +25,9 @@ public class Wifi extends WirelessIO
      */
     public void turnOn()
     {
-        if(protocol.getProtocolName().equals("UART"))
+        if(protocol.getProtocolName().equals("UART") || protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            /*UART tmp = new UART();
-            tmp.write("Turning ON");*/
-            state = DeviceState.ON;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            System.out.printf("%s: Turning On\n",getName());
-            /*SPI tmp = new SPI();
-            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
@@ -48,18 +39,9 @@ public class Wifi extends WirelessIO
      */
     public void turnOff()
     {
-        if(protocol.getProtocolName().equals("UART"))
+        if(protocol.getProtocolName().equals("UART") || protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            /*UART tmp = new UART();
-            tmp.write("Turning OFF");*/
-            state = DeviceState.OFF;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            System.out.printf("%s: Turning Off\n",getName());            
-            /*SPI tmp = new SPI();
-            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
@@ -76,22 +58,8 @@ public class Wifi extends WirelessIO
      */
     public void sendData(String data)
     {
-        if(protocol.getProtocolName().equals("UART"))
-        {
+        if(protocol.getProtocolName().equals("UART") || protocol.getProtocolName().equals("SPI"))
             System.out.printf("%s: writing %s\n",getName(),data);
-            
-            /*UART tmp = new UART();
-            tmp.write(data);*/
-            protocol.write(data);
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            System.out.printf("%s: writing %s\n",getName(),data);
-            
-            /*SPI tmp = new SPI();
-            tmp.write(data);*/
-            protocol.write(data);
-        }
         else
             System.err.printf("Error: %s is not configured with %s protocol(senData part of Wifi)\n", 
                 getName(), protocol.getProtocolName());
@@ -104,19 +72,8 @@ public class Wifi extends WirelessIO
      */
     public String recvData()
     {
-        if(protocol.getProtocolName().equals("UART"))
-        {
-            /*UART tmp = new UART();
-            String data = tmp.read();*/
-            return protocol.read();
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            /*SPI tmp = new SPI();
-            String data = tmp.read();*/
-            return protocol.read();
-
-        }
+        if(protocol.getProtocolName().equals("UART") || protocol.getProtocolName().equals("SPI"))
+            return "";    
         else
             return String.format("Error: %s is not configured with %s protocol(recvData part of Wifi)\n", 
                 getName(), protocol.getProtocolName());

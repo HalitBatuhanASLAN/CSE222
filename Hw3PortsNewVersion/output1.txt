@@ -1,3 +1,4 @@
+java -cp build Main.Main configuration.txt ./logs 2>errors.log
 
 Commands;
 
@@ -24,10 +25,33 @@ DHT11 0 2 OneWire
 BME280 0 0 I2C
 Device added.
 OLED: Turning On
+OLED: writing "Hello from OLED"
 List of Displays
 OLED 0 1 SPI
 List of Displays
 OLED 0 1 SPI
 Device added.
 Bluetooth: Turning On
+Bluetooth: writing "Test Message via Bluetooth"
 List of WirelessIOs
+List of MotorDrivers
+List of MotorDrivers
+list of ports:
+0 I2C occupied BME280 TempSensor Sensor 0 ON
+1 SPI occupied OLED Display 0 ON
+2 OneWire occupied DHT11 TempSensor Sensor 0 ON
+3 UART occupied Bluetooth WirelessIO 0 ON
+OLED: Turning Off
+Device removed
+BME280: Turning Off
+DHT11: Turning OFF
+Bluetooth: Turning Off
+Device removed
+Device removed
+Device removed
+list of ports:
+0 I2C empty
+1 SPI empty
+2 OneWire empty
+3 UART empty
+Exitting...

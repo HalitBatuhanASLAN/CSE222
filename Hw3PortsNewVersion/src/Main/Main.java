@@ -100,7 +100,7 @@ public class Main
                          hwSystem.listDevType(devType);
                      }
                      else
-                         System.err.println("Please enter a valid device name or enter 'ports'!!!");
+                         System.err.println("Please enter a valid device name or enter 'ports'!!! Entered data: " + commandParts.get(1));
                      break;
                  case "readSensor":
                      devId = Integer.parseInt(commandParts.get(1));
@@ -116,13 +116,6 @@ public class Main
                          if (partsIterator2.hasNext())
                              data += " ";
                      }
-                     
-                     /*for (int i = 2; i < commandParts.size(); i++)
-                     {
-                         data += commandParts.get(i);
-                         if (i < commandParts.size() - 1)
-                             data += " ";
-                     }*/
                      hwSystem.printDisplay(devId,data);
                      break;
                  case "readWireless":
@@ -139,12 +132,6 @@ public class Main
                          if (partsIterator.hasNext())
                              data2 += " ";
                      }
-                     /*for (int i = 2; i < commandParts.size(); i++)
-                     {
-                         data2 += commandParts.get(i);
-                         if (i < commandParts.size() - 1)
-                             data2 += " ";
-                     }*/
                      hwSystem.writeWireless(devId,data2);
                      break;
                  case "setMotorSpeed":
@@ -191,7 +178,6 @@ public class Main
                     int portID = 0;
                     String protocolsPart = line.substring(line.indexOf(":") + 1).trim();
                     Queue<String>protocolNames = new LinkedList<>(Arrays.asList(protocolsPart.split(",")));
-                    //String[] protocolNames = protocolsPart.split(",");
                     ArrayList<String> protocols = new ArrayList<>();
                     String protocol = protocolNames.poll();
                     while(protocol != null)
@@ -232,7 +218,7 @@ public class Main
                     num = num < 0 ? 0 : num;
                     hwsystem.setWirelessIOsNumber(num);
                 }
-                else if(line.startsWith("# of motor drivers:"))
+                else if(line.startsWith("# of motor drivers:"))
                 {
                     int num = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
                     num = num < 0 ? 0 : num;

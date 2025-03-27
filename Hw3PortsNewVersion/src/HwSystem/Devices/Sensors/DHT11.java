@@ -27,9 +27,6 @@ public class DHT11 extends TempSensor
         if(protocol.getProtocolName().equals("OneWire"))
         {
             System.out.printf("%s: Turning ON\n",getName());
-            //protocol.write("Turning on");
-            /*OneWire tmp = new OneWire();
-            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
@@ -44,7 +41,6 @@ public class DHT11 extends TempSensor
         if(protocol.getProtocolName().equals("OneWire"))
         {
             System.out.printf("%s: Turning OFF\n",getName());
-            //protocol.write("Turning OFF");
             state = DeviceState.OFF;
         }
         else
@@ -67,17 +63,9 @@ public class DHT11 extends TempSensor
      */
     public float getTemp()
     {
-        float temp = (float)24.00;
-        /*String readedString;
+        float temp;
         if(protocol.getProtocolName().equals("OneWire"))
-        {
-            readedString = protocol.read();
-            /*OneWire tmp = new OneWire();
-            readedString = tmp.read();
-            //System.out.println(readedString);
-        }*/
-        if(protocol.getProtocolName().equals("OneWire"))
-            return temp;
+            temp = (float)24.00;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getTemp part of DHT11)\n", 

@@ -25,16 +25,9 @@ public class BME280 extends TempSensor
      */
     public void turnOn()
     {
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("I2C") || protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            //protocol.write("Turning ON");
-            state = DeviceState.ON;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            System.out.printf("%s: Turning On\n",getName());
-            //protocol.write("Turning ON");
             state = DeviceState.ON;
         }
         else
@@ -46,16 +39,9 @@ public class BME280 extends TempSensor
      */
     public void turnOff()
     {
-        if(protocol.getProtocolName().equals("I2C"))
+        if(protocol.getProtocolName().equals("I2C") || protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            //protocol.write("Turning OFF");
-            state = DeviceState.OFF;
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            System.out.printf("%s: Turning Off\n",getName());
-            //protocol.write("Turning OFF");
             state = DeviceState.OFF;
         }
         else
@@ -78,31 +64,16 @@ public class BME280 extends TempSensor
      */
     public float getTemp()
     {
-        float temp = (float)24.00;
-        /*String readedString;
-        if(protocol.getProtocolName().equals("I2C"))
-        {
-            /*I2C tmp = new I2C();
-            readedString = tmp.read();
-            System.out.println(readedString);
-            readedString = protocol.read();
-        }
-        else if(protocol.getProtocolName().equals("SPI"))
-        {
-            /*SPI tmp = new SPI();
-            readedString = tmp.read();
-            System.out.println(readedString);
-            readedString = protocol.read();
-        }*/
+        float temp;
         if(protocol.getProtocolName().equals("I2C") || protocol.getProtocolName().equals("SPI"))
-            return temp;
+            temp = (float)24.00;
         else
         {
             System.err.printf("Error: %s is not configured with %s protocol(getTemp part of BME280)\n", 
                 getName(), protocol.getProtocolName());
             temp = -999;
-            return temp;
         }
+        return temp;
     }
     /**
      * Converts the sensor data to a string representation.

@@ -25,18 +25,10 @@ public class I2C implements Protocol
         logs.push("Port Opened");
         logCount++;
     }
-    /*public void setPortID(int id)
-        {portID = id;}
-    public int getPortID()
-        {return portID;}
-    public void setLogPath(String path)
-        {logPath = path;}*/
     private void writeLogFile()
     {
         String fileName = "I2C_" + portID + ".log";
         String filePath = logPath + File.separator + fileName;
-
-        //File file = new File(filePath);
         try
         {
             FileWriter writer = new FileWriter(filePath,true);
@@ -68,7 +60,6 @@ public class I2C implements Protocol
         logs.push("Readining");
         logCount++;
         return "";
-        //return getProtocolName() + ": Readining.";
     }
      /**
      * Simulates writing data to an I2C device.

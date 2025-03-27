@@ -26,8 +26,6 @@ public class OLED extends Display
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            /*SPI tmp = new SPI();
-            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
@@ -39,8 +37,6 @@ public class OLED extends Display
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            /*SPI tmp = new SPI();
-            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
@@ -53,12 +49,7 @@ public class OLED extends Display
     public void printData(String data)
     {
         if(protocol.getProtocolName().equals("SPI"))
-        {
             System.out.printf("%s: writing %s\n",getName(),data);
-            protocol.write(data);
-            /*SPI tmp = new SPI();
-            tmp.write(data);*/
-        }
         else
             System.err.printf("Error: %s is not configured with %s protocol(printData part of OLED)\n", 
                 getName(), protocol.getProtocolName());

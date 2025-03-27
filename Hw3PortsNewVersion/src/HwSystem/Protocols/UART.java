@@ -25,18 +25,10 @@ public class UART implements Protocol
         logs.push("Port Opened");
         logCount++;
     }
-    /*public void setPortID(int id)
-        {portID = id;}
-    public int getPortID()
-        {return portID;}
-    public void setLogPath(String path)
-        {logPath = path;}*/
     private void writeLogFile()
     {
         String fileName = "UART_" + portID + ".log";
         String filePath = logPath + File.separator + fileName;
-
-        //File file = new File(filePath);
         try
         {
             FileWriter writer = new FileWriter(filePath,true);

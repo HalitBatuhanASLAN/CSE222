@@ -26,8 +26,6 @@ public class SparkFunMD extends MotorDriver
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning On\n",getName());
-            /*SPI tmp = new SPI();
-            tmp.write("Turning ON");*/
             state = DeviceState.ON;
         }
         else
@@ -39,8 +37,6 @@ public class SparkFunMD extends MotorDriver
         if(protocol.getProtocolName().equals("SPI"))
         {
             System.out.printf("%s: Turning Off\n",getName());
-            /*SPI tmp = new SPI();
-            tmp.write("Turning OFF");*/
             state = DeviceState.OFF;
         }
         else
@@ -58,11 +54,7 @@ public class SparkFunMD extends MotorDriver
     {
         System.out.printf("%s: setting speed to %d\n",getName(),speed);
         if(protocol.getProtocolName().equals("SPI"))
-        {
-            /*SPI tmp = new SPI();*/
-            String speedString = Integer.toString(speed);
-            protocol.write(speedString);
-        }
+            return;
         else
             System.err.printf("Error: %s is not configured with %s protocol(setMotorSpeed part of SparkFunMD)\n", 
                 getName(), protocol.getProtocolName());
