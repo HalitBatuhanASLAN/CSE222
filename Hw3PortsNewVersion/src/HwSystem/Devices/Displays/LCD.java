@@ -21,6 +21,12 @@ public class LCD extends Display
         else
             setProtocol(protocolName);
     }
+
+    /**
+     * Turns on the LCD display.
+     * Only works if the device is configured with the I2C protocol.
+     * Changes the device state to ON when successful.
+     */
     public void turnOn()
     {
         if(protocol.getProtocolName().equals("I2C"))
@@ -32,6 +38,12 @@ public class LCD extends Display
             System.err.printf("Error: %s is not configured with %s protocol(turnON part of LCD)\n", 
                 getName(), protocol.getProtocolName());
     }
+
+    /**
+     * Turns off the LCD display.
+     * Only works if the device is configured with the I2C protocol.
+     * Changes the device state to OFF when successful.
+     */
     public void turnOff()
     {
         if(protocol.getProtocolName().equals("I2C"))
@@ -43,9 +55,21 @@ public class LCD extends Display
             System.err.printf("Error: %s is not configured with %s protocol(tunrOFF part of LCD)\n", 
                 getName(), protocol.getProtocolName());
     }
+
+    /**
+     * Returns the name of this device.
+     * 
+     * @return String containing "LCD" as the device name
+     */
     public String getName()
         {return "LCD";}
 
+    /**
+     * Displays the provided data on the LCD screen.
+     * Only works if the device is configured with the I2C protocol.
+     * 
+     * @param data The string data to be displayed on the LCD
+     */
     public void printData(String data)
     {
         if(protocol.getProtocolName().equals("I2C"))

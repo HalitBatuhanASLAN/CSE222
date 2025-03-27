@@ -8,6 +8,12 @@ package HwSystem.Devices.Sensors;
 public abstract class IMUSensor extends Sensor
 {
     /**
+     * Default constructor for IMUSensor class.
+     * Initializes a new imusensor device with default settings.
+     */
+    public IMUSensor()
+        {super();}
+    /**
      * Gets the specific type of the sensor.
      * 
      * @return A string indicating this is an IMU sensor

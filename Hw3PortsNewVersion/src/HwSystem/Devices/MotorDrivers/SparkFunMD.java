@@ -21,6 +21,12 @@ public class SparkFunMD extends MotorDriver
         else
             setProtocol(protocolName);
     }
+
+    /**
+     * Turns on the SparkFunMD motor driver.
+     * Only works if the device is configured with the SPI protocol.
+     * Changes the device state to ON when successful.
+     */
     public void turnOn()
     {
         if(protocol.getProtocolName().equals("SPI"))
@@ -32,6 +38,12 @@ public class SparkFunMD extends MotorDriver
             System.err.printf("Error: %s is not configured with %s protocol(turnON part of SparkFunMD)\n", 
                 getName(), protocol.getProtocolName());
     }
+
+    /**
+     * Turns off the SparkFunMD motor driver.
+     * Only works if the device is configured with the SPI protocol.
+     * Changes the device state to OFF when successful.
+     */
     public void turnOff()
     {
         if(protocol.getProtocolName().equals("SPI"))
@@ -43,8 +55,17 @@ public class SparkFunMD extends MotorDriver
             System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of SparkFunMD)\n", 
                 getName(), protocol.getProtocolName());
     }
+
+    /**
+     * Returns the name of this device.
+     * 
+     * @return String containing "SparkFunMD" as the device name
+     */
+
     public String getName()
         {return "SparkFunMD";}
+
+    
     /**
      * Sets the motor speed by sending the speed value over SPI protocol.
      * 

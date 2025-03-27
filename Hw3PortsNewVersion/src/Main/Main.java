@@ -160,6 +160,7 @@ public class Main
      * Parses information about communication protocols and device counts.
      * 
      * @param fileName Path to the configuration file
+     * @param logPath Directory where log files will be stored
      * @return Initialized HwSystem instance with configured protocols and devices
      */
     public static HwSystem fileReadining(String fileName,File logPath)

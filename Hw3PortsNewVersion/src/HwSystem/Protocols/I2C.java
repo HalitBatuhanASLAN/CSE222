@@ -11,12 +11,29 @@ import java.util.Stack;
  */
 public class I2C implements Protocol
 {
+    /** The port identifier for this I2C connection. */
     private int portID;
+
+    /** The directory where log files will be stored. */
     private File logPath;
+
+    /** Counter for the number of log entries waiting to be written. */
     private int logCount;
+
+    /** Stack to store log messages before they are written to file. */
     private Stack<String> logs = new Stack<>();
 
+    /**
+     * Default constructor for creating an I2C protocol instance without logging.
+     */
     public I2C(){}
+
+    /**
+     * Constructor for creating an I2C protocol instance with logging capabilities.
+     * 
+     * @param portID The port identifier for this I2C connection
+     * @param logPath The directory where log files will be stored
+     */
     public I2C(int portID,File logPath)
     {
         this.portID = portID;
@@ -25,6 +42,11 @@ public class I2C implements Protocol
         logs.push("Port Opened");
         logCount++;
     }
+
+    /**
+     * Writes all pending log messages to the log file.
+     * The log file is named based on the port ID and stored in the specified log path.
+     */
     private void writeLogFile()
     {
         String fileName = "I2C_" + portID + ".log";
@@ -46,10 +68,14 @@ public class I2C implements Protocol
             {System.out.println(e.getMessage());}
     }
 
+    /**
+     * Closes the I2C connection and writes any pending logs to file.
+     */
     public void close()
     {
         writeLogFile();
     }
+
     /**
      * Simulates reading data from an I2C device.
      * 
@@ -61,6 +87,7 @@ public class I2C implements Protocol
         logCount++;
         return "";
     }
+
      /**
      * Simulates writing data to an I2C device.
      * 
@@ -72,6 +99,7 @@ public class I2C implements Protocol
         logCount++;
         
     }
+    
     /**
      * Gets the name of this protocol.
      * 

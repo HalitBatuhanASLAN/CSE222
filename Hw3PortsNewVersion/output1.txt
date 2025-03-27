@@ -1,4 +1,4 @@
-java -cp build Main.Main config1.txt ./logs 2>errors.log
+java -cp build Main.Main configuration.txt ./logs 2>errors.log
 
 Commands;
 
@@ -17,32 +17,28 @@ List of Sensors
 DHT11 0 2 OneWire
 DHT11: Turning ON
 DHT11 TempSensor Sensor: Temp:24.00C
+Device added.
 List of Sensors
 DHT11 0 2 OneWire
+BME280 0 0 I2C
 Device added.
 List of Displays
 OLED 0 1 SPI
 List of Displays
 OLED 0 1 SPI
 Device added.
-Bluetooth: Turning On
-Bluetooth: writing "Test Message via Bluetooth"
+BME280: Turning On
 List of WirelessIOs
-Device added.
-OLED: Turning On
 List of MotorDrivers
-PCA9685 0 0 I2C
 List of MotorDrivers
-PCA9685 0 0 I2C
 list of ports:
-0 I2C occupied PCA9685 MotorDriver 0 OFF
-1 SPI occupied OLED Display 0 ON
+0 I2C occupied BME280 TempSensor Sensor 0 ON
+1 SPI occupied OLED Display 0 OFF
 2 OneWire occupied DHT11 TempSensor Sensor 0 ON
-3 UART occupied Bluetooth WirelessIO 0 ON
-PCA9685: Turning Off
+3 UART occupied Bluetooth WirelessIO 0 OFF
 Device removed
 DHT11: Turning OFF
-Bluetooth: Turning Off
+BME280: Turning Off
 Device removed
 Device removed
 Device removed

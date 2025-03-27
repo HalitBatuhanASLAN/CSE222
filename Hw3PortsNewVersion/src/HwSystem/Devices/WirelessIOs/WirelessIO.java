@@ -8,6 +8,13 @@ import HwSystem.Devices.Device;
  */
 public abstract class WirelessIO extends Device
 {
+    /**
+     * Default constructor for WirelessIO class.
+     * Initializes a new wireless device with default settings.
+     */
+    public WirelessIO() 
+        {super();}
+
     public String getDevType()
         {return "WirelessIO";}
 

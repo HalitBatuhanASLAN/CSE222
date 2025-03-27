@@ -10,6 +10,12 @@ import HwSystem.Devices.Device;
 public abstract class Sensor extends Device
 {
     /**
+     * Default constructor for Sensor class.
+     * Initializes a new sensor device with default settings.
+     */
+    public Sensor()
+        {super();}
+    /**
      * Gets the device type description, which includes the sensor type.
      * 
      * @return A string describing the device type based on the sensor type

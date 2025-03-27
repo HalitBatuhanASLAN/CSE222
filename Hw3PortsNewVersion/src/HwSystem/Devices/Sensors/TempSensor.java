@@ -8,6 +8,12 @@ package HwSystem.Devices.Sensors;
 public abstract class TempSensor extends Sensor
 {
     /**
+     * Default constructor for TempSensor class.
+     * Initializes a new tempsesor device with default settings.
+     */
+    public TempSensor()
+        {super();}
+    /**
      * Gets the specific type of the sensor.
      * 
      * @return A string indicating this is a temperature sensor

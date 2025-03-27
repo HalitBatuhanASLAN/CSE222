@@ -10,7 +10,12 @@ package HwSystem.Protocols;
  */
 public interface Protocol
 {
+    /**
+     * Closes the protocol connection and releases any resources.
+     * Should be called when the protocol is no longer needed.
+     */
     void close();
+    
     /**
      * Reads data from the device using this protocol.
      * 

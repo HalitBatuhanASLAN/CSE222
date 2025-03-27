@@ -8,8 +8,20 @@ import HwSystem.Devices.Device;
  */
 public abstract class MotorDriver extends Device
 {
+    /**
+     * Default constructor for MotorDriver class.
+     * Initializes a new motordrivers device with default settings.
+     */
+    public MotorDriver()
+        {super();}
+    /**
+     * Returns the device type as a string.
+     * 
+     * @return String containing "MotorDriver" as the device type
+     */
     public String getDevType()
         {return "MotorDriver";}
+    
     /**
      * Sets the speed of the motor controlled by this driver.
      * 

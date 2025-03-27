@@ -82,6 +82,10 @@ public class HwSystem
         this.wirelessIODevicesList = new ArrayList<>(WirelessIOsNumber);
     }
 
+    /**
+     * Closes all protocol ports in the system.
+     * This should be called when shutting down the system to ensure proper cleanup.
+     */
     public void closeProtocols()
     {
         Iterator<Protocol> iterator = ports.iterator();

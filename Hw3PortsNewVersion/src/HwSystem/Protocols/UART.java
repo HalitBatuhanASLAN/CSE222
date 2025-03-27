@@ -11,12 +11,29 @@ import java.util.Stack;
  */
 public class UART implements Protocol
 {
+    /** The port identifier for this UART connection. */
     private int portID;
+
+    /** The directory where log files will be stored. */
     private File logPath;
+
+    /** Counter for the number of log entries waiting to be written. */
     private int logCount;
+
+    /** Stack to store log messages before they are written to file. */
     private Stack<String> logs = new Stack<>();
 
+    /**
+     * Default constructor for creating a UART protocol instance without logging.
+     */
     public UART(){}
+    
+    /**
+     * Constructor for creating a UART protocol instance with logging capabilities.
+     * 
+     * @param portID The port identifier for this UART connection
+     * @param logPath The directory where log files will be stored
+     */
     public UART(int portID,File logPath)
     {
         this.portID = portID;
@@ -25,6 +42,11 @@ public class UART implements Protocol
         logs.push("Port Opened");
         logCount++;
     }
+
+    /**
+     * Writes all pending log messages to the log file.
+     * The log file is named based on the port ID and stored in the specified log path.
+     */
     private void writeLogFile()
     {
         String fileName = "UART_" + portID + ".log";
@@ -46,10 +68,14 @@ public class UART implements Protocol
             {System.out.println(e.getMessage());}
     }
 
+    /**
+     * Closes the UART connection and writes any pending logs to file.
+     */
     public void close()
     {
         writeLogFile();
     }
+
     /**
      * Simulates reading data from a UART device.
      * 
@@ -61,6 +87,7 @@ public class UART implements Protocol
         logCount++;
         return getProtocolName() + ": Readining.";
     }
+
     /**
      * Simulates writing data to a UART device.
      * 
@@ -71,6 +98,7 @@ public class UART implements Protocol
         logs.push("Writing:\"" + data + "\"");
         logCount++;
     }
+
     /**
      * Gets the name of this protocol.
      * 

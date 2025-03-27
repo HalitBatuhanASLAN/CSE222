@@ -11,12 +11,29 @@ import java.util.Stack;
  */
 public class SPI implements Protocol
 {
+    /** The port identifier for this SPI connection. */
     private int portID;
+
+    /** The directory where log files will be stored. */
     private File logPath;
+
+    /** Counter for the number of log entries waiting to be written. */
     private int logCount;
+
+    /** Stack to store log messages before they are written to file. */
     private Stack<String> logs = new Stack<>();
 
+    /**
+     * Default constructor for creating an SPI protocol instance without logging.
+     */
     public SPI(){}
+
+    /**
+     * Constructor for creating an SPI protocol instance with logging capabilities.
+     * 
+     * @param portID The port identifier for this SPI connection
+     * @param logPath The directory where log files will be stored
+     */
     public SPI(int portID,File logPath)
     {
         this.portID = portID;
@@ -25,6 +42,11 @@ public class SPI implements Protocol
         logs.push("Port Opened");
         logCount++;
     }
+
+    /**
+     * Writes all pending log messages to the log file.
+     * The log file is named based on the port ID and stored in the specified log path.
+     */
     private void writeLogFile()
     {
         String fileName = "SPI_" + portID + ".log";
@@ -46,10 +68,14 @@ public class SPI implements Protocol
             {System.out.println(e.getMessage());}
     }
 
+     /**
+     * Closes the SPI connection and writes any pending logs to file.
+     */
     public void close()
     {
         writeLogFile();
     }
+
     /**
      * Simulates reading data from an SPI device.
      * 
@@ -61,6 +87,7 @@ public class SPI implements Protocol
         logCount++;
         return getProtocolName() + ": Readining.";
     }
+
     /**
      * Simulates writing data to an SPI device.
      * 
@@ -71,6 +98,7 @@ public class SPI implements Protocol
         logs.push("Writing:\"" + data + "\"");
         logCount++;
     }
+
     /**
      * Gets the name of this protocol.
      * 

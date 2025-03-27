@@ -21,6 +21,12 @@ public class PCA9685 extends MotorDriver
         else
             setProtocol(protocolName);
     }
+
+    /**
+     * Turns on the PCA9685 motor driver.
+     * Only works if the device is configured with the I2C protocol.
+     * Changes the device state to ON when successful.
+     */
     public void turnOn()
     {
         if(protocol.getProtocolName().equals("I2C"))
@@ -32,6 +38,12 @@ public class PCA9685 extends MotorDriver
             System.err.printf("Error: %s is not configured with %s protocol(turnON part of PCA9685)\n", 
                 getName(), protocol.getProtocolName());
     }
+
+    /**
+     * Turns off the PCA9685 motor driver.
+     * Only works if the device is configured with the I2C protocol.
+     * Changes the device state to OFF when successful.
+     */
     public void turnOff()
     {
         if(protocol.getProtocolName().equals("I2C"))
@@ -43,8 +55,16 @@ public class PCA9685 extends MotorDriver
             System.err.printf("Error: %s is not configured with %s protocol(turnOFF part of PCA9685)\n", 
                 getName(), protocol.getProtocolName());
     }
+
+    /**
+     * Returns the name of this device.
+     * 
+     * @return String containing "PCA9685" as the device name
+     */
     public String getName()
         {return "PCA9685";}
+
+    
     /**
      * Sets the motor speed by sending the speed value over I2C protocol.
      * 
