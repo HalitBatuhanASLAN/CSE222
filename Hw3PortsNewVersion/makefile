@@ -13,6 +13,11 @@ build:
 run:
 	java -cp build Main.Main $(ARGS) 2>errors.log
 
+# javadoc: Generates JavaDoc documentation for all Java source files in the project
+javadoc:
+	mkdir -p docs
+	javadoc -d docs @sources.txt -encoding UTF-8 -charset UTF-8 -docencoding UTF-8
+
 # delete: Cleans up build artifacts and generated files
 delete:
-	rm -rf build sources.txt errors.log logs
+	rm -rf build sources.txt errors.log logs docs
