@@ -450,6 +450,9 @@ public class HwSystem
         }
     }
 
+    /*it was the first part that I applied changes so for here I got helping from AI for others I convert
+     * by myself
+     */
     /**
      * Reads data from a sensor device.
      * Displays the sensor name, type, and current data if the device is active.
@@ -600,6 +603,9 @@ public class HwSystem
         }
     }
 
+    /*AI used to converting for loops to iterator usage or usage of other allayList(I created arrayList 
+     * AI just give me the possible solving of algorithms problems in there but I converted part by part
+    ) */
     /**
      * Adds a new device to the system.
      * 

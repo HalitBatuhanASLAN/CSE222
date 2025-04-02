@@ -1,3 +1,9 @@
+/*for all javaDoc comment AI used 
+ * in usage of iterators with data structures I got problms from time to time and I
+    got solving from AI
+ *for file writing of protocols' logs I used AI for the first protocol to learn writing file
+*/
+
 package Main;
 
 import HwSystem.*;
@@ -151,10 +157,10 @@ public class Main
          scanner.close();
          hwSystem.closeProtocols();
      }
-     
 
-
-
+     /*for readining file AI used generally.For readinind parts and also for iterator and data structure
+      * I used AI to see usage of iterators with structures
+     ) */
     /**
      * Reads the configuration file and initializes the hardware system accordingly.
      * Parses information about communication protocols and device counts.
