@@ -14,5 +14,12 @@ public class PlanetSystem
     }
     private String PlanetSystemName;
     private Node star;
-
+    public String getName()
+    {
+        return PlanetSystemName;
+    }
+    public Node getStar()
+    {
+        return star;
+    }
 }

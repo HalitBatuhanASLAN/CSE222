@@ -3,28 +3,30 @@ package Main;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Stack;
 
-import PlanetSystem.PlanetSystem;
+import PlanetSystem.Node;
 import PlanetSystem.PlanetSystemManager;
 
 public class Main
 {
-    public static void main()
+    public static void main(String args[])
     {
         readingCommand();
 
     }
     public static void readingCommand()
     {
-        PlanetSystemManager planetSystemManager = null;
-        PlanetSystem planetSystem;
+        PlanetSystemManager planetSystemManager = new PlanetSystemManager();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Planetary System Command Interface");
-        System.out.println("Enter commands (type 'exit' to quit):");
+        System.out.println("Enter commands (type 'EXIT' to quit):");
         
         String commandString;
         ArrayList<String> commandParts;
-        
+        Stack<String> path;
+        ArrayList<Node> anomalies;
+
         String starName;
         String planetName;
         String satelliteName;
@@ -35,11 +37,13 @@ public class Main
         double humidity;
         double radiation;
         double threshold;
+        
         do {
             commandString = scanner.nextLine();
             commandParts = new ArrayList<>(Arrays.asList(commandString.split(" ")));
             
-            if (commandParts.isEmpty()) {
+            if (commandParts.isEmpty())
+            {
                 continue;
             }
             
@@ -52,7 +56,6 @@ public class Main
                     humidity = Double.parseDouble(commandParts.get(4));
                     radiation = Double.parseDouble(commandParts.get(5));
                     planetSystemManager.createPlanetSystem(starName, temperature, pressure, humidity, radiation);
-                    //planetSystem = new PlanetSystem(starName,temperature,pressure,humidity,radiation);
                     System.out.println("Star system created: " + starName);
                     break;
                 case "addPlanet":
@@ -62,6 +65,7 @@ public class Main
                     pressure = Double.parseDouble(commandParts.get(4));
                     humidity = Double.parseDouble(commandParts.get(5));
                     radiation = Double.parseDouble(commandParts.get(6));
+                    planetSystemManager.addPlanet(planetName, parentName, temperature, pressure, humidity, radiation);
                     System.out.println("Planet added: " + planetName);
                     break;
                     
@@ -72,19 +76,34 @@ public class Main
                     pressure = Double.parseDouble(commandParts.get(4));
                     humidity = Double.parseDouble(commandParts.get(5));
                     radiation = Double.parseDouble(commandParts.get(6));
-                    System.out.println("Moon added: " + satelliteName);
+                    planetSystemManager.addSatellite(satelliteName, parentName, temperature, pressure, humidity, radiation);
+                    System.out.println("Satellite added: " + satelliteName);
                     break;
                     
                 case "findRadiationAnomalies":
                     threshold = Double.parseDouble(commandParts.get(1));
+                    anomalies = new ArrayList<>();
+                    anomalies = planetSystemManager.findRadiationAnomalies(threshold);
+                    for(Node currentNode:anomalies)
+                        System.out.println(currentNode.informations());
                     break;
-                
                 case "getPathTo":
                     nodeName = commandParts.get(1);
+                    path = planetSystemManager.getPathTo(nodeName);
+                    for(String planets:path)
+                    {
+                        System.out.println(planets);
+                    }
                     break;
                 
                 case "printMissionReport":
-                    nodeName = commandParts.get(1);
+                    if(commandParts.size() == 2)
+                    {
+                        nodeName = commandParts.get(1);
+                        planetSystemManager.printMissionReport(nodeName);
+                    }
+                    else
+                        planetSystemManager.printMissionReport();
                     break;
                     
                 case "EXIT":

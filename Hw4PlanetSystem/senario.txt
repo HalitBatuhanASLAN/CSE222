@@ -1,0 +1,35 @@
+createPlanetSystem Sun 5778 0 0 1.2
+addPlanet Mercury Sun 430 0 0 0.5
+addPlanet Venus Mercury 737 92 0 0.7
+addPlanet Earth Venus 288 100 0 1.0
+addPlanet Mars Earth 210 0 0 0.8
+addPlanet Jupiter Mars 165 0 0 2.5
+addPlanet Saturn Jupiter 134 0 0 2.2
+addPlanet Uranus Saturn 76 0 0 1.8
+addPlanet Neptune Uranus 72 0 0 1.7
+addPlanet Pluto Neptune 44 0 0 0.5
+addSatellite Luna Earth 220 0 0 0.2
+addSatellite Phobos Mars 233 0 0 0.3
+addSatellite Deimos Mars 233 0 0 0.15
+addSatellite Io Jupiter 130 0 0 0.25
+addSatellite Europa Jupiter 102 0 0 0.22
+addSatellite Ganymede Jupiter 110 0 0 0.4
+addSatellite Callisto Jupiter 134 0 0 0.38
+addSatellite Titan Saturn 94 0 0 0.4
+addSatellite Enceladus Saturn 75 0 0 0.1
+addSatellite Triton Neptune 38 0 0 0.3
+addSatellite Charon Pluto 53 0 0 0.12
+printMissionReport
+findRadiationAnomalies 1.0
+findRadiationAnomalies 2.0
+findRadiationAnomalies 0.5
+findRadiationAnomalies 0.3
+findRadiationAnomalies 0.1
+printMissionReport Callisto
+getPathTo Venus
+getPathTo Mars
+getPathTo Europa
+getPathTo Titan
+getPathTo Pluto
+getPathTo Charon
+EXIT

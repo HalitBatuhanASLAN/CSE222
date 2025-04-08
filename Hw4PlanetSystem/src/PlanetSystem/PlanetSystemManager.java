@@ -1,6 +1,9 @@
 package PlanetSystem;
 
-//import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 
 public class PlanetSystemManager
 {
@@ -18,28 +21,146 @@ public class PlanetSystemManager
         else
         {
             Node newPlanet = new Node(planetName,"Planet", temperature, pressure, humidity, radiation);
-            
+            Node parent = findParentNode(parentName);
+            if(parent == null)
+                System.out.println("No parent matching");
+            else
+            {
+                parent.addChild(newPlanet);
+            }
         }
 
     }
     public void addSatellite(String satelliteName,String parentName,double temperature,double pressure,double humidity,double radiation)
     {
-
+        if(currentPlanetSystem == null)
+        {
+            System.out.println("There is no any system, please firstly create a system with star");
+        }
+        else
+        {
+            Node newPlanet = new Node(satelliteName,"Satellite", temperature, pressure, humidity, radiation);
+            Node parent = findParentNode(parentName);
+            if(parent == null)
+                System.out.println("No parent matching");
+            else
+            {
+                parent.addChild(newPlanet);
+            }
+        }
     }
-    public void findRadiationAnomalies(double threshold)
+    public ArrayList<Node> findRadiationAnomalies(double threshold)
     {
+        ArrayList<Node> radiationAnomalies = new ArrayList<>();
 
+        RadiationAnomaliesRecursive(currentPlanetSystem.getStar(),threshold,radiationAnomalies);
+        return radiationAnomalies;
     }
-    /*public Stack<String> getPathTo(String planetName)
+    public void RadiationAnomaliesRecursive(Node current,double threshold,List<Node> listOfNodes)
     {
-        
-    }*/
+        if(current == null)
+            return;
+        else
+        {
+            if(current.getRadiationFromNode() >= threshold)
+                listOfNodes.add(current);
+            for(Node child:current.getChildren())
+                RadiationAnomaliesRecursive(child,threshold,listOfNodes);
+        }
+    }
     public void printMissionReport()
     {
-
+        printNodeInfo(currentPlanetSystem.getStar(),0);
+    }
+    private void printNodeInfo(Node currentNode,int part)
+    {
+        if(part == -1)
+        {
+            System.out.println(currentNode.informations());
+            return;
+        }
+        if(currentNode == null)
+            return;
+        for(int i = 0;i<part;i++)
+            System.out.print("  ");
+        System.out.println(currentNode.informations());
+        List<Node> childrenList = currentNode.getChildren();
+        for(Node child:childrenList)
+        {
+            if(!child.getType().equals("Satellite"))
+                part++;
+            printNodeInfo(child,part);   
+        }
     }
     public void printMissionReport(String NodeName)
     {
-        
+        printNodeInfo(findParentNode(NodeName),-1);
     }
+
+    public Stack<String> getPathTo(String planetName)
+    {
+        Stack<String> path = new Stack<>();
+        Stack<Node> pathNode = new Stack<>();
+        ArrayList<Node> tmp = new ArrayList<>();
+        Node target = findParentNode(planetName);
+        if(target == null)
+            return path;
+        Node current = currentPlanetSystem.getStar();
+        tmp.add(current);
+        while(current.getName() != target.getName())
+        {
+            for(Node child:current.getChildren())
+                tmp.add(tmp.indexOf(current)+1,child);
+            current = tmp.remove(0);
+            pathNode.add(current);
+        }
+        path.add(currentPlanetSystem.getName());
+        Boolean childController = false;
+        for(int i = 0;i<pathNode.size();i++)
+        {
+            Node node = pathNode.get(i + 1);
+            for(Node nd:pathNode.get(i).getChildren())
+            {
+                if(nd == node)
+                    childController = true;
+            }
+            if(childController == false)
+                pathNode.remove(i+1);
+            else
+                path.add(pathNode.get(i+1).getName());
+            childController = false;
+        }
+        return path;
+    }
+
+    private Node findParentNode(String parentName)
+    {
+        if (currentPlanetSystem == null)
+            return null;
+        
+        Node startNode = currentPlanetSystem.getStar();
+        
+        if(startNode.getName().equals(parentName))
+            return startNode;
+        
+        java.util.Queue<Node> queue = new java.util.LinkedList<>();
+        queue.add(startNode);
+        
+        while(!queue.isEmpty())
+        {
+            Node current = queue.poll();
+            
+            if(current.getName().equals(parentName))
+                return current;
+            
+            List<Node> children = current.getChildren();
+            if (children != null)
+            {
+                for (Node child : children)
+                    queue.add(child);
+            }
+        }
+        return null;
+    }
+    
 }
