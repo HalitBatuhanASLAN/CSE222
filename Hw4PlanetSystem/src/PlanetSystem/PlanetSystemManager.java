@@ -100,6 +100,40 @@ public class PlanetSystemManager
     public Stack<String> getPathTo(String planetName)
     {
         Stack<String> path = new Stack<>();
+        ArrayList<Node> nodePath = new ArrayList<>();
+        Node target = findParentNode(planetName);
+        if(target == null)
+            return path;
+        Node current = currentPlanetSystem.getStar();
+        path.add(current.getName());
+        if(findPath(current, target, nodePath))
+        {
+            for(Node child:nodePath)
+                path.push(child.getName());
+        }
+        return path;
+    }
+
+    public Boolean findPath(Node current,Node target,ArrayList<Node> path)
+    {
+        path.add(current);
+        if(current.getName().equals(target.getName()))
+            return true;
+        else
+        {
+            for(Node child:current.getChildren())
+            {
+                if(findPath(child, target, path))
+                    return true;
+            }
+        }
+        path.remove(path.size()-1);
+        return false;
+    }
+
+    /*public Stack<String> getPathTo(String planetName)
+    {
+        Stack<String> path = new Stack<>();
         Stack<Node> pathNode = new Stack<>();
         ArrayList<Node> tmp = new ArrayList<>();
         Node target = findParentNode(planetName);
@@ -114,6 +148,7 @@ public class PlanetSystemManager
             current = tmp.remove(0);
             pathNode.add(current);
         }
+        System.out.println("controller");
         path.add(currentPlanetSystem.getName());
         Boolean childController = false;
         for(int i = 0;i<pathNode.size();i++)
@@ -131,7 +166,7 @@ public class PlanetSystemManager
             childController = false;
         }
         return path;
-    }
+    }*/
 
     private Node findParentNode(String parentName)
     {

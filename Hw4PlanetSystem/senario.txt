@@ -26,10 +26,10 @@ findRadiationAnomalies 0.5
 findRadiationAnomalies 0.3
 findRadiationAnomalies 0.1
 printMissionReport Callisto
-getPathTo Venus
-getPathTo Mars
+getPathTo Charon
 getPathTo Europa
 getPathTo Titan
 getPathTo Pluto
 getPathTo Charon
+getPathTo Venus
 EXIT
