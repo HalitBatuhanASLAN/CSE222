@@ -66,7 +66,6 @@ public class Main
                     humidity = Double.parseDouble(commandParts.get(5));
                     radiation = Double.parseDouble(commandParts.get(6));
                     planetSystemManager.addPlanet(planetName, parentName, temperature, pressure, humidity, radiation);
-                    System.out.println("Planet added: " + planetName);
                     break;
                     
                 case "addSatellite":
@@ -77,18 +76,24 @@ public class Main
                     humidity = Double.parseDouble(commandParts.get(5));
                     radiation = Double.parseDouble(commandParts.get(6));
                     planetSystemManager.addSatellite(satelliteName, parentName, temperature, pressure, humidity, radiation);
-                    System.out.println("Satellite added: " + satelliteName);
                     break;
                     
                 case "findRadiationAnomalies":
                     threshold = Double.parseDouble(commandParts.get(1));
                     anomalies = new ArrayList<>();
                     anomalies = planetSystemManager.findRadiationAnomalies(threshold);
-                    for(Node currentNode:anomalies)
-                        System.out.println(currentNode.informations());
+                    if(anomalies == null)
+                        System.out.println("No anomalies found");
+                    else
+                    {
+                        System.out.println("Anomalies;");
+                        for(Node currentNode:anomalies)
+                            System.out.println(currentNode.informations());
+                    }
                     break;
                 case "getPathTo":
                     nodeName = commandParts.get(1);
+                    System.out.println("Path to " + nodeName);
                     path = planetSystemManager.getPathTo(nodeName);
                     for(String planets:path)
                     {

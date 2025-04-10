@@ -12,7 +12,7 @@ public class PlanetSystemManager
     {
         currentPlanetSystem = new PlanetSystem(starName, temperature, pressure, humidity, radiation);
     }
-    public void addPlanet(String planetName,String parentName,double temperature,double pressure,double humidity,double radiation)
+    /*public void addPlanet(String planetName,String parentName,double temperature,double pressure,double humidity,double radiation)
     {
         if(currentPlanetSystem == null)
         {
@@ -30,6 +30,55 @@ public class PlanetSystemManager
             }
         }
 
+    }*/
+    public void addPlanet(String planetName,String parentName,double temperature,double pressure,double humidity,double radiation)
+    {
+        if(currentPlanetSystem == null)
+        {
+            System.out.println("There is no any system, please firstly create a system with star");
+        }
+        else
+        {
+            Node newPlanet = new Node(planetName,"Planet", temperature, pressure, humidity, radiation);
+            Node parent = findParentNode(parentName);
+            if(parent == null)
+                System.out.println("No parent matching");
+            else if(parent.getType() == "Satellite")
+            {
+                System.out.println("Satellites can not have subplanet.\nSo adding planet is unseccessfull");
+                return;
+            }
+            else
+            {
+                if(!parent.getChildren().isEmpty())
+                {
+                    for(Node child: parent.getChildren())
+                    {
+                        if(child.getType() == "Planet")
+                        {    
+                            System.out.println("Each planet has only one subplanet.\nSo adding planet is unseccessfull");
+                            return;
+                        }
+                        else if(child.getName().equals(planetName))
+                        {
+                            System.out.println("Planet has already adde.\nSo adding again is unseccessfull");
+                            return;
+                        }
+                        else
+                        {
+                            parent.addChild(newPlanet);
+                            System.out.println("Planet added: " + planetName);
+                        }
+                    }
+                }
+                else
+                {
+                    parent.addChild(newPlanet);
+                    System.out.println("Planet added: " + planetName);
+                }
+            }
+        }
+
     }
     public void addSatellite(String satelliteName,String parentName,double temperature,double pressure,double humidity,double radiation)
     {
@@ -39,13 +88,49 @@ public class PlanetSystemManager
         }
         else
         {
-            Node newPlanet = new Node(satelliteName,"Satellite", temperature, pressure, humidity, radiation);
+            Node newSatellite = new Node(satelliteName,"Satellite", temperature, pressure, humidity, radiation);
             Node parent = findParentNode(parentName);
             if(parent == null)
                 System.out.println("No parent matching");
+            else if(parent.getType() == "Satellite")
+            {
+                System.out.println("Satellites can not have subplanet.\nSo adding planet is unseccessfull");
+                return;
+            }
             else
             {
-                parent.addChild(newPlanet);
+                if(!parent.getChildren().isEmpty())
+                {
+                    for(Node child: parent.getChildren())
+                    {
+                        if(child.getName().equals(satelliteName))
+                        {
+                            System.out.println("Satellite has already adde.\nSo adding again is unseccessfull");
+                            return;
+                        }
+                    }
+                    /*for(Node child: parent.getChildren())
+                    {
+                        if(child.getName().equals(satelliteName))
+                        {    
+                            System.out.println("Satellite has already added.\nSo adding again is unseccessfull");
+                            return;
+                        }
+                        else
+                        {
+                            parent.addChild(newSatellite);
+                            System.out.println("Satellite added: " + satelliteName);
+                        }
+                    }*/
+                    parent.addChild(newSatellite);
+                    System.out.println("Satellite added: " + satelliteName);
+                
+                }
+                else
+                {
+                    parent.addChild(newSatellite);
+                    System.out.println("Satellite added: " + satelliteName);
+                }
             }
         }
     }
@@ -81,8 +166,10 @@ public class PlanetSystemManager
         }
         if(currentNode == null)
             return;
+        
         for(int i = 0;i<part;i++)
             System.out.print("  ");
+        System.out.print("└──");
         System.out.println(currentNode.informations());
         List<Node> childrenList = currentNode.getChildren();
         for(Node child:childrenList)
