@@ -1,8 +1,0 @@
-HwSystem
-HwSystem.Devices
-HwSystem.Devices.Displays
-HwSystem.Devices.MotorDrivers
-HwSystem.Devices.Sensors
-HwSystem.Devices.WirelessIOs
-HwSystem.Protocols
-Main

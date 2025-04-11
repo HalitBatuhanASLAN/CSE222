@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"HwSystem"},{"l":"HwSystem.Devices"},{"l":"HwSystem.Devices.Displays"},{"l":"HwSystem.Devices.MotorDrivers"},{"l":"HwSystem.Devices.Sensors"},{"l":"HwSystem.Devices.WirelessIOs"},{"l":"HwSystem.Protocols"},{"l":"Main"}];updateSearchResults();
