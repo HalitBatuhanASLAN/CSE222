@@ -1,4 +1,4 @@
-createPlanetSystem Sun 5778 0 0 1.2
+create PlanetSystem Sun 5778 0 0 1.2
 addPlanet Mercury Sun 430 0 0 0.5
 addPlanet Venus Mercury 737 92 0 0.7
 addPlanet Earth Venus 288 100 0 1.0
@@ -26,6 +26,7 @@ findRadiationAnomalies 0.5
 findRadiationAnomalies 0.3
 findRadiationAnomalies 0.1
 printMissionReport Callisto
+getPathTo ABC
 getPathTo Charon
 getPathTo Europa
 getPathTo Titan
