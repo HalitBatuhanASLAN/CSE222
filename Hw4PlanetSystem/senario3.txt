@@ -1,4 +1,4 @@
-create PlanetSystem SolarSystem 5778 0 0 1.2
+create planetSystem SolarSystem 5778 0 0 1.2
 addPlanet Mercury SolarSystem 430 0 0 0.5
 addPlanet Venus SolarSystem 737 92 0 0.7
 addPlanet Earth SolarSystem 288 100 0 1.0

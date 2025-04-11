@@ -1,8 +1,8 @@
-create PlanetSystem SolarSystem -100 0 0 1.2
-create PlanetSystem SolarSystem 5778 -50 0 1.2
-create PlanetSystem SolarSystem 5778 0 -30 1.2
+create planetSystem SolarSystem -100 0 0 1.2
+create planetSystem SolarSystem 5778 -50 0 1.2
+create planetSystem SolarSystem 5778 0 -30 1.2
 create PlanetSystem SolarSystem 5778 0 0 -1.2
-create PlanetSystem SolarSystem 5778 0 0 1.2
+create planetSystem SolarSystem 5778 0 0 1.2
 
 addPlanet Mercury NonExistentStar 430 0 0 0.5
 addPlanet Mercury SolarSystem -430 0 0 0.5

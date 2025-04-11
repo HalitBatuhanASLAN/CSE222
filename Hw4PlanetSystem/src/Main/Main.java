@@ -78,7 +78,7 @@ public class Main
             switch(commandParts.get(0))
             {
                 case "create":
-                    if(commandParts.get(1).equals("PlanetSystem"))
+                    if(commandParts.get(1).equals("planetSystem"))
                     {
                         starName = commandParts.get(2);
                         temperature = Double.parseDouble(commandParts.get(3));
