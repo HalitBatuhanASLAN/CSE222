@@ -56,7 +56,7 @@ public class Main
                     humidity = Double.parseDouble(commandParts.get(4));
                     radiation = Double.parseDouble(commandParts.get(5));
                     planetSystemManager.createPlanetSystem(starName, temperature, pressure, humidity, radiation);
-                    System.out.println("Star system created: " + starName);
+                    System.out.println();
                     break;
                 case "addPlanet":
                     planetName = commandParts.get(1);
@@ -66,6 +66,7 @@ public class Main
                     humidity = Double.parseDouble(commandParts.get(5));
                     radiation = Double.parseDouble(commandParts.get(6));
                     planetSystemManager.addPlanet(planetName, parentName, temperature, pressure, humidity, radiation);
+                    System.out.println();
                     break;
                     
                 case "addSatellite":
@@ -76,6 +77,7 @@ public class Main
                     humidity = Double.parseDouble(commandParts.get(5));
                     radiation = Double.parseDouble(commandParts.get(6));
                     planetSystemManager.addSatellite(satelliteName, parentName, temperature, pressure, humidity, radiation);
+                    System.out.println();
                     break;
                     
                 case "findRadiationAnomalies":
@@ -83,22 +85,29 @@ public class Main
                     anomalies = new ArrayList<>();
                     anomalies = planetSystemManager.findRadiationAnomalies(threshold);
                     if(anomalies == null)
-                        System.out.println("No anomalies found");
+                        System.out.println("No anomalies found of " + threshold);
                     else
                     {
-                        System.out.println("Anomalies;");
+                        System.out.println("Anomalies of " + threshold + ";");
                         for(Node currentNode:anomalies)
-                            System.out.println(currentNode.informations());
+                            System.out.println(currentNode.getName() + " with radiation " + currentNode.getRadiationFromNode());
                     }
+                    System.out.println();
                     break;
                 case "getPathTo":
                     nodeName = commandParts.get(1);
                     System.out.println("Path to " + nodeName);
                     path = planetSystemManager.getPathTo(nodeName);
-                    for(String planets:path)
+                    if(path == null)
+                        System.out.println("Could not find " + nodeName + " in printing path");
+                    else
                     {
-                        System.out.println(planets);
+                        for(String planets:path)
+                        {
+                            System.out.println(planets);
+                        }
                     }
+                    System.out.println();
                     break;
                 
                 case "printMissionReport":
@@ -108,7 +117,11 @@ public class Main
                         planetSystemManager.printMissionReport(nodeName);
                     }
                     else
+                    {
+                        System.out.println("Printing mission report;");
                         planetSystemManager.printMissionReport();
+                    }
+                    System.out.println();
                     break;
                     
                 case "EXIT":
@@ -116,6 +129,7 @@ public class Main
                     break;
                 default:
                     System.out.println("Unknown command: " + commandParts.get(0));
+                    System.out.println();
                     break;
             }
             

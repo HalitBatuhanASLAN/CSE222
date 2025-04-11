@@ -1,0 +1,30 @@
+createPlanetSystem SolarSystem 5778 0 0 1.2
+addPlanet Mercury SolarSystem 430 0 0 0.5
+addPlanet Venus SolarSystem 737 92 0 0.7
+addPlanet Earth SolarSystem 288 100 0 1.0
+addPlanet Mars SolarSystem 210 0 0 0.8
+addPlanet Jupiter SolarSystem 165 0 0 2.5
+addPlanet Saturn SolarSystem 134 0 0 2.2
+addPlanet Uranus SolarSystem 76 0 0 1.8
+addPlanet Neptune SolarSystem 72 0 0 1.7
+addSatellite Luna Earth 220 0 0 0.2
+addSatellite Phobos Mars 233 0 0 0.3
+addSatellite Deimos Mars 233 0 0 0.15
+addSatellite Io Jupiter 130 0 0 0.25
+addSatellite Europa Jupiter 102 0 0 0.22
+addSatellite Ganymede Jupiter 110 0 0 0.4
+addSatellite Callisto Jupiter 134 0 0 0.38
+addSatellite Titan Saturn 94 0 0 0.4
+printMissionReport
+findRadiationAnomalies 0.5
+findRadiationAnomalies 2.0
+getPathTo Luna
+getPathTo Europa
+getPathTo Titan
+getPathTo Neptune
+addPlanet TestPlanet NonExistingPlarent 100 0 0 1.0
+addSatellite TestMoon NonExistingPlanet 100 0 0 0.3
+addSatellite Luna Earth 220 0 0 0.2
+addSatellite MoonOfMoon Luna 100 0 0 0.1
+printMissionReport Luna
+EXIT
