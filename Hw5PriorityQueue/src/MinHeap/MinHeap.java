@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class MinHeap<T extends Comparable<T>> implements MyPriorityQueue<T>
 {
-    private ArrayList<T> queue;
+    private ArrayList<T> queue = new ArrayList<>();
     private int size;
     public void add(T t)
     {

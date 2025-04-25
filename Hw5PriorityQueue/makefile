@@ -20,4 +20,4 @@ javadoc:
 
 # delete: Cleans up build artifacts and generated files
 delete:
-	rm -rf build sources.txt docs
+	rm -rf build sources.txt docs errors.log

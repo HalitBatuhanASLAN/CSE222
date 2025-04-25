@@ -17,8 +17,13 @@ public class MyTask implements Comparable<MyTask>
 
     public int compareTo(MyTask other)
     {
-        return Integer.compare(this.user.getPriority(), other.user.getPriority());
+        /*now our user is more important */
+        if(this.user.getPriority() < other.user.getPriority())
+            return -1;
+        else if(this.user.getPriority() > other.user.getPriority())
+            return 1;
+        else
+            return 0;
     }
-
     
 }

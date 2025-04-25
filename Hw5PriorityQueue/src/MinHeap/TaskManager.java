@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class TaskManager<T extends Comparable<T>>
 {
-    private MinHeap<MyTask> tasks;
-    private ArrayList<MyUser> users;
+    private MinHeap<MyTask> tasks = new MinHeap<>();
+    private ArrayList<MyUser> users = new ArrayList<>();
 
     /*AI used for readining file part*/
     /*
