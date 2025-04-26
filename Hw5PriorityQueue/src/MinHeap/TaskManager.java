@@ -12,16 +12,14 @@ public class TaskManager<T extends Comparable<T>>
     private ArrayList<MyUser> users = new ArrayList<>();
 
     /*AI used for readining file part*/
-    /*
-    private MinHeap<MyUser> users;
     public void creatingUsers(String fileName)
     {
-        int value,id = 0;
+        int value;
         try
         {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
-            
+            int id = 0;
             while (scanner.hasNextLine())
             {
                 String line = scanner.nextLine().trim();
@@ -30,37 +28,14 @@ public class TaskManager<T extends Comparable<T>>
                     try
                     {
                         value = Integer.parseInt(line);
-                        MyUser user = new MyUser(id,value);
-                        users.add(user);
-                    }catch(NumberFormatException e) {
-                        System.err.println("No integer number in line: " + line);
-                    }
-                }
-            }
-            scanner.close();
-        }catch(FileNotFoundException e) {
-            System.err.println("File could not find: " + e.getMessage());
-        }
-    }
-    */
-    public void creatingUsers(String fileName)
-    {
-        int value,id = 0;
-        try
-        {
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(file);
-            
-            while (scanner.hasNextLine())
-            {
-                String line = scanner.nextLine().trim();
-                if (!line.isEmpty())
-                {
-                    try
-                    {
-                        value = Integer.parseInt(line);
-                        MyUser user = new MyUser(id,value);
-                        users.add(user);
+                        if(value < 0)
+                            System.err.println("Priority can not be cmaller than 0");
+                        else
+                        {
+                            MyUser user = new MyUser(id,value);
+                            users.add(user);
+                            id++;
+                        }
                     }catch(NumberFormatException e) {
                         System.err.println("No integer number in line: " + line);
                     }
@@ -76,34 +51,41 @@ public class TaskManager<T extends Comparable<T>>
         Scanner scanner = new Scanner(System.in);
         String command;
         
-        System.out.println("\nEnter commands (type 'execute' to process all tasks):");
-        
+        System.out.println("\nEnter commands (type 'execute' to process all tasks)");
+        System.out.print("User id can be between 0 and ");
+        System.out.println(users.size()-1);
+        int line = 0;
         while(true)
         {
             System.out.print("> ");
             command = scanner.nextLine().trim();
             if(command.equalsIgnoreCase("execute"))
             {
-                break;  // execute komutu gelince döngüden çık
+                break;
             }
             else
             {
                 try
                 {
                     int userId = Integer.parseInt(command);
-                    MyTask task = new MyTask(users.get(userId), userId);
-                    tasks.add(task);
+                    if(userId < 0 || userId >= users.size())
+                        System.err.println("User id must be between 0 and " + users.size());
+                    else
+                    {
+                        MyTask task = new MyTask(users.get(userId),line);
+                        tasks.add(task);
+                        line++;
+                    }
                 }
                 catch(NumberFormatException e)
                 {
-                    System.out.println("Invalid command. Please enter a user ID or 'execute'.");
+                    System.err.println("Invalid command. Please enter a user ID or 'execute'.");
                 }
             }
         }
         System.out.println("Execute command received. Processing...");
-        executeTasks();
-        
         scanner.close();
+        executeTasks();
     }
 
     private void executeTasks()
@@ -112,7 +94,7 @@ public class TaskManager<T extends Comparable<T>>
         while(!tasks.isEmpty())
         {
             task = tasks.poll();
-            task.toString();
+            System.out.println(task.toString());
         }
         System.out.println("All tasks are completed");
     }

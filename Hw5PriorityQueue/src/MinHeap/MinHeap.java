@@ -14,20 +14,20 @@ public class MinHeap<T extends Comparable<T>> implements MyPriorityQueue<T>
          * 
          * private metod will be better
          */
-        queue.addLast(t);
-        T currentOne = queue.getLast();
-        int parent_index = (size-1)/2;
-        T parent = queue.get(parent_index);
-        while(currentOne.compareTo(parent) > 0)
-        {
-            queue.set(parent_index,currentOne);
-            queue.set(size,parent);
-            currentOne = queue.get(parent_index);
-            parent_index = (parent_index-1)/2;
-            parent = queue.get(parent_index);
-        }
+        queue.add(t);
         size++;
+        int child_index = size - 1; 
+        int parent_index = (child_index-1)/2;
+        while(parent_index > 0 && queue.get(parent_index).compareTo(queue.get(child_index)) > 0)
+        {
+            T tmp = queue.get(parent_index);
+            queue.set(parent_index,queue.get(child_index));
+            queue.set(child_index,tmp);
+            child_index = parent_index;
+            parent_index = (child_index -1) /2 ;
+        }
     }
+    
     public T poll()
     {
         /*
@@ -42,55 +42,35 @@ public class MinHeap<T extends Comparable<T>> implements MyPriorityQueue<T>
             return null;
         }
         T returnedOne = queue.getFirst();
-        T lastOne = queue.removeLast();
-        int parent_index = 0;
-        int left_child_index = 1;
-        int right_child_index = 2;
-        queue.set(parent_index, lastOne);
-        T parent = queue.get(parent_index);
-        T child_left = queue.get(left_child_index);
-        T child_right = queue.get(right_child_index);
-        while(parent.compareTo(child_right) > 0 || parent.compareTo(child_left) > 0)
+        if(queue.size() == 1)
         {
-            if(parent.compareTo(child_right) > 0 && parent.compareTo(child_left) > 0)
-            {
-                if(child_left.compareTo(child_right) > 0)
-                {
-                    queue.set(parent_index, child_right);
-                    queue.set(right_child_index, parent);
-                    parent_index = right_child_index;
-                    right_child_index = 2*parent_index + 2;
-                    left_child_index = 2*parent_index + 1;
-                }
-                else if(child_left.compareTo(child_right) < 0)
-                {
-                    queue.set(parent_index, child_left);
-                    queue.set(left_child_index, parent);
-                    parent_index = left_child_index;
-                    right_child_index = 2*parent_index + 2;
-                    left_child_index = 2*parent_index + 1;
-                }
-            }
-            else if(parent.compareTo(child_right) > 0)
-            {
-                queue.set(parent_index, child_right);
-                queue.set(right_child_index, parent);
-                parent_index = right_child_index;
-                right_child_index = 2*parent_index + 2;
-                left_child_index = 2*parent_index + 1;
-            }
-            else if(parent.compareTo(child_left) > 0)
-            {
-                queue.set(parent_index, child_left);
-                queue.set(left_child_index, parent);
-                parent_index = left_child_index;
-                right_child_index = 2*parent_index + 2;
-                left_child_index = 2*parent_index + 1;
-            }
-            child_left = queue.get(left_child_index);
-            child_right = queue.get(right_child_index);
+            queue.remove(0);
+            size--;
+            return returnedOne;
         }
+        queue.set(0,queue.get(size-1));
+        queue.remove(size -1);
         size--;
+        int parent_index = 0;
+        while(true)
+        {
+            int left_child_index = 2*parent_index + 1;
+            if(left_child_index >= size)
+                break;
+            int right_child_index = 2*parent_index + 2;
+            int smallerChild = parent_index;
+            
+            if(left_child_index < size && queue.get(left_child_index).compareTo(queue.get(smallerChild)) < 0)
+                smallerChild = left_child_index;
+            if(right_child_index < size && queue.get(right_child_index).compareTo(queue.get(smallerChild)) < 0)
+                smallerChild = right_child_index;
+            if(smallerChild == parent_index)
+                break;
+            T tmp = queue.get(parent_index);
+            queue.set(parent_index,queue.get(smallerChild));
+            queue.set(smallerChild,tmp);
+            parent_index = smallerChild;
+        }
         return returnedOne;
     }
     public Boolean isEmpty()
