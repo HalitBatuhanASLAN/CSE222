@@ -24,7 +24,7 @@ public class MyTask implements Comparable<MyTask>
     /**
      * Returns a string representation of the task
      * Time Complexity: O(1)
-     * @return String in format "Task <id> user <userID>"
+     * @return String in format "Task {id} user {userID}"
      */
     public String toString()
     {
