@@ -11,7 +11,7 @@ build:
 
 # run: Executes the compiled Java program with the configuration file as input
 run:
-	java -cp build Main.Main $(ARGS) 2>errors.log
+	java -cp build SpellChecker.SpellChecker $(ARGS) 2>errors.log
 
 # javadoc: Generates JavaDoc documentation for all Java source files in the project
 javadoc:

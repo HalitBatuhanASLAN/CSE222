@@ -1,3 +1,4 @@
+package Structure;
 public class GTUHashSet<E>
 {
     private static final Object WORD = new Object();

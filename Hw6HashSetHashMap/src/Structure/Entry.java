@@ -1,3 +1,4 @@
+package Structure;
 public class Entry<K, V>
 {
     public K key;

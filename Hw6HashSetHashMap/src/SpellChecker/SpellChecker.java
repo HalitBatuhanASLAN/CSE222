@@ -1,7 +1,10 @@
+package SpellChecker;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+
+import Structure.*;
 
 public class SpellChecker
 {
@@ -25,23 +28,23 @@ public class SpellChecker
             {
                 System.out.println("Correct.");
             }
-            else
+            else 
             {
                 System.out.println("Incorrect.");
                 System.out.print("Suggestions: ");
-                List<String> suggestions = new ArrayList<>();
-                for (String variant : generateEditDistance1(input))
+                //List<String> suggestions = new ArrayList<>();
+                GTUArrayList<String> suggestions = new GTUArrayList<>();
+                /*for (String variant : generateEditDistance1(input))
                 {
                     if (dictionary.contains(variant))
                     {
                         suggestions.add(variant);
                     }
-                }
+                }*/
                 System.out.println(suggestions);
             }
             long endTime = System.nanoTime();
-            System.out.printf("Lookup and suggestion took %.2f ms\n", (endTime -
-            startTime) / 1e6);
+            System.out.printf("Lookup and suggestion took %.2f ms\n", (endTime - startTime) / 1e6);
         }
     }
 }
