@@ -1,5 +1,7 @@
 package Structure;
 import java.lang.Math;
+import java.util.HashSet;
+import java.util.Set;
 public class GTUHashMap<K, V>
 {
     //private final int HASH_BASE = 31; 
@@ -194,73 +196,21 @@ public class GTUHashMap<K, V>
         }
         return true;
     }
+
+
+
+
+
+
+
+    public Set<K> keySet()
+    {
+        Set<K> keys = new HashSet<>();
+        for (Entry<K, V> entry : table)
+            if (entry != null && !entry.isDeleted)
+                keys.add(entry.key);
+        return keys;
+    }
+
+
 }
-
-
-
-    /*private boolean containsKey(K key,int startIndex,int indexValue,int probeNum)
-    {
-        System.out.println(table[indexValue].key);
-        if(table[indexValue] == null)
-            return false;
-        else if(table[indexValue].key == key)
-            return true;
-        else
-        {
-            probeNum++;
-            indexValue = (startIndex + probeNum*probeNum) % capacity;
-            return containsKey(key,startIndex,indexValue,probeNum);
-        }
-    }*/
-
-    
-    /*private void put(K key,V value,int startIndex,int indexValue,int probeNum)
-    {
-        if(table[indexValue] == null)
-        {
-            table[indexValue] = new Entry<>(key, value);
-            size++;
-        }
-        else if(table[indexValue] == key)
-        {
-            table[indexValue].key = key;
-            table[indexValue].value = value;
-        }
-        else
-        {
-            probeNum++;
-            indexValue = (startIndex + probeNum*probeNum) % capacity;
-            put(key,value,startIndex,indexValue,probeNum);
-        }
-    }*/
-
-
-
-    /*
-    private V get(K key,int startIndex,int indexValue,int probeNum)
-    {
-        if(table[indexValue] == null)
-            return null;
-        else if(table[indexValue].key.equals(key))
-            return table[indexValue].value;
-        else
-        {
-            probeNum++;
-            indexValue = (startIndex + probeNum*probeNum) % capacity;
-            return get(key,startIndex,indexValue,probeNum);
-        }
-    }*/
-
-
-        /*
-    private void remove(K key,int startIndex,int indexValue,int probeNum)
-    {
-        if(table[indexValue] == key)
-            table[indexValue].isDeleted = true;
-        else
-        {
-            probeNum++;
-            indexValue = (startIndex + probeNum*probeNum) % capacity;
-            remove(key,startIndex,indexValue,probeNum);
-        }
-    }*/
