@@ -38,13 +38,13 @@ public class SpellChecker
                 System.out.println("Incorrect.");
                 System.out.print("Suggestions: ");
                 GTUArrayList<String> suggestions = new GTUArrayList<>();
-                /*for (String variant : generateEditDistance1(input))
+                for (String variant : generateEditDistance1(input))
                 {
                     if (dictionary.contains(variant))
                     {
                         suggestions.add(variant);
                     }
-                }*/
+                }
                 System.out.println(suggestions);
             }
             long endTime = System.nanoTime();
@@ -52,8 +52,67 @@ public class SpellChecker
         }while(true);
         System.out.println("Exitting program...");
     }
-    private static void generateEditDistance1(String input)
+
+    private static GTUArrayList<String> generateEditDistance1(String input)
     {
-        
+        GTUArrayList<String> variants = new GTUArrayList<>();
+        variant(input, variants);
+        //generateEditDistance2(variants);
+        return variants;
+    }
+
+    private static void generateEditDistance2(GTUArrayList<String> variants)
+    {
+        for(String input : variants)
+            variant(input, variants);
+    }
+
+
+    private static void variant(String input,GTUArrayList<String> variants)
+    {
+        //for distance 1 character variants
+        for(int i = 0;i<input.length();i++)
+        {
+            //adding character
+            for(char ch = 'a';ch <= 'z';ch++)
+            {
+                String addedVairant = input.substring(0,i) + ch + input.substring(i);
+                if(!containsChecker(addedVairant,variants))
+                    variants.add(addedVairant);
+            }
+            
+            //deleting character
+            String deletedVariant = input.substring(0,i) + input.substring(i+1);
+            if(!containsChecker(deletedVariant,variants))
+                variants.add(deletedVariant);
+
+            //changing character
+            for(char ch = 'a';ch <= 'z';ch++)
+            {
+                String changedVariant = input.substring(0,i) + ch + input.substring(i+1);
+                if(!containsChecker(changedVariant,variants))
+                    variants.add(changedVariant);
+            }
+
+            //changing positions
+            for(int j = i+1;j<input.length();j++)
+            {
+                char tmp = input.charAt(j);
+                char tmp2 = input.charAt(i);
+                String newVariant = input.substring(0, i) + tmp + input.substring(i+1, j) + tmp2 + input.substring(j+1);
+                if(!containsChecker(newVariant,variants))
+                    variants.add(newVariant);
+            }
+        }
+    }
+
+    private static boolean containsChecker(String input,GTUArrayList<String> variants)
+    {
+        for (String string : variants)
+        {
+            if(input.equals(string))
+                return true;
+        }
+        return false;
     }
 }

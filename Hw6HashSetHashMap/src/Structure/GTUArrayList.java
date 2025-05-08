@@ -1,8 +1,10 @@
 package Structure;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class GTUArrayList<T>
+public class GTUArrayList<T> implements Iterable<T>
 {
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
@@ -17,13 +19,12 @@ public class GTUArrayList<T>
     }
 
 
-/*
+
     @SuppressWarnings("unchecked")
     public T get(int index) {
-        checkIndex(index); // İndeksi kontrol et
         return (T) elements[index];
     }
-
+/*
     @SuppressWarnings("unchecked")
     public T remove(int index) {
         checkIndex(index); // İndeksi kontrol et
@@ -65,5 +66,29 @@ public class GTUArrayList<T>
         }
         sb.append("]");
         return sb.toString();
+    }
+
+     @Override
+    public Iterator<T> iterator() {
+        return new GTUArrayListIterator();
+    }
+
+    // Özel bir Iterator iç sınıfı
+    private class GTUArrayListIterator implements Iterator<T> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return (T) elements[currentIndex++];
+        }
     }
 }
