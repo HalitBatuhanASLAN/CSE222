@@ -55,7 +55,11 @@ public class SpellChecker
     {
         GTUHashSet<String> variants = new GTUHashSet<>();
         variant(input, variants,1);
+        if(variants.size() >= 10000)
+            return variants;
         generateEditDistance2(variants);
+        if(variants.size() >= 10000)
+            return variants;
         return variants;
     }
 
@@ -63,22 +67,28 @@ public class SpellChecker
     {
         GTUHashSet<String> previous = variants;
         for (String input : previous)
+        {
             variant(input, variants,2);
+            if(variants.size() >= 10000)
+                return;
+        }
+            
     }
+
     private static void variant(String input, GTUHashSet<String> variants, int part)
     {
         addCharacterVariants(input, variants);
     
         deleteCharacterVariants(input, variants);
     
-        changeCharacterVariants(input, variants);
+        //changeCharacterVariants(input, variants);
     
         if(part == 1)
             swapCharacterPositions(input, variants);
+        if(variants.size() >= 10000)
+            return;
     }
     
-
-
     private static void addCharacterVariants(String input, GTUHashSet<String> variants)
     {
         for (int i = 0; i <= input.length(); i++)
@@ -88,6 +98,8 @@ public class SpellChecker
                 String addedVariant = input.substring(0, i) + ch + input.substring(i);
                 if (!variants.contains(addedVariant))
                     variants.add(addedVariant);
+                if(variants.size() >= 10000)
+                    return;
             }
         }
     }
@@ -99,24 +111,10 @@ public class SpellChecker
             String deletedVariant = input.substring(0, i) + input.substring(i + 1);
             if (!variants.contains(deletedVariant))
                 variants.add(deletedVariant);
+            if(variants.size() >= 10000)
+                return;
         }
     }
-
-
-    private static void changeCharacterVariants(String input, GTUHashSet<String> variants)
-    {
-        for (int i = 0; i < input.length(); i++)
-        {
-            for (char ch = 'a'; ch <= 'z'; ch++)
-            {
-                String changedVariant = input.substring(0, i) + ch + input.substring(i + 1);
-                if (!variants.contains(changedVariant))
-                    variants.add(changedVariant);
-            }
-        }
-    }
-
-    
 
     private static void swapCharacterPositions(String input, GTUHashSet<String> variants)
     {
@@ -129,55 +127,23 @@ public class SpellChecker
                 String newVariant = input.substring(0, i) + tmp + input.substring(i + 1, j) + tmp2 + input.substring(j + 1);
                 if (!variants.contains(newVariant))
                     variants.add(newVariant);
+                if(variants.size() >= 10000)
+                    return;
             }
         }
-    }
-    
+    }   
 }
 
 
-/*without partial func */
-
-    /*private static void variant(String input, GTUHashSet<String> variants,int part)
+/*private static void changeCharacterVariants(String input, GTUHashSet<String> variants)
     {
-        // for distance 1 character variants
-        for (int i = 0; i <= input.length(); i++)
-        {
-            // adding character
-            for (char ch = 'a'; ch <= 'z'; ch++)
-            {
-                String addedVariant = input.substring(0, i) + ch + input.substring(i);
-                if (!variants.contains(addedVariant))
-                    variants.add(addedVariant);
-            }
-        }
-
         for (int i = 0; i < input.length(); i++)
         {
-            // deleting character
-            String deletedVariant = input.substring(0, i) + input.substring(i + 1);
-            if (!variants.contains(deletedVariant))
-                variants.add(deletedVariant);
-
-            // changing character
             for (char ch = 'a'; ch <= 'z'; ch++)
             {
                 String changedVariant = input.substring(0, i) + ch + input.substring(i + 1);
                 if (!variants.contains(changedVariant))
                     variants.add(changedVariant);
-            }
-
-            // changing positions
-            if(part == 1)
-            {
-                for (int j = i + 1; j < input.length(); j++)
-                {
-                    char tmp = input.charAt(j);
-                    char tmp2 = input.charAt(i);
-                    String newVariant = input.substring(0, i) + tmp + input.substring(i + 1, j) + tmp2 + input.substring(j + 1);
-                    if (!variants.contains(newVariant))
-                        variants.add(newVariant);
-                }
             }
         }
     }*/
