@@ -65,8 +65,75 @@ public class SpellChecker
         for (String input : previous)
             variant(input, variants,2);
     }
+    private static void variant(String input, GTUHashSet<String> variants, int part)
+    {
+        addCharacterVariants(input, variants);
+    
+        deleteCharacterVariants(input, variants);
+    
+        changeCharacterVariants(input, variants);
+    
+        if(part == 1)
+            swapCharacterPositions(input, variants);
+    }
+    
 
-    private static void variant(String input, GTUHashSet<String> variants,int part)
+
+    private static void addCharacterVariants(String input, GTUHashSet<String> variants)
+    {
+        for (int i = 0; i <= input.length(); i++)
+        {
+            for (char ch = 'a'; ch <= 'z'; ch++)
+            {
+                String addedVariant = input.substring(0, i) + ch + input.substring(i);
+                if (!variants.contains(addedVariant))
+                    variants.add(addedVariant);
+            }
+        }
+    }
+    
+    private static void deleteCharacterVariants(String input, GTUHashSet<String> variants)
+    {
+        for (int i = 0; i < input.length(); i++)
+        {
+            String deletedVariant = input.substring(0, i) + input.substring(i + 1);
+            if (!variants.contains(deletedVariant))
+                variants.add(deletedVariant);
+        }
+    }
+
+
+    private static void changeCharacterVariants(String input, GTUHashSet<String> variants)
+    {
+        for (int i = 0; i < input.length(); i++)
+        {
+            for (char ch = 'a'; ch <= 'z'; ch++)
+            {
+                String changedVariant = input.substring(0, i) + ch + input.substring(i + 1);
+                if (!variants.contains(changedVariant))
+                    variants.add(changedVariant);
+            }
+        }
+    }
+
+    
+
+    private static void swapCharacterPositions(String input, GTUHashSet<String> variants)
+    {
+        for (int i = 0; i < input.length(); i++)
+        {
+            for (int j = i + 1; j < input.length(); j++)
+            {
+                char tmp = input.charAt(j);
+                char tmp2 = input.charAt(i);
+                String newVariant = input.substring(0, i) + tmp + input.substring(i + 1, j) + tmp2 + input.substring(j + 1);
+                if (!variants.contains(newVariant))
+                    variants.add(newVariant);
+            }
+        }
+    }
+    
+    /*private static void variant(String input, GTUHashSet<String> variants,int part)
     {
         // for distance 1 character variants
         for (int i = 0; i <= input.length(); i++)
@@ -108,7 +175,7 @@ public class SpellChecker
                 }
             }
         }
-    }
+    }*/
 }
 
 
