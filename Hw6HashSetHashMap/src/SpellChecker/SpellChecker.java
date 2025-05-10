@@ -34,7 +34,7 @@ public class SpellChecker
             {
                 System.out.println("Incorrect.");
                 System.out.print("Suggestions: ");
-                GTUHashSet<String> suggestions = new GTUHashSet<>();
+                GTUArrayList<String> suggestions = new GTUArrayList<>();
                 for(String variant : generateEditDistance1(input))
                 {
                     if (dictionary.contains(variant))
@@ -55,11 +55,11 @@ public class SpellChecker
     {
         GTUHashSet<String> variants = new GTUHashSet<>();
         variant(input, variants,1);
-        if(variants.size() >= 10000)
-            return variants;
+        /*if(variants.size() >= 10000)
+            return variants;*/
         generateEditDistance2(variants);
-        if(variants.size() >= 10000)
-            return variants;
+        /*if(variants.size() >= 10000)
+            return variants;*/
         return variants;
     }
 
@@ -69,10 +69,9 @@ public class SpellChecker
         for (String input : previous)
         {
             variant(input, variants,2);
-            if(variants.size() >= 10000)
-                return;
+            /*if(variants.size() >= 10000)
+                return;*/
         }
-            
     }
 
     private static void variant(String input, GTUHashSet<String> variants, int part)
@@ -81,12 +80,14 @@ public class SpellChecker
     
         deleteCharacterVariants(input, variants);
     
-        //changeCharacterVariants(input, variants);
+        changeCharacterVariants(input, variants);
     
-        if(part == 1)
-            swapCharacterPositions(input, variants);
-        if(variants.size() >= 10000)
-            return;
+        /*if(part == 1)
+            swapCharacterPositions(input, variants);*/
+        swapCharacterPositions(input, variants);
+        
+        /*if(variants.size() >= 10000)
+            return;*/
     }
     
     private static void addCharacterVariants(String input, GTUHashSet<String> variants)
@@ -98,8 +99,8 @@ public class SpellChecker
                 String addedVariant = input.substring(0, i) + ch + input.substring(i);
                 if (!variants.contains(addedVariant))
                     variants.add(addedVariant);
-                if(variants.size() >= 10000)
-                    return;
+                /*if(variants.size() >= 10000)
+                    return;*/
             }
         }
     }
@@ -111,8 +112,8 @@ public class SpellChecker
             String deletedVariant = input.substring(0, i) + input.substring(i + 1);
             if (!variants.contains(deletedVariant))
                 variants.add(deletedVariant);
-            if(variants.size() >= 10000)
-                return;
+            /*if(variants.size() >= 10000)
+                return;*/
         }
     }
 
@@ -127,15 +128,12 @@ public class SpellChecker
                 String newVariant = input.substring(0, i) + tmp + input.substring(i + 1, j) + tmp2 + input.substring(j + 1);
                 if (!variants.contains(newVariant))
                     variants.add(newVariant);
-                if(variants.size() >= 10000)
-                    return;
+                /*if(variants.size() >= 10000)
+                    return;*/
             }
         }
     }   
-}
-
-
-/*private static void changeCharacterVariants(String input, GTUHashSet<String> variants)
+    private static void changeCharacterVariants(String input, GTUHashSet<String> variants)
     {
         for (int i = 0; i < input.length(); i++)
         {
@@ -146,4 +144,8 @@ public class SpellChecker
                     variants.add(changedVariant);
             }
         }
-    }*/
+    }
+
+}
+
+

@@ -1,5 +1,6 @@
 package Structure;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 public class GTUHashSet<E> implements Iterable<E>
 {
     private static final Object WORD = new Object();
@@ -17,7 +18,7 @@ public class GTUHashSet<E> implements Iterable<E>
 
 
 
-    @Override
+/*    @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder("[");
@@ -27,11 +28,56 @@ public class GTUHashSet<E> implements Iterable<E>
         sb.append("]");
         return sb.toString();
     }
+*/
+    @Override
+    public Iterator<E> iterator()
+    {
+        return new GTUHashSetIterator();
+    }
+    
+    private class GTUHashSetIterator implements Iterator<E>
+    {
+        private GTUArrayList<E> keys;
+        private int currentIndex;
 
+        /**
+         * Creates a new iterator over the set elements.
+         */
+        public GTUHashSetIterator()
+        {
+            keys = map.keySet();
+            currentIndex = 0;
+        }
+
+        /**
+         * Checks if there are more elements in the iteration.
+         */
+        @Override
+        public boolean hasNext()
+        {
+            return currentIndex < keys.size();
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         */
+        @Override
+        public E next()
+        {
+            if (!hasNext())
+            {
+                throw new NoSuchElementException();
+            }
+            return keys.get(currentIndex++);
+    }
+}
+
+
+    /*
     public Iterator<E> iterator()
     {
         return map.keySet().iterator();
-    }
+    }*/
 
 
 

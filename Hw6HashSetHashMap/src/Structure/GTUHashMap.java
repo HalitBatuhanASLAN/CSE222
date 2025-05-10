@@ -1,12 +1,10 @@
 package Structure;
 import java.lang.Math;
-import java.util.HashSet;
-import java.util.Set;
 public class GTUHashMap<K, V>
 {
     //private final int HASH_BASE = 31; 
     
-    private final int INITIAL_CAPACITY = 17;
+    private final int INITIAL_CAPACITY = 20089;
     private final double LOAD_FACTOR = 0.75;
     private int capacity;
     private Entry<K, V>[] table;
@@ -197,20 +195,12 @@ public class GTUHashMap<K, V>
         return true;
     }
 
-
-
-
-
-
-
-    public Set<K> keySet()
+    public GTUArrayList<K> keySet()
     {
-        Set<K> keys = new HashSet<>();
+        GTUArrayList<K> keys = new GTUArrayList<>();
         for (Entry<K, V> entry : table)
             if (entry != null && !entry.isDeleted)
                 keys.add(entry.key);
         return keys;
     }
-
-
 }
