@@ -89,7 +89,7 @@ public class SpellChecker
     private static GTUHashSet<String> generateEditDistance1(String input,GTUHashSet<String> dictionary,int collisions)
     {
         GTUHashSet<String> variants = new GTUHashSet<>();
-        variant(input, variants,1,dictionary);
+        variant(input, variants,dictionary);
 
         generateEditDistance2(variants,dictionary);
 
@@ -107,7 +107,7 @@ public class SpellChecker
         GTUHashSet<String> previous = variants;
         for (String input : previous)
         {
-            variant(input, variants,2,dictionary);
+            variant(input, variants,dictionary);
         }
     }
 
@@ -119,7 +119,7 @@ public class SpellChecker
      * @param part The edit distance level (1 or 2)
      * @param dictionary The dictionary to check variants against
      */
-    private static void variant(String input, GTUHashSet<String> variants, int part,GTUHashSet<String> dictionary)
+    private static void variant(String input, GTUHashSet<String> variants,GTUHashSet<String> dictionary)
     {
         addCharacterVariants(input, variants,dictionary);
     
