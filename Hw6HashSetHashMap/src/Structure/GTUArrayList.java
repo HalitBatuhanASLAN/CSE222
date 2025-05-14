@@ -18,7 +18,7 @@ public class GTUArrayList<T> implements Iterable<T>
     private static final int DEFAULT_CAPACITY = 10;
     
     /** Array to store the elements */
-    private Object[] elements;
+    private T[] elements;
     
     /** The number of elements in the list */
     private int size = 0;
@@ -26,7 +26,8 @@ public class GTUArrayList<T> implements Iterable<T>
     /**
      * Constructs an empty list with the default initial capacity.
      */
-    public GTUArrayList(){elements = new Object[DEFAULT_CAPACITY];}
+    @SuppressWarnings("unchecked")
+    public GTUArrayList(){elements = (T[]) new Object[DEFAULT_CAPACITY];}
 
     /**
      * Adds the specified element to the end of this list.
@@ -49,7 +50,7 @@ public class GTUArrayList<T> implements Iterable<T>
      */
     @SuppressWarnings("unchecked")
     public T get(int index) {
-        return (T) elements[index];
+        return elements[index];
     }
 
     /**
@@ -138,7 +139,7 @@ public class GTUArrayList<T> implements Iterable<T>
         {
             if (!hasNext())
                 throw new NoSuchElementException();
-            return (T) elements[currentIndex++];
+            return elements[currentIndex++];
         }
     }
 }
