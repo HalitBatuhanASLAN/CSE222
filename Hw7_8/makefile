@@ -9,7 +9,8 @@ build: collect
 	javac -d $(BUILD) @sources.txt
 
 run:
-	java -cp $(BUILD) Main.Main $(ARGS)
+#	java -cp $(BUILD) Main.Main $(ARGS)
+	java -cp $(BUILD) Main.SortingTest $(ARGS)
 
 doc:
 	javadoc -d $(DOC) @sources.txt

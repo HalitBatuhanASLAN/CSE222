@@ -1,4 +1,4 @@
-package ADT.Sorting;
+package DSA.Sorting;
 
 import java.util.Comparator;
 
