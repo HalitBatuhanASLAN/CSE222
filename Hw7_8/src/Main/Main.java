@@ -10,7 +10,7 @@ import DSA.Graphs.GTUGraph;
 import DSA.Graphs.GCA.GCASolution;
 import DSA.Graphs.GCA.GreedyGCA;
 import DSA.Sorting.GTUSorter;
-
+import DSA.Sorting.*;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2) {
@@ -35,11 +35,11 @@ public class Main {
             ArrayList<GTUSorter> sorters = new ArrayList<>();
             ArrayList<String> names = new ArrayList<>();
     
-            // sorters.add(new MyInsertSort());                         names.add("MyInsertSort");
-            // sorters.add(new MySelectSort());                         names.add("MySelectSort");
-            // sorters.add(new MyQuickSort());                          names.add("MyQuickSort");
-            // sorters.add(new MyQuickSort(new MyInsertSort(), 10));    names.add("MyQuickSort_MyInsertSort");
-            // sorters.add(new MyQuickSort(new MySelectSort(), 10));    names.add("MyQuickSort_MySelectSort");
+            sorters.add(new MyInsertSort());                         names.add("MyInsertSort");
+            sorters.add(new MySelectSort());                         names.add("MySelectSort");
+            sorters.add(new MyQuickSort());                          names.add("MyQuickSort");
+            sorters.add(new MyQuickSort(new MyInsertSort(), 10));    names.add("MyQuickSort_MyInsertSort");
+            sorters.add(new MyQuickSort(new MySelectSort(), 10));    names.add("MyQuickSort_MySelectSort");
     
             Integer[] tempArr = new Integer[arr.size()];
             for (int i = 0; i < sorters.size(); i++) {
@@ -62,6 +62,7 @@ public class Main {
                 writer.close();
             }
 
+            /*graph part
             GTUGraph graph = new MatrixGraph();
             GTUGraph.readGraph(args[0], graph);
             GTUGraph.writeGraph(args[1] + "graph.txt", graph);
@@ -73,7 +74,7 @@ public class Main {
                 GCASolution solution = GreedyGCA.solve(graph, sorter);
     
                 solution.writeSolution(args[1] + name + "_color.txt");
-            }
+            }*/
 
         } catch (Exception e) {
             System.err.printf("Error: %s\n", e.getMessage());

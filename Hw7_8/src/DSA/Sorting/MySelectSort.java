@@ -2,7 +2,7 @@ package DSA.Sorting;
 
 import java.util.Comparator;
 
-public class GTUSelectSort extends GTUSorter
+public class MySelectSort extends GTUSorter
 {
     @Override
     public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
