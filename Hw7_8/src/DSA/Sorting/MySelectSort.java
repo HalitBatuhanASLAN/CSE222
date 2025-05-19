@@ -7,6 +7,34 @@ public class MySelectSort extends GTUSorter
     @Override
     public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
     {
+        if(start >= end)
+            return;
+        int posMin;
+        for(int fill = start;fill < end;fill++)
+        {
+            posMin = fill;
+            for(int next = fill + 1;next < end ;next++)
+            {
+                if(comparator.compare(arr[next],arr[posMin]) < 0)
+                    posMin = next;
+            }
+            if(posMin != fill)
+                change(arr,posMin,fill);
+        }
+    }
+
+    private<T> void change(T[] arr,int first,int second)
+    {
+        T tmp = arr[first];
+        arr[first] = arr[second];
+        arr[second] = tmp;
+    }
+}
+
+
+    /*@Override
+    public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
+    {
         if(start > end - 2)
             return;
         int fill = start;
@@ -26,38 +54,4 @@ public class MySelectSort extends GTUSorter
             posMin = next;
         }
         return findPosMin(arr, posMin, next + 1, end, comparator);
-    }
-
-    private<T> void change(T[] arr,int first,int second)
-    {
-        T tmp = arr[first];
-        arr[first] = arr[second];
-        arr[second] = tmp;
-    }
-}
-
-/*
-    @Override
-    public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
-    {
-        int posMin;
-        for(int fill = start;fill <= end -2;fill++)
-        {
-            posMin = fill;
-            for(int next = fill + 1;next <= end -1;next++)
-            {
-                if(comparator.compare(arr[next],arr[posMin]) < 0)
-                    posMin = next;
-            }
-            change(arr,posMin,fill);
-        }
-    }
-
-
-    private<T> void change(T[] arr,int first,int second)
-    {
-        T tmp = arr[first];
-        arr[first] = arr[second];
-        arr[second] = tmp;
-    }
-    */
+    }*/

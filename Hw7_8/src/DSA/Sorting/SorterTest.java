@@ -83,7 +83,7 @@ public class SorterTest {
         testStringArray(sorters, sorterNames);
         
         // Performance test
-        //testPerformance(sorters, sorterNames);
+        testPerformance(sorters, sorterNames);
         
         // Show test results
         System.out.println("\n=== Test Results ===");

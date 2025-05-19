@@ -20,6 +20,8 @@ public class MyQuickSort extends GTUSorter
     @Override
     public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
     {
+        if(start >= end - 1)
+            return;
         if(end - start <= PartitionLimit && PartitionLimit != 0)
         {
             sorter.sort(arr, comparator);
@@ -27,31 +29,32 @@ public class MyQuickSort extends GTUSorter
         }
         else if(start < end)
         {
-            if(end - start != 1)
-            {
-                int pivot_index = partition(arr,start,end,comparator);
-                sort(arr,start,pivot_index - 1, comparator);
-                sort(arr,pivot_index + 1,end, comparator);
-            }
+            int pivot_index = partition(arr,start,end,comparator);
+            sort(arr,start,pivot_index, comparator);
+            sort(arr,pivot_index + 1,end, comparator);
         }
     }
 
     private <T> int partition(T[] arr,int start,int end,Comparator<T> comparator)
     {
         Random random = new Random();
-        int pivot_index = random.nextInt(end - start) + start;
-        T pivot = arr[pivot_index];
-        int i = start - 1;
-        for(int j = start;j <= end-1;j++)
+        int pivot_index = start + random.nextInt(end - start);
+        T pivotValue = arr[pivot_index];
+        shift(arr, pivot_index, end - 1);
+
+        int storeIndex = start;
+        for (int i = start; i < end - 1; i++)
         {
-            if(comparator.compare(arr[j], pivot) < 0)
+            if (comparator.compare(arr[i], pivotValue) < 0)
             {
-                i++;
-                shift(arr, i, j);
+                shift(arr, i, storeIndex);
+                storeIndex++;
             }
         }
-        shift(arr, i + 1, end);
-        return i + 1;
+
+        shift(arr, storeIndex, end - 1);
+
+        return storeIndex;
     }
 
     private<T> void shift(T[] arr, int first, int second)
@@ -59,6 +62,5 @@ public class MyQuickSort extends GTUSorter
         T tmp = arr[first];
         arr[first] = arr[second];
         arr[second] = tmp;
-    }
-    
+    }   
 }

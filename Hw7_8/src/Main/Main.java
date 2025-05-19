@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
+import DSA.Graphs.MatrixGraph.*;
 import DSA.Graphs.GTUGraph;
 import DSA.Graphs.GCA.GCASolution;
 import DSA.Graphs.GCA.GreedyGCA;
 import DSA.Sorting.GTUSorter;
 import DSA.Sorting.*;
+
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2) {
@@ -62,7 +64,6 @@ public class Main {
                 writer.close();
             }
 
-            /*graph part
             GTUGraph graph = new MatrixGraph();
             GTUGraph.readGraph(args[0], graph);
             GTUGraph.writeGraph(args[1] + "graph.txt", graph);
@@ -74,7 +75,7 @@ public class Main {
                 GCASolution solution = GreedyGCA.solve(graph, sorter);
     
                 solution.writeSolution(args[1] + name + "_color.txt");
-            }*/
+            }
 
         } catch (Exception e) {
             System.err.printf("Error: %s\n", e.getMessage());

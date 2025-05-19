@@ -4,6 +4,26 @@ import java.util.Comparator;
 
 public class MyInsertSort extends GTUSorter 
 {
+    @Override
+    public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
+    {
+        for(int i = start + 1;i<end;i++)
+        {
+            int nextPos = i;
+            T nextValue = arr[nextPos];
+            while (nextPos > 0 && comparator.compare(arr[nextPos-1],nextValue) > 0)
+            {
+                arr[nextPos] = arr[nextPos - 1];
+                nextPos--;
+            }
+            arr[nextPos] = nextValue;
+        }
+    }
+    
+}
+
+/*
+ * 
     
     
     @Override
@@ -30,25 +50,5 @@ public class MyInsertSort extends GTUSorter
         return innerLoop(arr, nextPos - 1, nextValue, comparator);
     }
     
-}
-
-/*
- * 
-    
-    @Override
-    public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
-    {
-        for(int i = start + 1;i<end;i++)
-        {
-            int nextPos = i;
-            T nextValue = arr[nextPos];
-            while (nextPos > 0 && comparator.compare(arr[nextPos-1],nextValue) > 0)
-            {
-                arr[nextPos] = arr[nextPos - 1];
-                nextPos--;
-            }
-            arr[nextPos] = nextValue;
-        }
-    }
 
  */
