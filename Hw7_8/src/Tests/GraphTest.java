@@ -1,98 +1,244 @@
 package Tests;
 
-import DSA.Graphs.GTUGraph;
 import DSA.Graphs.MatrixGraph.MatrixGraph;
-import DSA.Sorting.GTUSorter;
-import DSA.Sorting.MyInsertSort;
-import DSA.Graphs.GCA.GreedyGCA;
-import DSA.Graphs.GCA.GCASolution;
+
+import java.util.Collection;
 
 /**
- * Test class - Contains simple tests for graph algorithms and data structures.
+ * A simple test class for MatrixGraph.
+ * This class does not use any external testing libraries beyond core Java.
+ * Test results are printed to the console.
  */
 public class GraphTest {
-    
+
+    /**
+     * Main method to run all MatrixGraph tests.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
-        System.out.println("Graph Algorithms Test Program");
-        
-        // Test for matrix-based graph creation
-        testMatrixGraph();
-        
-        // Test for Greedy Graph Coloring Algorithm
-        testGreedyGCA();
-    }
-    
-    /**
-     * Tests the MatrixGraph class
-     */
-    private static void testMatrixGraph() {
-        System.out.println("\n=== MatrixGraph Test ===");
-        
-        try {
-            // Create a graph with 5 vertices
-            GTUGraph graph = new MatrixGraph();
-            graph.reset(5);
-            
-            // Add edges
-            graph.setEdge(0, 1);
-            graph.setEdge(0, 2);
-            graph.setEdge(1, 2);
-            graph.setEdge(1, 3);
-            graph.setEdge(2, 3);
-            graph.setEdge(2, 4);
-            graph.setEdge(3, 4);
-            
-            // Print graph information
-            System.out.println("Graph created: " + graph.size() + " vertices, " + graph.size() + " edges");
-            
-            // Check neighbors
-            System.out.println("Neighbors of vertex 0: " + graph.getNeighbors(0));
-            System.out.println("Neighbors of vertex 2: " + graph.getNeighbors(2));
-            
-            // Check edges
-            System.out.println("Is there an edge between 0-1? " + graph.getEdge(0, 1));
-            System.out.println("Is there an edge between 0-3? " + graph.getEdge(0, 3));
-            
-        } catch (Exception e) {
-            System.err.println("Error during MatrixGraph test: " + e.getMessage());
-            e.printStackTrace();
+        System.out.println("--- Running MatrixGraph Tests (Simple) ---");
+        int testsRun = 0;
+        int testsPassed = 0;
+        MatrixGraph graph;
+
+        // Test Case 1: Constructor and size
+        graph = new MatrixGraph();
+        testsRun++;
+        System.out.print("Test: MatrixGraph - Default constructor size is 0 ... ");
+        if (graph.size() == 0) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
         }
-    }
-    
-    /**
-     * Tests the GreedyGCA class
-     */
-    private static void testGreedyGCA() {
-        System.out.println("\n=== Greedy Graph Coloring Algorithm Test ===");
-        
-        try {
-            // Create a graph for testing
-            GTUGraph graph = new MatrixGraph();
-            graph.reset(6);
-            
-            // Create a sample graph structure
-            graph.setEdge(0, 1);
-            graph.setEdge(0, 2);
-            graph.setEdge(1, 2);
-            graph.setEdge(1, 3);
-            graph.setEdge(2, 3);
-            graph.setEdge(2, 4);
-            graph.setEdge(3, 4);
-            graph.setEdge(3, 5);
-            graph.setEdge(4, 5);
-            
-            GTUSorter sorter = new MyInsertSort();
-            // Color the graph using the greedy algorithm
-            GreedyGCA coloringAlgorithm = new GreedyGCA();
-            GCASolution solution = coloringAlgorithm.solve(graph,sorter);
-            
-            // Print results
-            System.out.println("Coloring completed.");
-            System.out.println("Number of colors used: " + solution.colorNum());
-            
-        } catch (Exception e) {
-            System.err.println("Error during GreedyGCA test: " + e.getMessage());
-            e.printStackTrace();
+
+        graph = new MatrixGraph(5);
+        testsRun++;
+        System.out.print("Test: MatrixGraph - Constructor with size sets correct size ... ");
+        if (graph.size() == 5) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
         }
+
+        // Test Case 2: Reset
+        graph = new MatrixGraph(3);
+        graph.setEdge(0, 1);
+        graph.reset(2);
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - Reset changes graph size ... ");
+        if (graph.size() == 2) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - Reset clears previous edges (getEdge) ... ");
+        if (!graph.getEdge(0, 1)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - Reset clears previous edges (neighbors of 0) ... ");
+        if (graph.getNeighbors(0).isEmpty()) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+
+        // Test Case 3: setEdge, getEdge, and undirected nature
+        graph = new MatrixGraph(4);
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - setEdge for new edge returns true ... ");
+        if (graph.setEdge(0, 1)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getEdge for existing edge (v1, v2) ... ");
+        if (graph.getEdge(0, 1)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getEdge for existing edge (v2, v1) - undirected ... ");
+        if (graph.getEdge(1, 0)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - setEdge for existing edge returns false ... ");
+        if (!graph.setEdge(0, 1)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - setEdge for self-loop returns false ... ");
+        if (!graph.setEdge(2, 2)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getEdge for non-existent self-loop ... ");
+        if (!graph.getEdge(2, 2)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+
+        testsRun++;
+        System.out.print("Test: MatrixGraph - setEdge with v1 out of bounds (lower) ... ");
+        if (!graph.setEdge(-1, 2)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - setEdge with v2 out of bounds (upper) ... ");
+        if (!graph.setEdge(1, 4)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getEdge with v1 out of bounds (lower) ... ");
+        if (!graph.getEdge(-1, 2)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+        
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getEdge with v2 out of bounds (upper) ... ");
+        if (!graph.getEdge(1, 4)) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+
+        // Test Case 4: getNeighbors
+        graph = new MatrixGraph(4);
+        graph.setEdge(0, 1);
+        graph.setEdge(0, 2);
+        graph.setEdge(2, 3);
+
+        Collection<Integer> neighbors0 = graph.getNeighbors(0);
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getNeighbors for vertex 0 ... ");
+        if (checkCollectionContents(neighbors0, new Integer[]{1, 2})) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+
+        Collection<Integer> neighbors1 = graph.getNeighbors(1);
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getNeighbors for vertex 1 ... ");
+        if (checkCollectionContents(neighbors1, new Integer[]{0})) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+
+        Collection<Integer> neighbors3 = graph.getNeighbors(3);
+        testsRun++;
+        System.out.print("Test: MatrixGraph - getNeighbors for vertex 3 ... ");
+        if (checkCollectionContents(neighbors3, new Integer[]{2})) {
+            System.out.println("PASSED");
+            testsPassed++;
+        } else {
+            System.out.println("FAILED");
+        }
+
+        System.out.println("\n--- MatrixGraph Tests Summary ---");
+        System.out.println("Total Tests Run: " + testsRun);
+        System.out.println("Tests Passed:    " + testsPassed);
+        System.out.println("Tests Failed:    " + (testsRun - testsPassed));
+        System.out.println("--------------------------------");
+    }
+
+    /**
+     * Helper method to check if a collection contains all expected elements and no others.
+     * Assumes elements in the collection are unique if expected unique.
+     * @param actual Collection from the graph
+     * @param expected Array of expected integers
+     * @return true if they match, false otherwise
+     */
+    private static boolean checkCollectionContents(Collection<Integer> actual, Integer[] expected) {
+        if (actual.size() != expected.length) {
+            return false;
+        }
+        boolean[] foundInActual = new boolean[expected.length];
+        for (Integer valActual : actual) {
+            boolean currentValFoundInExpected = false;
+            for (int i = 0; i < expected.length; i++) {
+                if (!foundInActual[i] && valActual.equals(expected[i])) {
+                    foundInActual[i] = true;
+                    currentValFoundInExpected = true;
+                    break;
+                }
+            }
+            if (!currentValFoundInExpected) { // Element in actual not in expected
+                return false;
+            }
+        }
+        for (boolean b : foundInActual) { // Check if all expected were found
+            if (!b) return false;
+        }
+        return true;
     }
 }

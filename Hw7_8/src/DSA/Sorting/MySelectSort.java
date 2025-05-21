@@ -2,8 +2,22 @@ package DSA.Sorting;
 
 import java.util.Comparator;
 
+/**
+ * MySelectSort class extends GTUSorter and implements the selection sort algorithm.
+ * This class provides a way to sort arrays using the selection sort method.
+ */
 public class MySelectSort extends GTUSorter
 {
+    /**
+     * Sorts the specified range of the array using the selection sort algorithm.
+     * The sorting is done according to the order induced by the specified comparator.
+     *
+     * @param <T> the type of elements in the array
+     * @param arr the array to be sorted
+     * @param start the starting index of the range to be sorted (inclusive)
+     * @param end the ending index of the range to be sorted (exclusive)
+     * @param comparator the comparator to determine the order of the array
+     */
     @Override
     public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
     {
@@ -23,6 +37,14 @@ public class MySelectSort extends GTUSorter
         }
     }
 
+    /**
+     * Swaps two elements in the given array.
+     *
+     * @param <T> the type of elements in the array
+     * @param arr the array containing the elements to swap
+     * @param first the index of the first element to swap
+     * @param second the index of the second element to swap
+     */
     private<T> void change(T[] arr,int first,int second)
     {
         T tmp = arr[first];
@@ -30,28 +52,3 @@ public class MySelectSort extends GTUSorter
         arr[second] = tmp;
     }
 }
-
-
-    /*@Override
-    public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
-    {
-        if(start > end - 2)
-            return;
-        int fill = start;
-        int posMin;
-        posMin = findPosMin(arr, fill, fill + 1, end, comparator);
-        change(arr, posMin, fill);
-
-        sort(arr,start + 1,end, comparator);
-    }
-
-    private <T> int findPosMin(T[] arr,int posMin,int next,int end,Comparator<T> comparator)
-    {
-        if(next > end -1)
-            return posMin;
-        if(comparator.compare(arr[next],arr[posMin]) < 0)
-        {
-            posMin = next;
-        }
-        return findPosMin(arr, posMin, next + 1, end, comparator);
-    }*/

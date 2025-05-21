@@ -2,8 +2,22 @@ package DSA.Sorting;
 
 import java.util.Comparator;
 
+/**
+ * MyInsertSort class extends GTUSorter and implements the insertion sort algorithm.
+ * This class provides a way to sort arrays using the insertion sort method.
+ */
 public class MyInsertSort extends GTUSorter 
 {
+    /**
+     * Sorts the specified range of the array using the insertion sort algorithm.
+     * The sorting is done according to the order induced by the specified comparator.
+     *
+     * @param <T> the type of elements in the array
+     * @param arr the array to be sorted
+     * @param start the starting index of the range to be sorted (inclusive)
+     * @param end the ending index of the range to be sorted (exclusive)
+     * @param comparator the comparator to determine the order of the array
+     */
     @Override
     public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
     {
@@ -21,34 +35,3 @@ public class MyInsertSort extends GTUSorter
     }
     
 }
-
-/*
- * 
-    
-    
-    @Override
-    public <T> void sort(T[] arr, int start, int end, Comparator<T> comparator)
-    {
-        if(start >= end -1)
-            return;
-
-        int nextPos = start + 1;
-        T nextValue = arr[nextPos];
-        nextPos = innerLoop(arr, nextPos, nextValue, comparator);
-        arr[nextPos] = nextValue;
-        sort(arr, start + 1, end, comparator);
-        
-    }
-
-    private <T> int innerLoop(T[] arr, int nextPos, T nextValue, Comparator<T> comparator)
-    {
-        if(nextPos <= 0)
-            return nextPos;
-        else if(comparator.compare(arr[nextPos - 1], nextValue) <= 0)
-            return nextPos;
-        arr[nextPos] = arr[nextPos - 1];
-        return innerLoop(arr, nextPos - 1, nextValue, comparator);
-    }
-    
-
- */
