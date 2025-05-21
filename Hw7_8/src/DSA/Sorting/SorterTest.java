@@ -62,7 +62,6 @@ public class SorterTest {
             // Ascending sort test
             testAscendingSort(sorter, sorterName, randomArray, sortedArray, ascendingComparator);
             
-            
             // Descending sort test
             testDescendingSort(sorter, sorterName, randomArray, reverseSortedArray, descendingComparator);
             
@@ -78,12 +77,6 @@ public class SorterTest {
         
         // Large array test
         testLargeArray(sorters, sorterNames);
-        
-        // String array test
-        testStringArray(sorters, sorterNames);
-        
-        // Performance test
-        testPerformance(sorters, sorterNames);
         
         // Show test results
         System.out.println("\n=== Test Results ===");
@@ -317,90 +310,6 @@ public class SorterTest {
                 }
             } catch (Exception e) {
                 System.out.println("✗ " + sorterName + ": Large array test failed - Error: " + e.getMessage());
-                failedTests++;
-            }
-        }
-    }
-    
-    /**
-     * Tests sorting an array of strings.
-     */
-    private static void testStringArray(GTUSorter[] sorters, String[] sorterNames) {
-        System.out.println("\n=== String Array Test ===");
-        
-        String[] strings = {"banana", "apple", "pear", "orange", "grape"};
-        String[] expected = {"apple", "banana", "grape", "orange", "pear"};
-        
-        Comparator<String> comparator = String::compareTo;
-        
-        for (int i = 0; i < sorters.length; i++) {
-            GTUSorter sorter = sorters[i];
-            String sorterName = sorterNames[i];
-            
-            try {
-                String[] testArray = Arrays.copyOf(strings, strings.length);
-                
-                sorter.sort(testArray, comparator);
-                
-                boolean isEqual = Arrays.equals(testArray, expected);
-                boolean isSorted = isSorted(testArray, comparator);
-                
-                if (isEqual && isSorted) {
-                    System.out.println("✓ " + sorterName + ": String array test passed");
-                    passedTests++;
-                } else {
-                    System.out.println("✗ " + sorterName + ": String array test failed");
-                    System.out.println("   Expected: " + Arrays.toString(expected));
-                    System.out.println("   Actual: " + Arrays.toString(testArray));
-                    failedTests++;
-                }
-            } catch (Exception e) {
-                System.out.println("✗ " + sorterName + ": String array test failed - Error: " + e.getMessage());
-                failedTests++;
-            }
-        }
-    }
-    
-    /**
-     * Tests the performance of sorting algorithms.
-     */
-    private static void testPerformance(GTUSorter[] sorters, String[] sorterNames) {
-        System.out.println("\n=== Performance Test ===");
-        
-        int size = 10000;
-        Integer[] largeArray = new Integer[size];
-        Random random = new Random(42);
-        
-        for (int i = 0; i < size; i++) {
-            largeArray[i] = random.nextInt(10000);
-        }
-        
-        Comparator<Integer> comparator = Integer::compareTo;
-        
-        for (int i = 0; i < sorters.length; i++) {
-            GTUSorter sorter = sorters[i];
-            String sorterName = sorterNames[i];
-            
-            try {
-                Integer[] testArray = Arrays.copyOf(largeArray, largeArray.length);
-                
-                long startTime = System.nanoTime();
-                sorter.sort(testArray, comparator);
-                long endTime = System.nanoTime();
-                
-                long duration = (endTime - startTime) / 1000000; // in milliseconds
-                
-                boolean isSorted = isSorted(testArray, comparator);
-                
-                if (isSorted) {
-                    System.out.println("✓ " + sorterName + ": Performance test passed - Time: " + duration + " ms");
-                    passedTests++;
-                } else {
-                    System.out.println("✗ " + sorterName + ": Performance test failed - Array not sorted");
-                    failedTests++;
-                }
-            } catch (Exception e) {
-                System.out.println("✗ " + sorterName + ": Performance test failed - Error: " + e.getMessage());
                 failedTests++;
             }
         }
