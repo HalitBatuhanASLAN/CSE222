@@ -1,8 +1,13 @@
-package DSA.Sorting;
+package Tests;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
+
+import DSA.Sorting.GTUSorter;
+import DSA.Sorting.MyInsertSort;
+import DSA.Sorting.MyQuickSort;
+import DSA.Sorting.MySelectSort;
 
 /**
  * A simple test class for sorting algorithms.
