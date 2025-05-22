@@ -18,6 +18,7 @@ public class MyQuickSort extends GTUSorter
     /**
      * Constructs a new MyQuickSort with the specified alternative sorter and partition limit.
      *
+     * Time Complexity: O(1)
      * @param sorter The alternative sorter to use for small partitions
      * @param partition The size limit below which partitions will use the alternative sorter
      */
@@ -30,6 +31,8 @@ public class MyQuickSort extends GTUSorter
     /**
      * Constructs a new MyQuickSort with no alternative sorter.
      * This will use pure quicksort for all partitions.
+     *
+     * Time Complexity: O(1)
      */
     public MyQuickSort()
     {
@@ -42,6 +45,15 @@ public class MyQuickSort extends GTUSorter
      * If the partition size is below the limit and an alternative sorter is provided,
      * it will use the alternative sorter instead.
      *
+     * Time Complexity:
+     * - Best Case: O(n log n) when the pivot divides the array into roughly equal halves
+     * - Average Case: O(n log n)
+     * - Worst Case: O(n²) when the pivot is consistently the smallest or largest element
+     *   (though this implementation uses random pivot selection to minimize this risk)
+     * 
+     * Space Complexity: 
+     * - O(log n) for the recursion stack in the average case
+     * - O(n) in the worst case
      * @param <T> the type of elements in the array
      * @param arr the array to be sorted
      * @param start the starting index of the range to be sorted (inclusive)
@@ -71,6 +83,8 @@ public class MyQuickSort extends GTUSorter
      * Elements less than the pivot are moved to the left, and elements greater
      * than or equal to the pivot are moved to the right.
      *
+     * Time Complexity: O(n) where n is the size of the partition (end - start)
+     * - The function performs a single pass through the partition
      * @param <T> the type of elements in the array
      * @param arr the array to be partitioned
      * @param start the starting index of the range to be partitioned (inclusive)
@@ -101,6 +115,7 @@ public class MyQuickSort extends GTUSorter
     /**
      * Swaps two elements in the given array.
      *
+     * Time Complexity: O(1)
      * @param <T> the type of elements in the array
      * @param arr the array containing the elements to swap
      * @param first the index of the first element to swap

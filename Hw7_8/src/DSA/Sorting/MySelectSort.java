@@ -12,6 +12,12 @@ public class MySelectSort extends GTUSorter
      * Sorts the specified range of the array using the selection sort algorithm.
      * The sorting is done according to the order induced by the specified comparator.
      *
+     * Time Complexity:
+     * - Best Case: O(n²) - Even if the array is already sorted, the algorithm still needs to find the minimum element for each position
+     * - Average Case: O(n²)
+     * - Worst Case: O(n²)
+     * 
+     * Space Complexity: O(1) - Selection sort is an in-place sorting algorithm that uses constant extra space
      * @param <T> the type of elements in the array
      * @param arr the array to be sorted
      * @param start the starting index of the range to be sorted (inclusive)
@@ -40,6 +46,7 @@ public class MySelectSort extends GTUSorter
     /**
      * Swaps two elements in the given array.
      *
+     * Time Complexity: O(1) - Constant time operation
      * @param <T> the type of elements in the array
      * @param arr the array containing the elements to swap
      * @param first the index of the first element to swap

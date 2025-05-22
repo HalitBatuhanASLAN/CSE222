@@ -12,6 +12,12 @@ public class MyInsertSort extends GTUSorter
      * Sorts the specified range of the array using the insertion sort algorithm.
      * The sorting is done according to the order induced by the specified comparator.
      *
+     *  Time Complexity:
+     * - Best Case: O(n) when the array is already sorted
+     * - Average Case: O(n²)
+     * - Worst Case: O(n²) when the array is sorted in reverse order
+     * 
+     * Space Complexity: O(1) - only uses a constant amount of extra space
      * @param <T> the type of elements in the array
      * @param arr the array to be sorted
      * @param start the starting index of the range to be sorted (inclusive)

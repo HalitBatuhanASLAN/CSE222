@@ -20,6 +20,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Constructs a new AdjacencyVect with the specified size.
      *
+     *  Time Complexity: O(n) where n is the size of the vector
+     *
      * @param size The size of the adjacency vector
      */
     public AdjacencyVect(int size)
@@ -33,6 +35,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Adds an integer to the adjacency vector.
      *
+     * Time Complexity: O(1)
+     * 
      * @param arg0 The integer to add
      * @return True if the integer was successfully added, false otherwise
      */
@@ -57,6 +61,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Adds all integers from the specified collection to this adjacency vector.
      *
+     * Time Complexity: O(m) where m is the size of the input collection
+     * 
      * @param arg0 The collection of integers to add
      * @return True if the adjacency vector was changed as a result of the call
      */
@@ -73,6 +79,9 @@ public class AdjacencyVect implements Collection<Integer>
     }
 
     /**
+     * 
+     * Time Complexity: O(n) where n is the size of the vector
+     * 
      * Removes all integers from this adjacency vector.
      */
     @Override
@@ -86,6 +95,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Checks if the adjacency vector contains the specified object.
      *
+     * Time Complexity: O(1)
+     * 
      * @param arg0 The object to check for
      * @return True if the object is in the adjacency vector, false otherwise
      */
@@ -111,6 +122,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Checks if the adjacency vector contains all elements in the specified collection.
      *
+     * Time Complexity: O(m) where m is the size of the input collection
+     * 
      * @param arg0 The collection to check for
      * @return True if the adjacency vector contains all elements in the collection, false otherwise
      */
@@ -128,6 +141,7 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Checks if the adjacency vector is empty.
      *
+     * Time Complexity: O(1)
      * @return True if the adjacency vector is empty, false otherwise
      */
     @Override
@@ -139,6 +153,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Removes the specified object from the adjacency vector.
      *
+     * Time Complexity: O(1)
+     * 
      * @param arg0 The object to remove
      * @return True if the object was removed, false otherwise
      */
@@ -169,6 +185,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Removes all objects in the specified collection from this adjacency vector.
      *
+     * Time Complexity: O(m) where m is the size of the input collection
+     * 
      * @param arg0 The collection of objects to remove
      * @return True if the adjacency vector was changed as a result of the call
      */
@@ -187,6 +205,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Retains only the elements in this adjacency vector that are contained in the specified collection.
      *
+     * Time Complexity: O(m) where m is the size of the input collection
+     * 
      * @param arg0 The collection of elements to retain
      * @return True if the adjacency vector was changed as a result of the call
      */
@@ -221,6 +241,7 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Returns the number of elements in this adjacency vector.
      *
+     * Time Complexity: O(1)
      * @return The number of elements in this adjacency vector
      */
     @Override
@@ -231,7 +252,8 @@ public class AdjacencyVect implements Collection<Integer>
 
     /**
      * Returns an array containing all of the elements in this adjacency vector.
-     *
+     * Time Complexity: O(n) where n is the size of the vector
+     * 
      * @return An array containing all of the elements in this adjacency vector
      */
     @Override
@@ -250,7 +272,8 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Returns an array containing all of the elements in this adjacency vector.
      * The runtime type of the returned array is that of the specified array.
-     *
+     * Time Complexity: O(k) where k is the number of neighbors
+     * 
      * @param a The array into which the elements of this adjacency vector are to be stored
      * @return An array containing all of the elements in this adjacency vector
      */
@@ -277,6 +300,7 @@ public class AdjacencyVect implements Collection<Integer>
     /**
      * Returns an iterator over the elements in this adjacency vector.
      *
+     * Time Complexity: O(1)
      * @return An iterator over the elements in this adjacency vector
      */
     @Override
@@ -297,6 +321,7 @@ public class AdjacencyVect implements Collection<Integer>
 
         /**
          * Constructs a new AdjacencyVectIterater.
+         * Time Complexity: O(n) in worst case where n is the size of the vector
          */
         public AdjacencyVectIterater()
         {
@@ -306,6 +331,7 @@ public class AdjacencyVect implements Collection<Integer>
         /**
          * Checks if there are more elements in the iteration.
          *
+         * Time Complexity: O(1)
          * @return True if there are more elements, false otherwise
          */
         @Override
@@ -317,6 +343,7 @@ public class AdjacencyVect implements Collection<Integer>
         /**
          * Returns the next element in the iteration.
          *
+         * Time Complexity: O(n) in worst case where n is the size of the vector
          * @return The next element in the iteration
          * @throws NoSuchElementException if there are no more elements
          */
@@ -335,6 +362,7 @@ public class AdjacencyVect implements Collection<Integer>
         
         /**
          * Finds the next element in the iteration.
+         * Time Complexity: O(n) in worst case where n is the size of the vector
          */
         private void findNext()
         {

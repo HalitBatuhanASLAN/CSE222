@@ -17,6 +17,8 @@ public class MatrixGraph implements GTUGraph
     /**
      * Constructs a new MatrixGraph with the specified number of vertices.
      *
+     * Time Complexity: O(n²) where n is the number of vertices
+     * - Creating n AdjacencyVect objects, each requiring O(n) time
      * @param size The number of vertices in the graph
      */
     public MatrixGraph(int size)
@@ -27,6 +29,7 @@ public class MatrixGraph implements GTUGraph
     /**
      * Default constructor for MatrixGraph.
      * Creates an empty graph with no vertices.
+     * Time Complexity: O(1)
      */
     public MatrixGraph()
         {}
@@ -35,6 +38,8 @@ public class MatrixGraph implements GTUGraph
      * Sets an edge between two vertices.
      * This implementation creates an undirected edge between v1 and v2.
      *
+     * Time Complexity: O(1)
+     * - Each add operation on AdjacencyVect takes O(1) time
      * @param v1 The first vertex
      * @param v2 The second vertex
      * @return True if the edge was successfully set, false otherwise
@@ -52,6 +57,8 @@ public class MatrixGraph implements GTUGraph
     /**
      * Checks if an edge exists between two vertices.
      *
+     * Time Complexity: O(1)
+     * - The contains operation on AdjacencyVect takes O(1) time
      * @param v1 The first vertex
      * @param v2 The second vertex
      * @return True if an edge exists between v1 and v2, false otherwise
@@ -67,6 +74,9 @@ public class MatrixGraph implements GTUGraph
     /**
      * Returns a collection of vertices that are adjacent to the specified vertex.
      *
+     * Time Complexity: O(n) where n is the number of vertices
+     * - Creating a new AdjacencyVect takes O(n) time
+     * - The addAll operation takes time proportional to the number of neighbors
      * @param v The vertex whose neighbors are to be returned
      * @return A collection of vertices adjacent to v
      */
@@ -81,6 +91,7 @@ public class MatrixGraph implements GTUGraph
     /**
      * Returns the number of vertices in the graph.
      *
+     * Time Complexity: O(1)
      * @return The number of vertices
      */
     @Override
@@ -92,6 +103,8 @@ public class MatrixGraph implements GTUGraph
     /**
      * Resets the graph to have the specified number of vertices with no edges.
      *
+     * Time Complexity: O(n²) where n is the number of vertices
+     * - Creating n AdjacencyVect objects, each requiring O(n) time
      * @param size The new number of vertices for the graph
      */
     @Override
